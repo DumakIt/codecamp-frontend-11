@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
 
 export const Background = styled.div`
-  background-color: white;
   height: 100vh;
   display: flex;
   flex-direction: row;
@@ -16,7 +15,6 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
-  background: white;
 `
 export const UserInfo = styled.div`
   width: 100%;
@@ -27,18 +25,24 @@ export const UserInfo = styled.div`
 `
 export const UserInfoText = styled.div`
   margin-bottom: 16px;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `
 
 export const UserInfoName = styled.input`
   width: 486px;
   height: 52px;
   padding: 16px;
+  border: 1px solid #BDBDBD;
+`
+export const UserInfoPasswordText = styled.div`
+  margin-bottom: 16px;
 `
 
 export const UserInfoPassword = styled.input`
   width: 486px;
   height: 52px;
   padding: 16px;
+  border: 1px solid #BDBDBD;
 `
 
 export const TitleText = styled.div`
@@ -52,11 +56,13 @@ export const TitleInput = styled.input`
   width: 100%;
   height: 52px;
   padding: 16px;
+  border: 1px solid #BDBDBD;
 `
 export const DetailInput = styled.input`
   width: 100%;
   height: 480px;
   padding: 16px;
+  border: 1px solid #BDBDBD;
 `
 
 export const AddressText = styled.div`
@@ -73,6 +79,7 @@ export const AddressNum = styled.input`
   text-align: center;
   font-size: 16px;
   margin-right: 16px;
+  border: 1px solid #BDBDBD;
 `
 export const AddressBtn = styled.button`
   width: 124px;
@@ -87,6 +94,7 @@ export const AddressInput = styled.input`
   height: 52px;
   margin-bottom: 30px;
   padding: 16px;
+  border: 1px solid #BDBDBD;
 `
 
 export const YoutubeBox = styled.div`
@@ -102,6 +110,7 @@ export const YoutubeInput = styled.input`
   width: 100%;
   height: 45.78px;
   padding: 16px;
+  border: 1px solid #BDBDBD;
 `
 
 export const PictureText = styled.div`
@@ -139,4 +148,11 @@ export const RegBtn = styled.button`
   color: black;
   font-size: 16px;
   border: none;
+`
+
+export const ErrText = styled.div`
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  padding-left: 5px;
 `
