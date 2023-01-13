@@ -26,7 +26,7 @@ export const UserInfoText = styled.div`
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `
 
-export const UserInfoName = styled.input`
+export const UserInfoWriter = styled.input`
   width: 486px;
   height: 52px;
   padding: 16px;
@@ -60,7 +60,7 @@ export const TitleInput = styled.input`
   font-size: 16px;
   border: 1px solid #BDBDBD;
 `
-export const DetailTextarea = styled.textarea`
+export const ContentsTextarea = styled.textarea`
   width: 100%;
   height: 480px;
   padding: 16px;

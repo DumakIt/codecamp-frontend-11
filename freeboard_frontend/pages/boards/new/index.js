@@ -1,15 +1,31 @@
-import {Background, Container, WrapperUserInfo, UserInfoText,  UserInfoName, UserInfoPasswordText,  UserInfoPassword, TitleText, WrapperBox, TitleInput, DetailTextarea, AddressText, AddressSearch,  AddressNum, AddressBtn, AddressInput, YoutubeText, YoutubeInput, PictureText, PictureAddBox, PictureAdd, PictureAddPlus, PictureAddText,  MainSettingText, MainSettingRadioBox, MainSettingRadioColor, RegBtn, ErrText} from '../../../styles/freeboard'
+import { useMutation, gql } from "@apollo/client"
+import {Background, Container, WrapperUserInfo, UserInfoText,  UserInfoWriter, UserInfoPasswordText,  UserInfoPassword, TitleText, WrapperBox, TitleInput, ContentsTextarea, AddressText, AddressSearch,  AddressNum, AddressBtn, AddressInput, YoutubeText, YoutubeInput, PictureText, PictureAddBox, PictureAdd, PictureAddPlus, PictureAddText,  MainSettingText, MainSettingRadioBox, MainSettingRadioColor, RegBtn, ErrText} from '../../../styles/freeboard'
 import {useState} from "react"
 
-export default function EmotionPage() {
+const CREATE_BOARD = gql`
+  mutation createBoard($createBoardInput: CreateBoardInput!) {
+	createBoard(
+    createBoardInput: $createBoardInput
+  ){
+    _id
+    writer
+    title
+    contents
+  }
+}
+`
 
-  const[name, setName] = useState("")
+
+export default function EmotionPage() {
+  const [createBoard] = useMutation(CREATE_BOARD)
+
+  const[writer, setWriter] = useState("")
   const[password, setPassword] = useState("")
   const[title, setTitle] = useState("")
-  const[detail, setDetail] = useState("")
+  const[contents, setContents] = useState("")
   
-  function onChangeName(event) {
-    setName(event.target.value)
+  function onChangeWriter(event) {
+    setWriter(event.target.value)
   }
 
   function onChangePassword(event) {
@@ -20,21 +36,21 @@ export default function EmotionPage() {
     setTitle(event.target.value)
   }
 
-  function onChangeDetail(event) {
-    setDetail(event.target.value)
+  function onChangeContents(event) {
+    setContents(event.target.value)
   }
 
-  const[nameErr, setNameErr] = useState("")
+  const[writerErr, setWriterErr] = useState("")
   const[passwordErr, setPasswordErr] = useState("")
   const[titleErr, setTitleErr] = useState("")
-  const[detailErr, setDetailErr] = useState("")
+  const[ContentsErr, setContentsErr] = useState("")
   
-  const checkErr = function() {
+  const checkErr = async function() {
 
-    if (!name) {
-      setNameErr("작성자 이름을 입력해 주세요.")
+    if (!writer) {
+      setWriterErr("작성자 이름을 입력해 주세요.")
     } else {
-      setNameErr("")
+      setWriterErr("")
     }
 
     if (!password) {
@@ -49,10 +65,24 @@ export default function EmotionPage() {
       setTitleErr("")
     }
 
-    if (!detail) {
-      setDetailErr("내용을 입력해 주세요.")
+    if (!contents) {
+      setContentsErr("내용을 입력해 주세요.")
     } else {
-      setDetailErr("")
+      setContentsErr("")
+    }
+
+    if (writer && password && title && contents) {
+      const result = await createBoard({
+        variables: {
+          createBoardInput: {
+            writer: writer,
+            password: password,
+            title: title,
+            contents: contents
+          }
+        }
+      })
+      console.log(result);
     }
   }
 
@@ -65,8 +95,8 @@ export default function EmotionPage() {
         <WrapperUserInfo>
           <div>
             <UserInfoText>작성자</UserInfoText>
-            <UserInfoName type="text" placeholder='이름을 입력해주세요.' onChange={onChangeName}/>
-            <ErrText>{nameErr}</ErrText>
+            <UserInfoWriter type="text" placeholder='이름을 입력해주세요.' onChange={onChangeWriter}/>
+            <ErrText>{writerErr}</ErrText>
           </div>
           <div>
             <UserInfoPasswordText>비밀번호</UserInfoPasswordText>
@@ -81,8 +111,8 @@ export default function EmotionPage() {
         </WrapperBox>
         <WrapperBox>
           <TitleText>내용</TitleText>
-          <DetailTextarea placeholder='내용을 작성해주세요.' onChange={onChangeDetail}></DetailTextarea>
-          <ErrText>{detailErr}</ErrText>
+          <ContentsTextarea placeholder='내용을 작성해주세요.' onChange={onChangeContents}></ContentsTextarea>
+          <ErrText>{ContentsErr}</ErrText>
         </WrapperBox>
         <WrapperBox>
           <AddressText>주소</AddressText>
