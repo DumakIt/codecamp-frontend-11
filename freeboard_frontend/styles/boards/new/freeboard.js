@@ -92,6 +92,7 @@ export const AddressBtn = styled.button`
   color: white;
   font-size: 16px;
   border: none;
+  cursor: pointer;
 `
 
 export const AddressInput = styled.input`
@@ -116,16 +117,16 @@ export const YoutubeInput = styled.input`
   border: 1px solid #BDBDBD;
 `
 
-export const PictureText = styled.div`
+export const ImagesText = styled.div`
   margin: 40px 0px 16px;
 `
 
-export const PictureAddBox = styled.div`
+export const ImagesAddBox = styled.div`
   display: flex;
   flex-direction: row;
 `
 
-export const PictureAdd = styled.div`
+export const ImagesAdd = styled.button`
   width: 78px;
   height: 78px;
   background-color: #BDBDBD;
@@ -137,14 +138,16 @@ export const PictureAdd = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border: none;
+  cursor: pointer;
 `
 
-export const PictureAddPlus = styled.img`
+export const ImagesAddPlus = styled.img`
   width: 14px;
   height: 14px;
 `
 
-export const PictureAddText = styled.div`
+export const ImagesAddText = styled.div`
   margin-top: 5px;
   font-weight: 500;
   font-size: 12px;
@@ -175,6 +178,7 @@ export const RegBtn = styled.button`
   color: black;
   font-size: 16px;
   border: none;
+  cursor: pointer;
 `
 
 export const ErrText = styled.div`

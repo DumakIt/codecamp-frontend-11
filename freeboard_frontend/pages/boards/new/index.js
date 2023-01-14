@@ -1,5 +1,6 @@
+import { useRouter } from "next/router"
 import { useMutation, gql } from "@apollo/client"
-import {Background, Container, WrapperUserInfo, UserInfoText,  UserInfoWriter, UserInfoPasswordText,  UserInfoPassword, TitleText, WrapperBox, TitleInput, ContentsTextarea, AddressText, AddressSearch,  AddressNum, AddressBtn, AddressInput, YoutubeText, YoutubeInput, PictureText, PictureAddBox, PictureAdd, PictureAddPlus, PictureAddText,  MainSettingText, MainSettingRadioBox, MainSettingRadioColor, RegBtn, ErrText} from '../../../styles/freeboard'
+import {Background, Container, WrapperUserInfo, UserInfoText,  UserInfoWriter, UserInfoPasswordText,  UserInfoPassword, TitleText, WrapperBox, TitleInput, ContentsTextarea, AddressText, AddressSearch,  AddressNum, AddressBtn, AddressInput, YoutubeText, YoutubeInput, ImagesText, ImagesAddBox, ImagesAdd, ImagesAddPlus, ImagesAddText,  MainSettingText, MainSettingRadioBox, MainSettingRadioColor, RegBtn, ErrText} from '../../../styles/boards/new/freeboard'
 import {useState} from "react"
 
 const CREATE_BOARD = gql`
@@ -11,18 +12,30 @@ const CREATE_BOARD = gql`
     writer
     title
     contents
+    youtubeUrl
+    createdAt
+    boardAddress{
+      zipcode
+      address
+      addressDetail
+    }
   }
 }
 `
 
 
 export default function EmotionPage() {
+  const router = useRouter()
   const [createBoard] = useMutation(CREATE_BOARD)
 
   const[writer, setWriter] = useState("")
   const[password, setPassword] = useState("")
   const[title, setTitle] = useState("")
   const[contents, setContents] = useState("")
+  const[youtubeUrl, setYoutubeUrl] = useState("")
+  const[zipcode, setZipcode] = useState("")
+  const[address, setAddress] = useState("")
+  const[addressDetail, setAddressDetail] = useState("")
   
   function onChangeWriter(event) {
     setWriter(event.target.value)
@@ -38,6 +51,22 @@ export default function EmotionPage() {
 
   function onChangeContents(event) {
     setContents(event.target.value)
+  }
+
+  function onChangeYoutubeUrl(event) {
+    setYoutubeUrl(event.target.value)
+  }
+  
+  function onChangeZipcode(event) {
+    setZipcode(event.target.value)
+  }
+
+  function onChangeAddress(event) {
+    setAddress(event.target.value)
+  }
+
+  function onChangeAddressDetail(event) {
+    setAddressDetail(event.target.value)
   }
 
   const[writerErr, setWriterErr] = useState("")
@@ -72,17 +101,29 @@ export default function EmotionPage() {
     }
 
     if (writer && password && title && contents) {
-      const result = await createBoard({
-        variables: {
-          createBoardInput: {
-            writer: writer,
-            password: password,
-            title: title,
-            contents: contents
+      try {
+        const result = await createBoard({
+          variables: {
+            createBoardInput: {
+              writer: writer,
+              password: password,
+              title: title,
+              contents: contents,
+              youtubeUrl: youtubeUrl,
+              boardAddress: {
+                zipcode: zipcode,
+                address: address,
+                addressDetail: addressDetail,
+
+              }
+            }
           }
-        }
-      })
-      console.log(result);
+        })
+        console.log(result);
+        router.push(`/boards/${result.data.createBoard._id}`)
+      } catch(error) {
+        console.log(error.message);
+      }
     }
   }
 
@@ -117,38 +158,38 @@ export default function EmotionPage() {
         <WrapperBox>
           <AddressText>주소</AddressText>
           <AddressSearch>
-            <AddressNum type="text" placeholder='07250'/>
+            <AddressNum type="text" placeholder='07250' onChange={onChangeZipcode}/>
             <AddressBtn>우편번호 검색</AddressBtn>
           </AddressSearch>
-          <AddressInput type="text"/>
-          <AddressInput type="text"/>
+          <AddressInput type="text" onChange={onChangeAddress}/>
+          <AddressInput type="text" onChange={onChangeAddressDetail}/>
         </WrapperBox>
         <WrapperBox>
           <YoutubeText>유튜브</YoutubeText>
-          <YoutubeInput type="text" placeholder='링크를 복사해주세요.'/>
+          <YoutubeInput type="text" placeholder='링크를 복사해주세요.' onChange={onChangeYoutubeUrl}/>
         </WrapperBox>
         <WrapperBox>
-          <PictureText>사진 첨부</PictureText>
-          <PictureAddBox>
-          <PictureAdd>
-            <PictureAddPlus src="/addPost/Plus.png"/>
-            <PictureAddText>
+          <ImagesText>사진 첨부</ImagesText>
+          <ImagesAddBox>
+          <ImagesAdd>
+            <ImagesAddPlus src="/addPost/Plus.png"/>
+            <ImagesAddText>
               Upload
-            </PictureAddText>
-            </PictureAdd>
-            <PictureAdd>
-            <PictureAddPlus src="/addPost/Plus.png"/>
-            <PictureAddText>
+            </ImagesAddText>
+          </ImagesAdd>
+          <ImagesAdd>
+            <ImagesAddPlus src="/addPost/Plus.png"/>
+            <ImagesAddText>
               Upload
-            </PictureAddText>
-            </PictureAdd>
-            <PictureAdd>
-            <PictureAddPlus src="/addPost/Plus.png"/>
-            <PictureAddText>
+            </ImagesAddText>
+          </ImagesAdd>
+          <ImagesAdd>
+            <ImagesAddPlus src="/addPost/Plus.png"/>
+            <ImagesAddText>
               Upload
-            </PictureAddText>
-            </PictureAdd>
-          </PictureAddBox>
+            </ImagesAddText>
+          </ImagesAdd>
+          </ImagesAddBox>
         </WrapperBox>
         <WrapperBox>
           <MainSettingText>메인 설정</MainSettingText>
