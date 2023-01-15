@@ -8,11 +8,6 @@ export const Container = styled.div`
   flex-direction: column;
   position: relative;
 `
-
-export const AddressBoxWrapper = styled.div`
-  opacity: 0;
-`
-
 export const AddressBox = styled.span`
   position: absolute;
   text-align: right;
@@ -80,10 +75,6 @@ export const UserInfoIconLocation = styled.button`
   background: url("/fetchBoard/location.png") center;
   border: none;
   cursor: pointer;
-
-  &:active > .setOpacity{
-    opacity: 100;
-  }
 `
 
 export const DivideLine = styled.div`
