@@ -23,3 +23,19 @@ function solution(phone_number) {
   }
   return answer;
 }
+
+
+// for (let i = 0; i < phone_number.length; i++) {
+//   if (i < phone_number.length - 4) {
+//     answer += "*"
+//   } else {
+//     answer += phone_number[i]
+//   }
+// }
+// return answer
+
+
+// answer = answer.padStart(phone_number.length - 4, "*")
+// answer += phone_number.substring(phone_number.length - 4)
+
+// 알고리즘 시간에 문제풀이

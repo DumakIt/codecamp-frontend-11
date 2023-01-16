@@ -18,3 +18,6 @@ function solution(s) {
   answer = Number(s)
   return answer;
 }
+
+// return Number(s)
+// 알고리즘 시간에 문제풀이

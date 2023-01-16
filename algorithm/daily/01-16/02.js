@@ -38,3 +38,30 @@ function solution(arr)
     return answer;
 }
 
+
+
+// for (let i = 0; i < arr.length; i++) {
+//     if (arr[i] !== arr[i + 1]) {
+//         answer.push(arr[i])
+//     }
+// }
+// return answer
+
+
+// let i = 0;
+// for (let key of arr) {
+//     if (key !== arr[i + 1]) {
+//         answer.push(key)
+//     }
+// }
+// return answer
+
+// for (let i in arr) {
+//     i - Number(i)
+//     if (key !== arr[i + 1]) {
+//         answer.push(arr[i])
+//     }
+// }
+// return answer
+
+// 알고리즘 시간에 문제풀이
