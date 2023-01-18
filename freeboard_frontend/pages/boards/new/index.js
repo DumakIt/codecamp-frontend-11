@@ -1,9 +1,9 @@
-import BoardWrite from "../../../src/components/units/Boards/write/BoardWrite.Container"
+import BoardWrite from "../../../src/components/units/Boards/write/BoardWrite.container"
 
 
-export default function EmotionPage() {
+export default function BoardWritePage() {
 
   return (
-    <BoardWrite/>
+    <BoardWrite isEdit = {false}/>
   )
 }

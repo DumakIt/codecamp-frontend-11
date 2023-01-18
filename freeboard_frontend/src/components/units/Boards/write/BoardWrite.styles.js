@@ -27,7 +27,6 @@ export const UserInfoText = styled.div`
 `
 
 export const UserInfoWriter = styled.input`
-  width: 486px;
   height: 52px;
   padding: 16px;
   font-size: 16px;
@@ -174,7 +173,7 @@ export const RegBtn = styled.button`
   margin-top: 80px;
   width: 179px;
   height: 52px;
-  background-color: #FFD600;
+  background-color: ${(props) => props.isActive ? "#FFD600" : "#BDBDBD"};
   color: black;
   font-size: 16px;
   border: none;

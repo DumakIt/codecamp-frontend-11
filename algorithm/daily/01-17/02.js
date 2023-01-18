@@ -22,3 +22,17 @@ function solution(arr) {
   
   return answer;
 }
+
+
+// let sum = 0
+// for (let i = 0; i < arr.length; i++) {
+//   sum += arr[i]
+// }
+// return sum / arr.length
+
+
+// return arr.reduce (acc, cur) => {
+//  return acc + cur;
+// }, 0) / arr.length
+
+// 알고리즘 시간에 문제풀이

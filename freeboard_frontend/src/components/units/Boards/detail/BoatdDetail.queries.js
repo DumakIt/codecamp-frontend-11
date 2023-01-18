@@ -11,6 +11,7 @@ export const FETCH_BOARD = gql`
     youtubeUrl
     createdAt
     boardAddress{
+      _id
       zipcode
       address
       addressDetail
@@ -19,4 +20,9 @@ export const FETCH_BOARD = gql`
     dislikeCount
   }
 }
+`
+export const DELETE_BOARD = gql`
+  mutation deleteBoard($boardId: ID!) {
+    deleteBoard(boardId: $boardId)
+  }
 `

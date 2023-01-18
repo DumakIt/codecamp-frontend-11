@@ -16,3 +16,11 @@ function solution(s) {
       return s[(s.length / 2) - 1] + s[(s.length / 2)]
   } 
 }
+
+// const center = Math.floor(s.length / 2)
+// return s,length % 2 === 1
+// ? s[center]
+// : s.substring(center - 1, center + 1)
+// return answer
+
+// 알고리즘 시간에 문제풀이

@@ -19,3 +19,15 @@ function solution(num) {
   }
 }
 
+
+// if (num % 2 === 0) {
+//   return = "Evan"
+// } else if (num % 2 !== 0) {
+//   return = "Odd"
+// }
+
+// return num % 2 === 0
+// ? "Even"
+// : "Odd"
+
+// 알고리즘 시간에 문제풀이

@@ -164,3 +164,21 @@ export const BoardDisLikeCount = styled.div`
   font-size: 18px;
   color: #828282;
 `
+
+export const FunctionBtnWrapper = styled.div`
+  width: 1200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 101px;
+`
+
+export const FunctionBtn = styled.button`
+  margin: 0 12px;
+  width: 179px;
+  height: 45px; 
+  border: 1px solid #BDBDBD;
+  font-weight: 500;
+  font-size: 16px;
+  background: #FFFFFF;
+`

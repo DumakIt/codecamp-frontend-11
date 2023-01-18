@@ -7,12 +7,12 @@ export function BoardWriteUi(props) {
     <Container>
       <h1>게시물 등록</h1>
       <WrapperUserInfo>
-        <div>
+        <div style={{width: props.isEdit ? "100%" : "486px"}}>
           <UserInfoText>작성자</UserInfoText>
-          <UserInfoWriter type="text" placeholder='이름을 입력해주세요.' onChange={props.onChangeWriter}/>
+          <UserInfoWriter style={{width: "100%"}} type="text" placeholder='이름을 입력해주세요.' onChange={props.onChangeWriter}/>
           <ErrText>{props.writerErr}</ErrText>
         </div>
-        <div>
+        <div style={{display: props.isEdit ? "none" : "block"}}>
           <UserInfoPasswordText>비밀번호</UserInfoPasswordText>
           <UserInfoPassword type="password" placeholder='비밀번호를 입력해주세요.' onChange={props.onChangePassword}/>
           <ErrText>{props.passwordErr}</ErrText>
@@ -75,7 +75,7 @@ export function BoardWriteUi(props) {
           </div>
         </MainSettingRadioBox>
       </WrapperBox>
-      <RegBtn onClick={props.checkErr}>등록하기</RegBtn>
+      <RegBtn onClick={props.isEdit ? props.onClickUpdate : props.checkErr} isActive={props.isActive}>{props.isEdit ? "수정" : "등록"}하기</RegBtn>
     </Container>
   </Background>
   )

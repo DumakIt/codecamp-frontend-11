@@ -1,4 +1,4 @@
-import {Container, AddressBox, Triangle, UserInfoWrapper, UserInfoDataWrapper, UserInfoDataWriter, UserInfoUpdatedAt, UserInfoIconWrapper, UserInfoIconLink, UserInfoIconLocation, DivideLine, BoardTitle, BoardImg, BoardContents, BoardYoutubeWrapper, BoardYoutube, BoardLikeWrapper, BoardLikeBox, BoardLikeIcon, BoardLikeCount, BoardDisLikeBox, BoardDisLikeIcon, BoardDisLikeCount} from "./BoardDetail.styles"
+import {Container, AddressBox, Triangle, UserInfoWrapper, UserInfoDataWrapper, UserInfoDataWriter, UserInfoUpdatedAt, UserInfoIconWrapper, UserInfoIconLink, UserInfoIconLocation, DivideLine, BoardTitle, BoardImg, BoardContents, BoardYoutubeWrapper, BoardYoutube, BoardLikeWrapper, BoardLikeBox, BoardLikeIcon, BoardLikeCount, BoardDisLikeBox, BoardDisLikeIcon, BoardDisLikeCount, FunctionBtnWrapper, FunctionBtn} from "./BoardDetail.styles"
 
 export function BoardDetailUI(props) {
 
@@ -45,6 +45,12 @@ export function BoardDetailUI(props) {
           </BoardDisLikeBox>
         </BoardLikeWrapper>
       </Container>
+      <FunctionBtnWrapper>
+        <FunctionBtn>목록으로</FunctionBtn>
+        <FunctionBtn onClick={props.onClickEdit}>수정하기</FunctionBtn>
+        <FunctionBtn onClick={props.onClickDeleteBoard}>삭제하기</FunctionBtn>
+      </FunctionBtnWrapper>
+
     </div>
   )
 }
