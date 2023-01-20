@@ -31,7 +31,6 @@ export default function BoardWrite(props: any) {
 
   function onChangePassword(event: React.ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value)
-    console.log(password);
     writer && event.target.value && title && contents ? setIsActive(true) : setIsActive(false)
     Err()
   }

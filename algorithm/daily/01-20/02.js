@@ -46,3 +46,20 @@ function solution(numbers) {
 }
 
 //문제를 잘못 이해하여 풀다가 1시간이 지났다...
+
+function solution(numbers) {
+    var answer = [];
+    for (let i = 0; i < numbers.length; i++) {
+        for (let j = 0; j < numbers.length; j++) {
+            if (i !== j) {
+                answer.push(numbers[i] + numbers[j])
+            }
+        }
+    }
+    let result = [...new Set(answer)].sort(function(a, b){
+        return a - b
+    })
+    return result;
+}
+
+// 다시 풀어보았다!!!! 성공했당!!!
