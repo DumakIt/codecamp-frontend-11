@@ -27,6 +27,7 @@ export const UserInfoText = styled.div`
 `
 
 export const UserInfoWriter = styled.input`
+  width: 100%;
   height: 52px;
   padding: 16px;
   font-size: 16px;
@@ -168,12 +169,14 @@ export const MainSettingRadioColor = styled.input`
   accent-color: #FFD600;
   color-scheme: light;
 `
+interface IBtn{
+isActive:boolean}
 
 export const RegBtn = styled.button`
   margin-top: 80px;
   width: 179px;
   height: 52px;
-  background-color: ${(props) => props.isActive ? "#FFD600" : "#BDBDBD"};
+  background-color: ${(props:IBtn) => props.isActive ? "#FFD600" : "#BDBDBD"};
   color: black;
   font-size: 16px;
   border: none;

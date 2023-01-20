@@ -1,6 +1,6 @@
 import {Container, AddressBox, Triangle, UserInfoWrapper, UserInfoDataWrapper, UserInfoDataWriter, UserInfoUpdatedAt, UserInfoIconWrapper, UserInfoIconLink, UserInfoIconLocation, DivideLine, BoardTitle, BoardImg, BoardContents, BoardYoutubeWrapper, BoardYoutube, BoardLikeWrapper, BoardLikeBox, BoardLikeIcon, BoardLikeCount, BoardDisLikeBox, BoardDisLikeIcon, BoardDisLikeCount, FunctionBtnWrapper, FunctionBtn} from "./BoardDetail.styles"
 
-export function BoardDetailUI(props) {
+export function BoardDetailUI(props: any) {
 
   return(
     <div>
@@ -32,7 +32,7 @@ export function BoardDetailUI(props) {
           <BoardContents>{props.data ?.fetchBoard.contents}</BoardContents> 
         </div>
         <BoardYoutubeWrapper>
-          <BoardYoutube src={props.data ?.fetchBoard.youtubeUrl.replace("watch?v=", "embed/")}/>
+          <BoardYoutube />
         </BoardYoutubeWrapper>
         <BoardLikeWrapper>
           <BoardLikeBox>

@@ -1,67 +1,69 @@
 import { useRouter } from "next/router"
-import { useMutation} from "@apollo/client"
+import { useMutation } from "@apollo/client"
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries"
-import {useState} from "react"
+import { useState } from "react"
 import { BoardWriteUi } from "./BoardWrite.presenter"
 
 
 
-export default function BoardWrite(props) {
+export default function BoardWrite(props: any) {
   const router = useRouter()
   const [createBoard] = useMutation(CREATE_BOARD)
   const [updateBoard] = useMutation(UPDATE_BOARD)
 
-  const[writer, setWriter] = useState()
-  const[password, setPassword] = useState()
-  const[title, setTitle] = useState()
-  const[contents, setContents] = useState()
-  const[youtubeUrl, setYoutubeUrl] = useState()
-  const[zipcode, setZipcode] = useState()
-  const[address, setAddress] = useState()
-  const[addressDetail, setAddressDetail] = useState()
+
+  const[writer, setWriter] = useState("")
+  const[password, setPassword] = useState("")
+  const[title, setTitle] = useState("")
+  const[contents, setContents] = useState("")
+  const[youtubeUrl, setYoutubeUrl] = useState("")
+  const[zipcode, setZipcode] = useState("")
+  const[address, setAddress] = useState("")
+  const[addressDetail, setAddressDetail] = useState("")
 
   const[isActive, setIsActive] = useState(false)
   
-  function onChangeWriter(event) {
+  function onChangeWriter(event: React.ChangeEvent<HTMLInputElement>) {
     setWriter(event.target.value)
     event.target.value && password && title && contents ? setIsActive(true) : setIsActive(false)
     Err()
   }
 
-  function onChangePassword(event) {
+  function onChangePassword(event: React.ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value)
+    console.log(password);
     writer && event.target.value && title && contents ? setIsActive(true) : setIsActive(false)
     Err()
   }
 
-  function onChangeTitle(event) {
+  function onChangeTitle(event: React.ChangeEvent<HTMLInputElement>) {
     setTitle(event.target.value)
     writer && password && event.target.value && contents ? setIsActive(true) : setIsActive(false)
     Err()
   }
 
-  function onChangeContents(event) {
+  function onChangeContents(event: React.ChangeEvent<HTMLInputElement>) {
     setContents(event.target.value)
     writer && password && title && event.target.value ? setIsActive(true) : setIsActive(false)
     Err()
   }
 
-  function onChangeYoutubeUrl(event) {
+  function onChangeYoutubeUrl(event: React.ChangeEvent<HTMLInputElement>) {
     setYoutubeUrl(event.target.value)
     Err()
   }
   
-  function onChangeZipcode(event) {
+  function onChangeZipcode(event: React.ChangeEvent<HTMLInputElement>) {
     setZipcode(event.target.value)
     Err()
   }
 
-  function onChangeAddress(event) {
+  function onChangeAddress(event: React.ChangeEvent<HTMLInputElement>) {
     setAddress(event.target.value)
     Err()
   }
 
-  function onChangeAddressDetail(event) {
+  function onChangeAddressDetail(event: React.ChangeEvent<HTMLInputElement>) {
     setAddressDetail(event.target.value)
     Err()
   }
@@ -96,9 +98,10 @@ export default function BoardWrite(props) {
       setContentsErr("")
     }
   }
+
+
   
   const checkErr = async function() {
-
     if (writer && password && title && contents) {
       try {
         const result = await createBoard({
@@ -118,7 +121,7 @@ export default function BoardWrite(props) {
           }
         })
         router.push(`/boards/${result.data.createBoard._id}`)
-      } catch(error) {
+      } catch(error: any) {
         console.log(error.message);
       }
     }
@@ -126,23 +129,31 @@ export default function BoardWrite(props) {
 
 
   const onClickUpdate = async () => {
-    await updateBoard({
-      variables: {
+    try {
+      const myVariables = {
+        password: password, 
+        boardId: router.query.fetchBoard,
         updateBoardInput: {
-          title,
-          contents,
-          youtubeUrl,
           boardAddress: {
             zipcode,
             address,
             addressDetail 
-          },
-          password,
-          boardId: router.query.fetchBoard
+          }
         }
       }
-    })
+
+      if (title) {myVariables.updateBoardInput.title = title}
+      if (contents) {myVariables.updateBoardInput.contents = contents}
+      if (youtubeUrl) {myVariables.updateBoardInput.youtubeUrl = youtubeUrl}
+
+      await updateBoard({
+      variables: myVariables
+      }
+    )
     router.push(`/boards/${router.query.fetchBoard}`)
+  } catch(error: any) {
+      console.log(error.message);
+    }
   }
 
 
@@ -167,6 +178,7 @@ export default function BoardWrite(props) {
     ContentsErr = {ContentsErr}
     isActive = {isActive}
     isEdit = {props.isEdit}
+    data = {props.data}
     />
   )
 }

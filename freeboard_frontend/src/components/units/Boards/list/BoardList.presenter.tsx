@@ -1,6 +1,7 @@
 import { Table, TableThNum, TableTrList, TableThTitle, TableThWriter, TableThDate, TableTr } from "./BoardList.styles"
+import { IEl } from "./BoardList.type"
 
-export function BoardListUI(props) {
+export function BoardListUI(props: any) {
 
   return(
     <>
@@ -11,7 +12,7 @@ export function BoardListUI(props) {
         <TableThWriter>작성자</TableThWriter>
         <TableThDate>날짜</TableThDate>
       </TableTr>
-      {props.data ?.fetchBoards.map(el => (
+      {props.data ?.fetchBoards.map((el: IEl) => (
         <TableTr>
           <TableTrList>{props.num}</TableTrList>
           <TableTrList>{el.title}</TableTrList>
