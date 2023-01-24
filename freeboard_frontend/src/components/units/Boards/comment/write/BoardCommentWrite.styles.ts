@@ -32,6 +32,7 @@ export const WriteButton = styled.button`
   font-size: 16px;
   background-color: #FFD600;
   border: none;
+  cursor: pointer;
 `
 
 export const WriteComment = styled.textarea`

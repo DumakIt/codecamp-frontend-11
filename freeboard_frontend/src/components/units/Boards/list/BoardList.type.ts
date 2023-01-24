@@ -1,5 +1,7 @@
+import { MouseEvent } from 'react';
 export interface IBoardListUI {
   data: any
+  onClickTitle: (event: MouseEvent<HTMLDivElement>) => void
 }
 
 export interface IEl {
