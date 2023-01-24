@@ -31,19 +31,19 @@
 // 12 = 5 + 7 입니다.
 // 따라서 [2,5,7,9,12] 를 return 해야 합니다.
 
-function solution(numbers) {
-  var answer = [];
-  for (let i = 0; i < numbers.length; i++) {
-      for (let j = 0; j < numbers.length; j++) {
-          for (let k = 0; k < numbers.length; k++) {
-              if (numbers[i] === numbers[j] + numbers[k]) {
-                  answer.push(numbers[i])
-              }
-          }
-      }
-  }
-  return answer;
-}
+// function solution(numbers) {
+//     var answer = [];
+//     for (let i = 0; i < numbers.length; i++) {
+//         for (let j = 0; j < numbers.length; j++) {
+//             for (let k = 0; k < numbers.length; k++) {
+//                 if (numbers[i] === numbers[j] + numbers[k]) {
+//                     answer.push(numbers[i])
+//                 }
+//             }
+//         }
+//     }
+//     return answer;
+// }
 
 //문제를 잘못 이해하여 풀다가 1시간이 지났다...
 
@@ -63,3 +63,29 @@ function solution(numbers) {
 }
 
 // 다시 풀어보았다!!!! 성공했당!!!
+
+
+
+
+// const answer = new Set()
+// for (let i = 0; i < numbers.length; i++) {
+//     for (let l = i + 1; l < numbers.length; l++) {
+//         const sum = numbers[i] + numbers[l]
+//         answer.add(sum)
+
+//     }
+// }
+// return Array.from(answer).sort((a, b) => a - b)
+
+
+
+// const answer = new Set()
+// numbers.forEach((num1, i) => {
+//     numbers.slice(i + 1).forEach(num2 => {
+//             const sum = num1 + num2
+//             answer.add(sum)
+//     })
+// })
+// return Array.from(answer).sort((a, b) => a - b)
+
+// 알고리즘 시간에 문제풀이

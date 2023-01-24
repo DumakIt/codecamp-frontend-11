@@ -1,6 +1,9 @@
 import {Container, AddressBox, Triangle, UserInfoWrapper, UserInfoDataWrapper, UserInfoDataWriter, UserInfoUpdatedAt, UserInfoIconWrapper, UserInfoIconLink, UserInfoIconLocation, DivideLine, BoardTitle, BoardImg, BoardContents, BoardYoutubeWrapper, BoardYoutube, BoardLikeWrapper, BoardLikeBox, BoardLikeIcon, BoardLikeCount, BoardDisLikeBox, BoardDisLikeIcon, BoardDisLikeCount, FunctionBtnWrapper, FunctionBtn} from "./BoardDetail.styles"
+import { IBoardDetailUI } from "./BoardDetail.types"
 
-export function BoardDetailUI(props: any) {
+
+
+export function BoardDetailUI(props: IBoardDetailUI) {
 
   return(
     <div>
@@ -46,7 +49,7 @@ export function BoardDetailUI(props: any) {
         </BoardLikeWrapper>
       </Container>
       <FunctionBtnWrapper>
-        <FunctionBtn>목록으로</FunctionBtn>
+        <FunctionBtn onClick={props.onClickList}>목록으로</FunctionBtn>
         <FunctionBtn onClick={props.onClickEdit}>수정하기</FunctionBtn>
         <FunctionBtn onClick={props.onClickDeleteBoard}>삭제하기</FunctionBtn>
       </FunctionBtnWrapper>

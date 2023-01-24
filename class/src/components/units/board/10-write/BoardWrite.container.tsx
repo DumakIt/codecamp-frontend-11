@@ -41,7 +41,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
   }
 
   const onClickUpdate = async () => {
-
+    console.log(router);
 
     const myVariables: IMyVariables = { 
       number: Number(router.query.number) 

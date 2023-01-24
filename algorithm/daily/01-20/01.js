@@ -13,3 +13,16 @@ function solution(n) {
   [...String(n)].map((el) => {answer.unshift(Number(el))})
   return answer;
 }
+
+
+// n = n.toString()
+// for (let i = n.length - 1; i >= 0; i--) {
+//   answer.push(Number(n[i]))
+// }
+// return answer
+
+
+
+// return n.toString().split("").reverse().map((el) => {return Number(el)})
+
+// 알고리즘 시간에 문제풀이

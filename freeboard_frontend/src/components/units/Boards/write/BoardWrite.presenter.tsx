@@ -1,6 +1,14 @@
 import {Background, Container, WrapperUserInfo, UserInfoText,  UserInfoWriter, UserInfoPasswordText,  UserInfoPassword, TitleText, WrapperBox, TitleInput, ContentsTextarea, AddressText, AddressSearch,  AddressNum, AddressBtn, AddressInput, YoutubeText, YoutubeInput, ImagesText, ImagesAddBox, ImagesAdd, ImagesAddPlus, ImagesAddText,  MainSettingText, MainSettingRadioBox, MainSettingRadioColor, RegBtn, ErrText} from "./BoardWrite.styles"
+import { IBoardWriteUi } from "./BoardWrite.types"
 
-export function BoardWriteUi(props: any) {
+
+
+
+
+
+export function BoardWriteUi(props: IBoardWriteUi) {
+
+
 
   return(
     <Background>
@@ -31,15 +39,15 @@ export function BoardWriteUi(props: any) {
       <WrapperBox>
         <AddressText>주소</AddressText>
         <AddressSearch>
-          <AddressNum type="text" placeholder='07250' onChange={props.onChangeZipcode}/>
+          <AddressNum type="text" placeholder='07250' onChange={props.onChangeZipcode} defaultValue= {props.data ? props.data.fetchBoard.boardAddress.zipcode : ""}/>
           <AddressBtn>우편번호 검색</AddressBtn>
         </AddressSearch>
-        <AddressInput type="text" onChange={props.onChangeAddress}/>
-        <AddressInput type="text" onChange={props.onChangeAddressDetail}/>
+        <AddressInput type="text" onChange={props.onChangeAddress} defaultValue= {props.data ? props.data.fetchBoard.boardAddress.address : ""}/>
+        <AddressInput type="text" onChange={props.onChangeAddressDetail} defaultValue= {props.data ? props.data.fetchBoard.boardAddress.addressDetail : ""}/>
       </WrapperBox>
       <WrapperBox>
         <YoutubeText>유튜브</YoutubeText>
-        <YoutubeInput type="text" placeholder='링크를 복사해주세요.' onChange={props.onChangeYoutubeUrl}/>
+        <YoutubeInput type="text" placeholder='링크를 복사해주세요.' onChange={props.onChangeYoutubeUrl} defaultValue= {props.data ? props.data.fetchBoard.youtubeUrl : ""}/>
       </WrapperBox>
       <WrapperBox>
         <ImagesText>사진 첨부</ImagesText>

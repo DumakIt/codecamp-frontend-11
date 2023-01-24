@@ -3,13 +3,15 @@ import { useMutation } from "@apollo/client"
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries"
 import { useState } from "react"
 import { BoardWriteUi } from "./BoardWrite.presenter"
+import { IMutation, IMutationCreateBoardArgs, IMutationUpdateBoardArgs } from "../../../../commons/types/generated/types"
+import { IBoardWriteProps, IMyVariables } from "./BoardWrite.types"
 
 
 
-export default function BoardWrite(props: any) {
+export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter()
-  const [createBoard] = useMutation(CREATE_BOARD)
-  const [updateBoard] = useMutation(UPDATE_BOARD)
+  const [createBoard] = useMutation <Pick<IMutation, "createBoard">, IMutationCreateBoardArgs> (CREATE_BOARD)
+  const [updateBoard] = useMutation <Pick<IMutation, "updateBoard">, IMutationUpdateBoardArgs> (UPDATE_BOARD)
 
 
   const[writer, setWriter] = useState("")
@@ -41,7 +43,7 @@ export default function BoardWrite(props: any) {
     Err()
   }
 
-  function onChangeContents(event: React.ChangeEvent<HTMLInputElement>) {
+  function onChangeContents(event: React.ChangeEvent<HTMLTextAreaElement>) {
     setContents(event.target.value)
     writer && password && title && event.target.value ? setIsActive(true) : setIsActive(false)
     Err()
@@ -119,19 +121,20 @@ export default function BoardWrite(props: any) {
             }
           }
         })
+        console.log(result);
         router.push(`/boards/${result.data.createBoard._id}`)
+        // 이거는 해결 못하겠어요오오오오 ㅜㅜㅜ;;;;;
       } catch(error: any) {
         console.log(error.message);
       }
     }
   }
 
-
   const onClickUpdate = async () => {
     try {
-      const myVariables = {
+      const myVariables: IMyVariables = {
         password: password, 
-        boardId: router.query.fetchBoard,
+        boardId: String (router.query.fetchBoard),
         updateBoardInput: {
           boardAddress: {
             zipcode,
@@ -155,7 +158,7 @@ export default function BoardWrite(props: any) {
     }
   }
 
-
+  console.log(props.data);
 
   //자바스크립트 쓰는 곳
 

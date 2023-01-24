@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { IRegBtn } from './BoardWrite.types'
 
 export const Background = styled.div`
   display: flex;
@@ -169,14 +170,13 @@ export const MainSettingRadioColor = styled.input`
   accent-color: #FFD600;
   color-scheme: light;
 `
-interface IBtn{
-isActive:boolean}
+
 
 export const RegBtn = styled.button`
   margin-top: 80px;
   width: 179px;
   height: 52px;
-  background-color: ${(props:IBtn) => props.isActive ? "#FFD600" : "#BDBDBD"};
+  background-color: ${(props:IRegBtn) => props.isActive ? "#FFD600" : "#BDBDBD"};
   color: black;
   font-size: 16px;
   border: none;
