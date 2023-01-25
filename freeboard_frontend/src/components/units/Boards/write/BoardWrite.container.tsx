@@ -8,6 +8,7 @@ import { IBoardWriteProps, IMyVariables } from "./BoardWrite.types";
 
 export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter();
+
   const [createBoard] = useMutation<Pick<IMutation, "createBoard">, IMutationCreateBoardArgs>(CREATE_BOARD);
   const [updateBoard] = useMutation<Pick<IMutation, "updateBoard">, IMutationUpdateBoardArgs>(UPDATE_BOARD);
 
@@ -23,85 +24,61 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [isActive, setIsActive] = useState(false);
 
   function onChangeWriter(event: React.ChangeEvent<HTMLInputElement>) {
-    setWriter(event.target.value);
+    activeBtn(event);
+    event.target.value ? setWriterErr("") : setWriterErr("작성자 이름을 입력해 주세요.");
     event.target.value && password && title && contents ? setIsActive(true) : setIsActive(false);
-    Err();
   }
 
   function onChangePassword(event: React.ChangeEvent<HTMLInputElement>) {
-    setPassword(event.target.value);
+    activeBtn(event);
+    event.target.value ? setPasswordErr("") : setPasswordErr("비밀번호를 입력해 주세요.");
     writer && event.target.value && title && contents ? setIsActive(true) : setIsActive(false);
-    Err();
   }
 
   function onChangeTitle(event: React.ChangeEvent<HTMLInputElement>) {
-    setTitle(event.target.value);
+    activeBtn(event);
+    event.target.value ? setTitleErr("") : setTitleErr("제목을 입력해 주세요.");
     writer && password && event.target.value && contents ? setIsActive(true) : setIsActive(false);
-    Err();
   }
 
   function onChangeContents(event: React.ChangeEvent<HTMLTextAreaElement>) {
-    setContents(event.target.value);
+    activeBtn(event);
+    event.target.value ? setContentsErr("") : setContentsErr("내용을 입력해 주세요.");
     writer && password && title && event.target.value ? setIsActive(true) : setIsActive(false);
-    Err();
   }
 
   function onChangeYoutubeUrl(event: React.ChangeEvent<HTMLInputElement>) {
     setYoutubeUrl(event.target.value);
-    Err();
   }
 
   function onChangeZipcode(event: React.ChangeEvent<HTMLInputElement>) {
     setZipcode(event.target.value);
-    Err();
   }
 
   function onChangeAddress(event: React.ChangeEvent<HTMLInputElement>) {
     setAddress(event.target.value);
-    Err();
   }
 
   function onChangeAddressDetail(event: React.ChangeEvent<HTMLInputElement>) {
     setAddressDetail(event.target.value);
-    Err();
   }
 
-  const [writerErr, setWriterErr] = useState("작성자 이름을 입력해 주세요.");
+  const [writerErr, setWriterErr] = useState(props.isEdit ? "" : "작성자 이름을 입력해 주세요.");
   const [passwordErr, setPasswordErr] = useState("비밀번호를 입력해 주세요.");
-  const [titleErr, setTitleErr] = useState("제목을 입력해 주세요.");
-  const [ContentsErr, setContentsErr] = useState("내용을 입력해 주세요.");
+  const [titleErr, setTitleErr] = useState(props.isEdit ? "" : "제목을 입력해 주세요.");
+  const [ContentsErr, setContentsErr] = useState(props.isEdit ? "" : "내용을 입력해 주세요.");
 
-  const Err = function () {
-    if (!writer) {
-      setWriterErr("작성자 이름을 입력해 주세요.");
-    } else {
-      setWriterErr("");
-    }
-
-    if (!password) {
-      setPasswordErr("비밀번호를 입력해 주세요.");
-    } else {
-      setPasswordErr("");
-    }
-
-    if (!title) {
-      setTitleErr("제목을 입력해 주세요.");
-    } else {
-      setTitleErr("");
-    }
-
-    if (!contents) {
-      setContentsErr("내용을 입력해 주세요.");
-    } else {
-      setContentsErr("");
-    }
+  const activeBtn = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setWriter(event.target.value);
+    setPassword(event.target.value);
+    setTitle(event.target.value);
+    setContents(event.target.value);
   };
-
 
   const checkErr = async function () {
     if (writer && password && title && contents) {
       try {
-        const result:any = await createBoard({
+        const result = await createBoard({
           variables: {
             createBoardInput: {
               writer,
@@ -117,18 +94,21 @@ export default function BoardWrite(props: IBoardWriteProps) {
             },
           },
         });
-        router.push(`/boards/${result.data.createBoard._id}`);
-      } catch (error: any) {
-        console.log(error.message);
+        router.push(`/boards/${result.data?.createBoard._id}`);
+      } catch (error) {
+        if (error instanceof Error) {
+          console.log(error.message);
+        }
       }
     }
   };
 
   const onClickUpdate = async () => {
+    if (!router || typeof router.query.fetchBoard !== "string") return <></>;
     try {
       const myVariables: IMyVariables = {
         password: password,
-        boardId: String(router.query.fetchBoard),
+        boardId: router.query.fetchBoard,
         updateBoardInput: {
           boardAddress: {
             zipcode,
@@ -152,14 +132,12 @@ export default function BoardWrite(props: IBoardWriteProps) {
         variables: myVariables,
       });
       router.push(`/boards/${router.query.fetchBoard}`);
-    } catch (error: any) {
-      console.log(error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
     }
   };
-
-  
-
-  console.log(props.data);
 
   // prettier-ignore
   return (

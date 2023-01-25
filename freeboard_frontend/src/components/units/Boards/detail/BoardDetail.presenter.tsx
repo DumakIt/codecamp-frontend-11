@@ -7,8 +7,8 @@ export function BoardDetailUI(props: IBoardDetailUI) {
       <Container>
         <div style={{ opacity: props.opacity }}>
           <AddressBox>
-            <div>{props.data?.fetchBoard.boardAddress.address}</div>
-            <div>{props.data?.fetchBoard.boardAddress.addressDetail}</div>
+            <div>{props.data?.fetchBoard?.boardAddress.address}</div>
+            <div>{props.data?.fetchBoard?.boardAddress.addressDetail}</div>
           </AddressBox>
           <Triangle src="/fetchBoard/triangle.png" />
         </div>

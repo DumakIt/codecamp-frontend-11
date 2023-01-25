@@ -17,9 +17,10 @@ export default function BoardDetail() {
   });
 
   const onClickDeleteBoard = () => {
+    if (!router || typeof router.query.fetchBoard !== "string") return <></>;
     deleteBoard({
       variables: {
-        boardId: String(router.query.fetchBoard),
+        boardId: router.query.fetchBoard,
       },
     });
     router.push(`/boards/list`);

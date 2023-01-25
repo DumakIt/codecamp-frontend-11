@@ -5,7 +5,7 @@ export function BoardWriteUi(props: IBoardWriteUi) {
   return (
     <Background>
       <Container>
-        <h1>게시물 등록</h1>
+        <h1>게시물 {props.isEdit ? "수정" : "등록"}</h1>
         <WrapperUserInfo>
           <div style={{ width: props.isEdit ? "486px" : "486px" }}>
             <UserInfoText>작성자</UserInfoText>

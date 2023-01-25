@@ -10,6 +10,7 @@ export default function CommentWrite() {
   const [CreateBoardComment] = useMutation<Pick<IMutation, "createBoardComment">, IMutationCreateBoardCommentArgs>(CREATE_BOARD_COMMENT);
   const [UpdateBoardComment] = useMutation<Pick<IMutation, "updateBoardComment">, IMutationUpdateBoardCommentArgs>(UPDATE_BOARD_COMMENT);
   const [DeleteBoardComment] = useMutation<Pick<IMutation, "deleteBoardComment">, IMutationDeleteBoardCommentArgs>(DELETE_BOARD_COMMENT);
+
   const { data } = useQuery<Pick<IQuery, "fetchBoardComments">, IQueryFetchBoardCommentsArgs>(FETCH_BOARD_COMMENTS, {
     variables: {
       boardId: String(router.query.fetchBoard),
@@ -49,22 +50,27 @@ export default function CommentWrite() {
     }
     const rating = Number(prompt("이 게시물의 평점을 입력해 주세요.\n입력하지 않을시 0점으로 등록됩니다. (최대 5점, 숫자만 입력)", "5"));
 
-
     if (rating < 0 || rating > 5 || Number.isNaN(rating)) {
       return alert("평점은 0점 ~ 5점사이의 점수와 숫자만 부여할수 있습니다");
     }
     return rating;
   };
 
+  const inputValueClear = () => {
+    setWriter("");
+    setPassword("");
+    setContents("");
+  };
 
   const onClickCreate = async () => {
     try {
+      if (!router || typeof router.query.fetchBoard !== "string") return <></>;
       const rating = CheckValue();
       if (rating !== 0 && !rating) return;
 
       await CreateBoardComment({
         variables: {
-          boardId: String(router.query.fetchBoard),
+          boardId: router.query.fetchBoard,
           createBoardCommentInput: {
             writer,
             password,
@@ -76,11 +82,12 @@ export default function CommentWrite() {
           {
             query: FETCH_BOARD_COMMENTS,
             variables: {
-              boardId: String(router.query.fetchBoard),
+              boardId: router.query.fetchBoard,
             },
           },
         ],
       });
+      inputValueClear();
     } catch (error) {
       console.log(error);
     }
@@ -104,23 +111,24 @@ export default function CommentWrite() {
           {
             query: FETCH_BOARD_COMMENTS,
             variables: {
-              boardId: String(router.query.fetchBoard),
+              boardId: router.query.fetchBoard,
             },
           },
         ],
       });
-      alert('수정을 완료하였습니다');
+      inputValueClear();
+      alert("수정을 완료하였습니다");
     } catch (error) {
       console.log(error);
     }
   };
-  
 
   const onClickUpdateMove = (event: React.MouseEvent<HTMLImageElement>) => {
-    const target = event.target as HTMLImageElement
+    const target = event.target as HTMLImageElement;
     try {
       setBoardCommentId(target.className.replace(" css-opa42u", ""));
       setIsEdit(true);
+
       window.scrollTo({
         top: 1000,
         behavior: "smooth",
@@ -131,7 +139,7 @@ export default function CommentWrite() {
   };
 
   const onClickDelete = (event: React.MouseEvent<HTMLImageElement>) => {
-    const target = event.target as HTMLImageElement
+    const target = event.target as HTMLImageElement;
     try {
       const DeletePassword = prompt("비밀번호를 입력해주세요.");
       DeleteBoardComment({
@@ -143,7 +151,7 @@ export default function CommentWrite() {
           {
             query: FETCH_BOARD_COMMENTS,
             variables: {
-              boardId: String(router.query.fetchBoard),
+              boardId: router.query.fetchBoard,
             },
           },
         ],
@@ -163,5 +171,9 @@ export default function CommentWrite() {
   onClickCreate={onClickCreate} 
   onClickUpdate={onClickUpdate} 
   onClickUpdateMove={onClickUpdateMove} 
-  onClickDelete={onClickDelete} />;
+  onClickDelete={onClickDelete} 
+  writer={writer}
+  password={password}
+  contents={contents}
+  />;
 }

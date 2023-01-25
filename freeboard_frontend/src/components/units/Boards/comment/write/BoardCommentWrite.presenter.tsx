@@ -6,11 +6,11 @@ export function CommentWriteUI(props: ICommentWriteUI) {
     <Style.CommentContainer>
       <Style.WriteWrapper>
         <Style.InfoBox>
-          <Style.InfoBoxInput type="text" placeholder="닉네임" onChange={props.onChangeWriter} disabled={props.isEdit ? true : false} />
-          <Style.InfoBoxInput type="password" placeholder="비밀번호" onChange={props.onChangePassword} />
+          <Style.InfoBoxInput type="text" placeholder="닉네임" onChange={props.onChangeWriter} disabled={props.isEdit ? true : false} value={props.writer} />
+          <Style.InfoBoxInput type="password" placeholder="비밀번호" onChange={props.onChangePassword} value={props.password} />
           <Style.WriteButton onClick={props.isEdit ? props.onClickUpdate : props.onClickCreate}>{props.isEdit ? "수정" : "등록"}</Style.WriteButton>
         </Style.InfoBox>
-        <Style.WriteComment onChange={props.onChangeContents} placeholder={props.isEdit ? "수정할 내용을 입력해 주세요" : "댓글을 작성해 주세요."}></Style.WriteComment>
+        <Style.WriteComment onChange={props.onChangeContents} placeholder={props.isEdit ? "수정할 내용을 입력해 주세요" : "댓글을 작성해 주세요."} value={props.contents}></Style.WriteComment>
       </Style.WriteWrapper>
 
       {props.data?.fetchBoardComments.map((el: IEl) => (
