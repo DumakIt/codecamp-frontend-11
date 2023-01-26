@@ -24,25 +24,25 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [isActive, setIsActive] = useState(false);
 
   function onChangeWriter(event: React.ChangeEvent<HTMLInputElement>) {
-    activeBtn(event);
+    setWriter(event.target.value);
     event.target.value ? setWriterErr("") : setWriterErr("작성자 이름을 입력해 주세요.");
     event.target.value && password && title && contents ? setIsActive(true) : setIsActive(false);
   }
 
   function onChangePassword(event: React.ChangeEvent<HTMLInputElement>) {
-    activeBtn(event);
+    setPassword(event.target.value);
     event.target.value ? setPasswordErr("") : setPasswordErr("비밀번호를 입력해 주세요.");
     writer && event.target.value && title && contents ? setIsActive(true) : setIsActive(false);
   }
 
   function onChangeTitle(event: React.ChangeEvent<HTMLInputElement>) {
-    activeBtn(event);
+    setTitle(event.target.value);
     event.target.value ? setTitleErr("") : setTitleErr("제목을 입력해 주세요.");
     writer && password && event.target.value && contents ? setIsActive(true) : setIsActive(false);
   }
 
   function onChangeContents(event: React.ChangeEvent<HTMLTextAreaElement>) {
-    activeBtn(event);
+    setContents(event.target.value);
     event.target.value ? setContentsErr("") : setContentsErr("내용을 입력해 주세요.");
     writer && password && title && event.target.value ? setIsActive(true) : setIsActive(false);
   }
@@ -67,13 +67,6 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [passwordErr, setPasswordErr] = useState("비밀번호를 입력해 주세요.");
   const [titleErr, setTitleErr] = useState(props.isEdit ? "" : "제목을 입력해 주세요.");
   const [ContentsErr, setContentsErr] = useState(props.isEdit ? "" : "내용을 입력해 주세요.");
-
-  const activeBtn = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setWriter(event.target.value);
-    setPassword(event.target.value);
-    setTitle(event.target.value);
-    setContents(event.target.value);
-  };
 
   const checkErr = async function () {
     if (writer && password && title && contents) {
