@@ -32,27 +32,37 @@ function solution(s) {
   return answer;
 }
 
-// let answer = "";
-// let idx = 0;
-// for (let i = 0; i < s.length; i++) {
-//   if (s[i] === " ") {
-//     answer += " ";
-//     idx = 0;
-//   } else {
-//     answer += idx % 2 === 0 ? s[i].toUpperCase() : s[i].toLowerCase();
-//     idx++;
-//   }
-// }
-// return answer;
+// function solution(s) {
+//   let answer = "";
 
-// const answer = s.split(" ").map((word) => {
-//   return word
-//     .split("")
-//     .map((letter, i) => {
-//       return i % 2 === 0 ? letter.toUpperCase() : letter.toUpperCase();
+//   let idx = 0;
+//   for (let i = 0; i < s.length; i++) {
+//     if (s[i] === " ") {
+//       answer += " ";
+//       idx = 0;
+//     } else {
+//       answer += idx % 2 === 0 ? s[i].toUpperCase() : s[i].toLowerCase();
+//       idx++;
+//     }
+//   }
+
+//   return answer;
+// }
+
+// function solution(s) {
+//   const answer = s
+//     .split(" ")
+//     .map((word) => {
+//       return word
+//         .split("")
+//         .map((letter, i) => {
+//           return i % 2 === 0 ? letter.toUpperCase() : letter.toLowerCase();
+//         })
+//         .join("");
 //     })
-//     .join("");
-// });
-// return answer
+//     .join(" ");
+
+//   return answer;
+// }
 
 // 알고리즘 시간에 문제풀이

@@ -117,6 +117,7 @@ export default function CommentWrite() {
         ],
       });
       inputValueClear();
+      setIsEdit(false);
       alert("수정을 완료하였습니다");
     } catch (error) {
       console.log(error);
@@ -163,17 +164,9 @@ export default function CommentWrite() {
   };
 
   // prettier-ignore
-  return <CommentWriteUI 
-  isEdit={isEdit} 
-  data={data} onChangeWriter={onChangeWriter} 
-  onChangePassword={onChangePassword} 
-  onChangeContents={onChangeContents} 
-  onClickCreate={onClickCreate} 
-  onClickUpdate={onClickUpdate} 
-  onClickUpdateMove={onClickUpdateMove} 
-  onClickDelete={onClickDelete} 
-  writer={writer}
-  password={password}
-  contents={contents}
-  />;
+
+  return <CommentWriteUI isEdit={isEdit} 
+  data={data} onChangeWriter={onChangeWriter}
+   onChangePassword={onChangePassword} onChangeContents={onChangeContents} onClickCreate={onClickCreate} onClickUpdate={onClickUpdate} onClickUpdateMove={onClickUpdateMove} 
+   onClickDelete={onClickDelete} writer={writer} password={password} contents={contents} />;
 }

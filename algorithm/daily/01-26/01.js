@@ -34,21 +34,31 @@ function solution(s) {
   return result.P === result.Y;
 }
 
-// s = s.toLowerCase();
-// const obj = {};
-// for (let i = 0; i < s.length; i++) {
-//   if (obj[s[i]] === undefined) obj[s[i]] = 0;
-//   obj[s[i]]++;
-//   return obj.p === obj.y;
+// function solution(s) {
+//   s = s.toLowerCase();
+//   let p = 0;
+//   let y = 0;
+
+//   for (let i = 0; i < s.length; i++) {
+//     if (s[i] === "y") {
+//       y++;
+//     } else if (s[i] === "p") {
+//       p++;
+//     }
+//   }
+
+//   return p === y;
 // }
 
-//   const obj = {};
+// function solution(s) {
+//   const check = {};
 //   const answer = s
 //     .toLowerCase()
 //     .split("")
-//     .forEach((letter) => {
-//       obj[letter] === undefined ? (obj[letter] = 1) : obj[letter]++;
+//     .forEach((str) => {
+//       check[str] === undefined ? (check[str] = 1) : (check[str] += 1);
 //     });
-//   return obj.p === obj.y;
+//   return check.p === check.y;
+// }
 
 // 알고리즘 시간에 문제풀이
