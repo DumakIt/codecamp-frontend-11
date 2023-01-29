@@ -5,6 +5,8 @@ import { useState } from "react";
 import { BoardWriteUi } from "./BoardWrite.presenter";
 import { IMutation, IMutationCreateBoardArgs, IMutationUpdateBoardArgs } from "../../../../commons/types/generated/types";
 import { IBoardWriteProps, IMyVariables } from "./BoardWrite.types";
+import { Address } from "react-daum-postcode";
+import { Modal } from "antd";
 
 export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter();
@@ -22,6 +24,9 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [addressDetail, setAddressDetail] = useState("");
 
   const [isActive, setIsActive] = useState(false);
+  const [addressModalOpen, setAddressModalOpen] = useState(false);
+  const [updateErr, setUpdateErr] = useState(false);
+  const [updateErrMessage, setUpdateErrMessage] = useState("");
 
   function onChangeWriter(event: React.ChangeEvent<HTMLInputElement>) {
     setWriter(event.target.value);
@@ -51,14 +56,6 @@ export default function BoardWrite(props: IBoardWriteProps) {
     setYoutubeUrl(event.target.value);
   }
 
-  function onChangeZipcode(event: React.ChangeEvent<HTMLInputElement>) {
-    setZipcode(event.target.value);
-  }
-
-  function onChangeAddress(event: React.ChangeEvent<HTMLInputElement>) {
-    setAddress(event.target.value);
-  }
-
   function onChangeAddressDetail(event: React.ChangeEvent<HTMLInputElement>) {
     setAddressDetail(event.target.value);
   }
@@ -67,6 +64,16 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [passwordErr, setPasswordErr] = useState("비밀번호를 입력해 주세요.");
   const [titleErr, setTitleErr] = useState(props.isEdit ? "" : "제목을 입력해 주세요.");
   const [ContentsErr, setContentsErr] = useState(props.isEdit ? "" : "내용을 입력해 주세요.");
+
+  const onClickAddressBtn = () => {
+    setAddressModalOpen(!addressModalOpen);
+  };
+
+  const AddressComplete = (data: Address) => {
+    setAddressModalOpen(!addressModalOpen);
+    setZipcode(data.zonecode);
+    setAddress(data.address);
+  };
 
   const checkErr = async function () {
     if (writer && password && title && contents) {
@@ -98,6 +105,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
 
   const onClickUpdate = async () => {
     if (!router || typeof router.query.fetchBoard !== "string") return <></>;
+
     try {
       const myVariables: IMyVariables = {
         password: password,
@@ -127,7 +135,12 @@ export default function BoardWrite(props: IBoardWriteProps) {
       router.push(`/boards/${router.query.fetchBoard}`);
     } catch (error) {
       if (error instanceof Error) {
-        console.log(error.message);
+        console.log(error);
+
+        Modal.error({
+          title: "비밀번호가 일치하지 않습니다",
+          content: "확인 후 다시 입력해주세요.",
+        });
       }
     }
   };
@@ -140,15 +153,19 @@ export default function BoardWrite(props: IBoardWriteProps) {
     onChangeTitle = {onChangeTitle}
     onChangeContents = {onChangeContents}
     onChangeYoutubeUrl = {onChangeYoutubeUrl}
-    onChangeZipcode = {onChangeZipcode}
-    onChangeAddress = {onChangeAddress}
     onChangeAddressDetail = {onChangeAddressDetail}
+    onClickAddressBtn = {onClickAddressBtn}
+    AddressComplete = {AddressComplete}
     checkErr = {checkErr}
     onClickUpdate = {onClickUpdate}
+    addressModalOpen = {addressModalOpen}
+    zipcode={zipcode}
+    address={address}
     writerErr = {writerErr}
     passwordErr = {passwordErr}
     titleErr = {titleErr}
     ContentsErr = {ContentsErr}
+    updateErr = {updateErr}
     isActive = {isActive}
     isEdit = {props.isEdit}
     data = {props.data}

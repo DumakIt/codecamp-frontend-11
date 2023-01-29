@@ -7,6 +7,7 @@ import { IMutation, IMutationDeleteBoardArgs } from "../../../../commons/types/g
 
 export default function BoardDetail() {
   const [opacity, setOpacity] = useState(0);
+  const [isDelete, setIsDelete] = useState(false);
   const router = useRouter();
   const [deleteBoard] = useMutation<Pick<IMutation, "deleteBoard">, IMutationDeleteBoardArgs>(DELETE_BOARD);
 
@@ -15,15 +16,20 @@ export default function BoardDetail() {
       boardId: router.query.fetchBoard,
     },
   });
+  const deleteModal = () => {
+    setIsDelete((prev) => !prev);
+  };
 
   const onClickDeleteBoard = () => {
     if (!router || typeof router.query.fetchBoard !== "string") return <></>;
+    deleteModal();
+
     deleteBoard({
       variables: {
         boardId: router.query.fetchBoard,
       },
     });
-    router.push(`/boards/list`);
+    router.push(`/boards`);
   };
 
   const AddressBoxWrapperOpacity = () => {
@@ -39,7 +45,7 @@ export default function BoardDetail() {
   };
 
   const onClickList = () => {
-    router.push(`/boards/list`);
+    router.push(`/boards`);
   };
 
   // prettier-ignore
@@ -51,6 +57,8 @@ export default function BoardDetail() {
     onClickDeleteBoard = {onClickDeleteBoard}
     onClickEdit = {onClickEdit}
     onClickList = {onClickList}
+    isDelete = {isDelete}
+    deleteModal={deleteModal}
     />
   )
 }

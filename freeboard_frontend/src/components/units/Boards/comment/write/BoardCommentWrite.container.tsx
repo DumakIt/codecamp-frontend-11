@@ -4,6 +4,7 @@ import { FETCH_BOARD_COMMENTS, CREATE_BOARD_COMMENT, UPDATE_BOARD_COMMENT, DELET
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { IMutation, IMutationCreateBoardCommentArgs, IMutationDeleteBoardCommentArgs, IMutationUpdateBoardCommentArgs, IQuery, IQueryFetchBoardCommentsArgs } from "../../../../../commons/types/generated/types";
+import { Modal } from "antd";
 
 export default function CommentWrite() {
   const router = useRouter();
@@ -18,11 +19,15 @@ export default function CommentWrite() {
   });
 
   const [isEdit, setIsEdit] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenDelete, setIsOpenDelete] = useState(false);
 
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [contents, setContents] = useState("");
+  const [rating, setRating] = useState(3);
   const [boardCommentId, setBoardCommentId] = useState("");
+  const [modalPassword, setModalPassword] = useState("");
 
   const onChangeWriter = (event: React.ChangeEvent<HTMLInputElement>) => {
     setWriter(event.target.value);
@@ -32,28 +37,12 @@ export default function CommentWrite() {
     setPassword(event.target.value);
   };
 
-  const onChangeContents = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContents(event.target.value);
+  const onChangeModalPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setModalPassword(event.target.value);
   };
 
-  const CheckValue = () => {
-    if (!isEdit) {
-      if (!writer || !password || !contents) {
-        return alert("닉네임, 비밀번호, 댓글내용은 필수로 입력 해야합니다.");
-      }
-    }
-
-    if (isEdit) {
-      if (!password || !contents) {
-        return alert("비밀번호, 댓글내용은 필수로 입력 해야합니다.");
-      }
-    }
-    const rating = Number(prompt("이 게시물의 평점을 입력해 주세요.\n입력하지 않을시 0점으로 등록됩니다. (최대 5점, 숫자만 입력)", "5"));
-
-    if (rating < 0 || rating > 5 || Number.isNaN(rating)) {
-      return alert("평점은 0점 ~ 5점사이의 점수와 숫자만 부여할수 있습니다");
-    }
-    return rating;
+  const onChangeContents = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setContents(event.target.value);
   };
 
   const inputValueClear = () => {
@@ -62,12 +51,25 @@ export default function CommentWrite() {
     setContents("");
   };
 
-  const onClickCreate = async () => {
+  const changeIsOpen = () => {
+    if (!isEdit) {
+      if (!writer || !password || !contents) {
+        return Modal.warning({
+          content: "닉네임, 비밀번호, 댓글내용은 필수로 입력 해야합니다.",
+          okText: "확인",
+        });
+      }
+    }
+    setIsOpen((prev) => !prev);
+  };
+
+  // 여기요 여기!!!!
+
+  const commentCreate = async (value: number) => {
+    setRating((value) => value);
+    setIsOpen((prev) => !prev);
     try {
       if (!router || typeof router.query.fetchBoard !== "string") return <></>;
-      const rating = CheckValue();
-      if (rating !== 0 && !rating) return;
-
       await CreateBoardComment({
         variables: {
           boardId: router.query.fetchBoard,
@@ -94,10 +96,16 @@ export default function CommentWrite() {
   };
 
   const onClickUpdate = () => {
-    try {
-      const rating = CheckValue();
-      if (!rating) return;
+    if (isEdit) {
+      if (!password || !contents) {
+        return Modal.warning({
+          content: "비밀번호, 댓글내용은 필수로 입력 해야합니다.",
+          okText: "확인",
+        });
+      }
+    }
 
+    try {
       UpdateBoardComment({
         variables: {
           updateBoardCommentInput: {
@@ -118,7 +126,10 @@ export default function CommentWrite() {
       });
       inputValueClear();
       setIsEdit(false);
-      alert("수정을 완료하였습니다");
+      Modal.success({
+        content: "수정을 완료하였습니다",
+        okText: "확인",
+      });
     } catch (error) {
       console.log(error);
     }
@@ -127,11 +138,11 @@ export default function CommentWrite() {
   const onClickUpdateMove = (event: React.MouseEvent<HTMLImageElement>) => {
     const target = event.target as HTMLImageElement;
     try {
-      setBoardCommentId(target.className.replace(" css-opa42u", ""));
+      setBoardCommentId(target.id);
       setIsEdit(true);
 
       window.scrollTo({
-        top: 1000,
+        top: 2000,
         behavior: "smooth",
       });
     } catch (error) {
@@ -139,14 +150,18 @@ export default function CommentWrite() {
     }
   };
 
-  const onClickDelete = (event: React.MouseEvent<HTMLImageElement>) => {
+  const ChangeIsOpenDelete = (event: React.MouseEvent<HTMLImageElement>) => {
     const target = event.target as HTMLImageElement;
+    setIsOpenDelete((prev) => !prev);
+    setBoardCommentId(target.id);
+  };
+
+  const onClickDelete = async () => {
     try {
-      const DeletePassword = prompt("비밀번호를 입력해주세요.");
-      DeleteBoardComment({
+      await DeleteBoardComment({
         variables: {
-          password: DeletePassword,
-          boardCommentId: target.className.replace(" css-opa42u", ""),
+          password: modalPassword,
+          boardCommentId,
         },
         refetchQueries: [
           {
@@ -157,16 +172,43 @@ export default function CommentWrite() {
           },
         ],
       });
-      alert("삭제를 완료히였습니다.");
+      setIsOpenDelete((prev) => !prev);
+      Modal.success({
+        content: "삭제를 완료하였습니다",
+        okText: "확인",
+      });
     } catch (error) {
-      console.log(error);
+      if (error instanceof Error) {
+        console.log(error);
+        Modal.error({
+          title: "비밀번호가 일치하지 않습니다",
+          content: "확인 후 다시 입력해주세요.",
+        });
+      }
     }
   };
 
   // prettier-ignore
 
-  return <CommentWriteUI isEdit={isEdit} 
-  data={data} onChangeWriter={onChangeWriter}
-   onChangePassword={onChangePassword} onChangeContents={onChangeContents} onClickCreate={onClickCreate} onClickUpdate={onClickUpdate} onClickUpdateMove={onClickUpdateMove} 
-   onClickDelete={onClickDelete} writer={writer} password={password} contents={contents} />;
+  return <CommentWriteUI 
+    isEdit={isEdit} 
+    isOpen={isOpen}
+    isOpenDelete={isOpenDelete}
+    data={data}
+    changeIsOpen={changeIsOpen}
+    onChangeWriter={onChangeWriter}
+    onChangePassword={onChangePassword} 
+    onChangeContents={onChangeContents} 
+    commentCreate={commentCreate} 
+    onClickUpdate={onClickUpdate} 
+    onClickUpdateMove={onClickUpdateMove} 
+    onClickDelete={onClickDelete}
+    ChangeIsOpenDelete={ChangeIsOpenDelete}
+    onChangeModalPassword={onChangeModalPassword}
+    rating={rating}
+    writer={writer} 
+    password={password} 
+    contents={contents} 
+    
+    />;
 }

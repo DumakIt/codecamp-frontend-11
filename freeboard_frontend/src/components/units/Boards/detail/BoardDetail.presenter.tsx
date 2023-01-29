@@ -1,3 +1,4 @@
+import { Modal } from "antd";
 import { Container, AddressBox, Triangle, UserInfoWrapper, UserInfoDataWrapper, UserInfoDataWriter, UserInfoUpdatedAt, UserInfoIconWrapper, UserInfoIconLink, UserInfoIconLocation, DivideLine, BoardTitle, BoardImg, BoardContents, BoardYoutubeWrapper, BoardYoutube, BoardLikeWrapper, BoardLikeBox, BoardLikeIcon, BoardLikeCount, BoardDisLikeBox, BoardDisLikeIcon, BoardDisLikeCount, FunctionBtnWrapper, FunctionBtn } from "./BoardDetail.styles";
 import { IBoardDetailUI } from "./BoardDetail.types";
 
@@ -47,8 +48,13 @@ export function BoardDetailUI(props: IBoardDetailUI) {
       <FunctionBtnWrapper>
         <FunctionBtn onClick={props.onClickList}>목록으로</FunctionBtn>
         <FunctionBtn onClick={props.onClickEdit}>수정하기</FunctionBtn>
-        <FunctionBtn onClick={props.onClickDeleteBoard}>삭제하기</FunctionBtn>
+        <FunctionBtn onClick={props.deleteModal}>삭제하기</FunctionBtn>
       </FunctionBtnWrapper>
+      {props.isDelete && (
+        <Modal open={true} onOk={props.onClickDeleteBoard} onCancel={props.deleteModal}>
+          정말로 삭제 하시겠습니까?
+        </Modal>
+      )}
     </div>
   );
 }

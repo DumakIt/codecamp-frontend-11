@@ -1,4 +1,5 @@
 import { ChangeEvent, MouseEvent } from "react";
+import { Address } from "react-daum-postcode";
 
 export interface IBoardWriteProps {
   isEdit: boolean;
@@ -34,15 +35,19 @@ export interface IBoardWriteUi {
   onChangeTitle: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onChangeYoutubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeZipcode: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeAddress: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
+  onClickAddressBtn: (event: MouseEvent<HTMLButtonElement>) => void;
+  AddressComplete: (event: any) => void;
   checkErr: (event: MouseEvent<HTMLButtonElement>) => void;
   onClickUpdate: (event: MouseEvent<HTMLButtonElement>) => void;
+  zipcode: string;
+  address: string;
+  addressModalOpen: boolean;
   writerErr: string;
   passwordErr: string;
   titleErr: string;
   ContentsErr: string;
+  updateErr: boolean;
   isActive: boolean;
   isEdit: boolean;
   data: any;

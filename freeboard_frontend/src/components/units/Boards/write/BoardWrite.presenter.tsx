@@ -1,5 +1,7 @@
 import { Background, Container, WrapperUserInfo, UserInfoText, UserInfoWriter, UserInfoPasswordText, UserInfoPassword, TitleText, WrapperBox, TitleInput, ContentsTextarea, AddressText, AddressSearch, AddressNum, AddressBtn, AddressInput, YoutubeText, YoutubeInput, ImagesText, ImagesAddBox, ImagesAdd, ImagesAddPlus, ImagesAddText, MainSettingText, MainSettingRadioBox, MainSettingRadioColor, RegBtn, ErrText } from "./BoardWrite.styles";
 import { IBoardWriteUi } from "./BoardWrite.types";
+import DaumPostcodeEmbed from "react-daum-postcode";
+import { Modal } from "antd";
 
 export function BoardWriteUi(props: IBoardWriteUi) {
   return (
@@ -9,7 +11,7 @@ export function BoardWriteUi(props: IBoardWriteUi) {
         <WrapperUserInfo>
           <div style={{ width: props.isEdit ? "486px" : "486px" }}>
             <UserInfoText>작성자</UserInfoText>
-            <UserInfoWriter type="text" placeholder="이름을 입력해주세요." onChange={props.onChangeWriter} defaultValue={props.data ? props.data.fetchBoard.writer : ""} />
+            <UserInfoWriter type="text" placeholder="이름을 입력해주세요." onChange={props.onChangeWriter} defaultValue={props.data ? props.data.fetchBoard.writer : ""} readOnly={props.isEdit ? true : false} />
             <ErrText>{props.writerErr}</ErrText>
           </div>
           <div style={{ display: props.isEdit ? "block" : "block" }}>
@@ -31,10 +33,15 @@ export function BoardWriteUi(props: IBoardWriteUi) {
         <WrapperBox>
           <AddressText>주소</AddressText>
           <AddressSearch>
-            <AddressNum type="text" placeholder="07250" onChange={props.onChangeZipcode} defaultValue={props.data ? props.data.fetchBoard.boardAddress.zipcode : ""} />
-            <AddressBtn>우편번호 검색</AddressBtn>
+            <AddressNum type="text" readOnly value={props.zipcode ? props.zipcode : props.data?.fetchBoard.boardAddress?.zipcode ?? ""} />
+            <AddressBtn onClick={props.onClickAddressBtn}>우편번호 검색</AddressBtn>
+            {props.addressModalOpen && (
+              <Modal title="Basic Modal" open={true} onOk={props.onClickAddressBtn} onCancel={props.onClickAddressBtn} footer={null}>
+                <DaumPostcodeEmbed onComplete={props.AddressComplete} />
+              </Modal>
+            )}
           </AddressSearch>
-          <AddressInput type="text" onChange={props.onChangeAddress} defaultValue={props.data ? props.data.fetchBoard.boardAddress.address : ""} />
+          <AddressInput type="text" readOnly value={props.address ? props.address : props.data?.fetchBoard.boardAddress?.address ?? ""} />
           <AddressInput type="text" onChange={props.onChangeAddressDetail} defaultValue={props.data ? props.data.fetchBoard.boardAddress.addressDetail : ""} />
         </WrapperBox>
         <WrapperBox>
@@ -69,7 +76,7 @@ export function BoardWriteUi(props: IBoardWriteUi) {
             </div>
           </MainSettingRadioBox>
         </WrapperBox>
-        <RegBtn onClick={props.isEdit ? props.onClickUpdate : props.checkErr} isActive={props.isActive}>
+        <RegBtn onClick={props.isEdit ? props.onClickUpdate : props.checkErr} isActive={props.isEdit ? true : props.isActive}>
           {props.isEdit ? "수정" : "등록"}하기
         </RegBtn>
       </Container>

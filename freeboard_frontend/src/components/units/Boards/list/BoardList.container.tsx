@@ -9,8 +9,12 @@ export default function BoardList() {
   const { data } = useQuery<Pick<IQuery, "fetchBoards">, IQueryFetchBoardsArgs>(FETCH_BOARDS);
 
   const onClickTitle = (event: React.MouseEvent<HTMLDivElement>) => {
-    const target = event.target as HTMLDivElement
+    const target = event.target as HTMLDivElement;
     router.push(`/boards/${target.id}`);
+  };
+
+  const onClickBoardWrite = () => {
+    router.push(`/boards/new`);
   };
 
   // prettier-ignore
@@ -18,6 +22,7 @@ export default function BoardList() {
     <BoardListUI
     data = {data}
     onClickTitle={onClickTitle}
+    onClickBoardWrite={onClickBoardWrite}
     />
     
   )
