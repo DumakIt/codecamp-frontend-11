@@ -1,3 +1,4 @@
+import { IPaginationNumProps } from "./Pagination.types";
 import styled from "@emotion/styled";
 
 export const Pagination = styled.div`
@@ -14,5 +15,6 @@ export const PaginationNum = styled.span`
   width: 40px;
   height: 52px;
   line-height: 52px;
+  color: ${(props: IPaginationNumProps) => (props.isActivePage ? "red" : "black")};
   cursor: pointer;
 `;

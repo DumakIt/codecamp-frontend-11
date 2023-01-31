@@ -1,7 +1,6 @@
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import * as Style from "./Pagination.styles";
 import { IPaginationUIProps } from "./Pagination.types";
-import InfiniteScroll from "react-infinite-scroller";
 
 export default function PaginationUI(props: IPaginationUIProps) {
   return (
@@ -10,7 +9,7 @@ export default function PaginationUI(props: IPaginationUIProps) {
       {new Array(10).fill(1).map(
         (_, index) =>
           index + props.startPage <= props.lastPage && (
-            <Style.PaginationNum key={index + props.startPage} id={String(index + props.startPage)} onClick={props.onClickListNum}>
+            <Style.PaginationNum key={index + props.startPage} id={String(index + props.startPage)} onClick={props.onClickListNum} isActivePage={index + props.startPage === props.isActivePage}>
               {index + props.startPage}
             </Style.PaginationNum>
           )
