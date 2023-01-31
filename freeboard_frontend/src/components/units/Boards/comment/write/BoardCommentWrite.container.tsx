@@ -12,7 +12,7 @@ export default function CommentWrite() {
   const [UpdateBoardComment] = useMutation<Pick<IMutation, "updateBoardComment">, IMutationUpdateBoardCommentArgs>(UPDATE_BOARD_COMMENT);
   const [DeleteBoardComment] = useMutation<Pick<IMutation, "deleteBoardComment">, IMutationDeleteBoardCommentArgs>(DELETE_BOARD_COMMENT);
 
-  const { data } = useQuery<Pick<IQuery, "fetchBoardComments">, IQueryFetchBoardCommentsArgs>(FETCH_BOARD_COMMENTS, {
+  const { data, fetchMore } = useQuery<Pick<IQuery, "fetchBoardComments">, IQueryFetchBoardCommentsArgs>(FETCH_BOARD_COMMENTS, {
     variables: {
       boardId: String(router.query.fetchBoard),
     },
@@ -52,13 +52,11 @@ export default function CommentWrite() {
   };
 
   const changeIsOpen = () => {
-    if (!isEdit) {
-      if (!writer || !password || !contents) {
-        return Modal.warning({
-          content: "닉네임, 비밀번호, 댓글내용은 필수로 입력 해야합니다.",
-          okText: "확인",
-        });
-      }
+    if (!writer || !password || !contents) {
+      return Modal.warning({
+        content: "닉네임, 비밀번호, 댓글내용은 필수로 입력 해야합니다.",
+        okText: "확인",
+      });
     }
     setIsOpen((prev) => !prev);
   };
@@ -96,13 +94,11 @@ export default function CommentWrite() {
   };
 
   const onClickUpdate = () => {
-    if (isEdit) {
-      if (!password || !contents) {
-        return Modal.warning({
-          content: "비밀번호, 댓글내용은 필수로 입력 해야합니다.",
-          okText: "확인",
-        });
-      }
+    if (!password || !contents) {
+      return Modal.warning({
+        content: "비밀번호, 댓글내용은 필수로 입력 해야합니다.",
+        okText: "확인",
+      });
     }
 
     try {
@@ -131,7 +127,10 @@ export default function CommentWrite() {
         okText: "확인",
       });
     } catch (error) {
-      console.log(error);
+      Modal.warning({
+        content: "비밀번호가 일치하지 않습니다",
+        okText: "확인",
+      });
     }
   };
 
@@ -154,6 +153,7 @@ export default function CommentWrite() {
     const target = event.target as HTMLImageElement;
     setIsOpenDelete((prev) => !prev);
     setBoardCommentId(target.id);
+    setModalPassword("");
   };
 
   const onClickDelete = async () => {
@@ -188,6 +188,18 @@ export default function CommentWrite() {
     }
   };
 
+  const moreComments = () => {
+    fetchMore({
+      variables: {
+        page: Math.ceil((data?.fetchBoardComments.length ?? 10) / 10) + 1,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return { fetchBoardComments: [...prev.fetchBoardComments] };
+        return { fetchBoardComments: [...prev.fetchBoardComments, ...fetchMoreResult.fetchBoardComments] };
+      },
+    });
+  };
+
   // prettier-ignore
 
   return <CommentWriteUI 
@@ -205,6 +217,7 @@ export default function CommentWrite() {
     onClickDelete={onClickDelete}
     ChangeIsOpenDelete={ChangeIsOpenDelete}
     onChangeModalPassword={onChangeModalPassword}
+    moreComments={moreComments}
     rating={rating}
     writer={writer} 
     password={password} 

@@ -1,6 +1,7 @@
 import * as Style from "./BoardCommentWrite.styles";
 import { ICommentWriteUI, IEl } from "./BoardCommentWrite.types";
 import { Modal, Rate } from "antd";
+import InfiniteScroll from "react-infinite-scroller";
 
 export function CommentWriteUI(props: ICommentWriteUI) {
   return (
@@ -18,31 +19,32 @@ export function CommentWriteUI(props: ICommentWriteUI) {
         )}
         <Style.WriteComment onChange={props.onChangeContents} placeholder={props.isEdit ? "수정할 내용을 입력해 주세요" : "댓글을 작성해 주세요."} value={props.contents}></Style.WriteComment>
       </Style.WriteWrapper>
+      <InfiniteScroll pageStart={0} loadMore={props.moreComments} hasMore={true}>
+        {props.data?.fetchBoardComments.map((el: IEl) => (
+          <Style.FetchWrapper key={el._id}>
+            <Style.FetchUserBox>
+              <Style.FetchUserProfile src="/fetchBoard/profile.png" />
+              <Style.FetchUserWriter>{el.writer}</Style.FetchUserWriter>
+            </Style.FetchUserBox>
 
-      {props.data?.fetchBoardComments.map((el: IEl) => (
-        <Style.FetchWrapper key={el._id}>
-          <Style.FetchUserBox>
-            <Style.FetchUserProfile src="/fetchBoard/profile.png" />
-            <Style.FetchUserWriter>{el.writer}</Style.FetchUserWriter>
-          </Style.FetchUserBox>
+            <Style.FetchCommentBox>
+              <Style.FetchCommentUtilityBox>
+                <div>
+                  {el.rating} / 5 | {el.createdAt.slice(0, 10).replaceAll("-", ".")}
+                </div>
+                <Style.CommentUtility>
+                  <Style.CommentUtilityImg id={el._id} src="/comment/update.png" onClick={props.onClickUpdateMove} />
+                  <Style.CommentUtilityImg id={el._id} src="/comment/delete.png" onClick={props.ChangeIsOpenDelete} />
+                </Style.CommentUtility>
+              </Style.FetchCommentUtilityBox>
 
-          <Style.FetchCommentBox>
-            <Style.FetchCommentUtilityBox>
-              <div>
-                {el.rating} / 5 | {el.createdAt.slice(0, 10).replaceAll("-", ".")}
-              </div>
-              <Style.CommentUtility>
-                <Style.CommentUtilityImg id={el._id} src="/comment/update.png" onClick={props.onClickUpdateMove} />
-                <Style.CommentUtilityImg id={el._id} src="/comment/delete.png" onClick={props.ChangeIsOpenDelete} />
-              </Style.CommentUtility>
-            </Style.FetchCommentUtilityBox>
+              <Style.FetchCommentLine></Style.FetchCommentLine>
 
-            <Style.FetchCommentLine></Style.FetchCommentLine>
-
-            <Style.FetchComment>{el.contents}</Style.FetchComment>
-          </Style.FetchCommentBox>
-        </Style.FetchWrapper>
-      ))}
+              <Style.FetchComment>{el.contents}</Style.FetchComment>
+            </Style.FetchCommentBox>
+          </Style.FetchWrapper>
+        ))}
+      </InfiniteScroll>
       {props.isOpenDelete && (
         <Modal title="비밀번호를 입력해주세요." open={true} onOk={props.onClickDelete} onCancel={props.ChangeIsOpenDelete}>
           <Style.ModalInput type="password" onChange={props.onChangeModalPassword} />

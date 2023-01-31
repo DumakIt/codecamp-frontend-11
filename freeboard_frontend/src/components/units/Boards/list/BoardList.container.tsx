@@ -1,14 +1,16 @@
 import { BoardListUI } from "./BoardList.presenter";
 import { useQuery } from "@apollo/client";
-import { FETCH_BOARDS } from "./BoardList.queries";
-import { IQuery, IQueryFetchBoardsArgs } from "../../../../commons/types/generated/types";
+import { FETCH_BOARDS, FETCH_BOARDS_COUNT } from "./BoardList.queries";
+import { IQuery, IQueryFetchBoardsArgs, IQueryFetchBoardsCountArgs } from "../../../../commons/types/generated/types";
 import { useRouter } from "next/router";
+import { MouseEvent } from "react";
 
 export default function BoardList() {
   const router = useRouter();
-  const { data } = useQuery<Pick<IQuery, "fetchBoards">, IQueryFetchBoardsArgs>(FETCH_BOARDS);
+  const { data, refetch } = useQuery<Pick<IQuery, "fetchBoards">, IQueryFetchBoardsArgs>(FETCH_BOARDS);
+  const { data: lastListNum } = useQuery<Pick<IQuery, "fetchBoardsCount">, IQueryFetchBoardsCountArgs>(FETCH_BOARDS_COUNT);
 
-  const onClickTitle = (event: React.MouseEvent<HTMLDivElement>) => {
+  const onClickTitle = (event: MouseEvent<HTMLDivElement>) => {
     const target = event.target as HTMLDivElement;
     router.push(`/boards/${target.id}`);
   };
@@ -16,14 +18,13 @@ export default function BoardList() {
   const onClickBoardWrite = () => {
     router.push(`/boards/new`);
   };
-
   // prettier-ignore
   return(
     <BoardListUI
-    data = {data}
-    onClickTitle={onClickTitle}
-    onClickBoardWrite={onClickBoardWrite}
-    />
-    
+      data={data}
+      lastListNum={lastListNum?.fetchBoardsCount}
+      refetch={refetch}
+      onClickTitle={onClickTitle}
+      onClickBoardWrite={onClickBoardWrite}/>
   )
 }

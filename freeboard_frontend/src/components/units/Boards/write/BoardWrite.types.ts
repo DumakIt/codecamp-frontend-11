@@ -47,7 +47,6 @@ export interface IBoardWriteUi {
   passwordErr: string;
   titleErr: string;
   ContentsErr: string;
-  updateErr: boolean;
   isActive: boolean;
   isEdit: boolean;
   data: any;

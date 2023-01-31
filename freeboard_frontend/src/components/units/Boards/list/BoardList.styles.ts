@@ -8,6 +8,7 @@ export const ListWrapper = styled.div`
   width: 1200px;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
+  border: 1px solid red;
 `;
 
 export const ListHeader = styled.div`
@@ -76,7 +77,6 @@ export const ListBody = styled.div`
 `;
 
 export const WriteBtn = styled.button`
-  margin-top: 20px;
   width: 171px;
   height: 52px;
   background-color: white;
@@ -85,5 +85,6 @@ export const WriteBtn = styled.button`
   cursor: pointer;
   position: absolute;
   right: 0;
+  bottom: 0;
   font-size: 16px;
 `;

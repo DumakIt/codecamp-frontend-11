@@ -25,8 +25,6 @@ export default function BoardWrite(props: IBoardWriteProps) {
 
   const [isActive, setIsActive] = useState(false);
   const [addressModalOpen, setAddressModalOpen] = useState(false);
-  const [updateErr, setUpdateErr] = useState(false);
-  const [updateErrMessage, setUpdateErrMessage] = useState("");
 
   function onChangeWriter(event: React.ChangeEvent<HTMLInputElement>) {
     setWriter(event.target.value);
@@ -165,7 +163,6 @@ export default function BoardWrite(props: IBoardWriteProps) {
     passwordErr = {passwordErr}
     titleErr = {titleErr}
     ContentsErr = {ContentsErr}
-    updateErr = {updateErr}
     isActive = {isActive}
     isEdit = {props.isEdit}
     data = {props.data}

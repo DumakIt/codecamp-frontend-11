@@ -15,6 +15,7 @@ export interface ICommentWriteUI {
   onClickDelete: (event: any) => void;
   ChangeIsOpenDelete: (event: any) => void;
   onChangeModalPassword: (event: ChangeEvent<HTMLInputElement>) => void;
+  moreComments: () => void;
   writer: string;
   password: string;
   contents: string;
