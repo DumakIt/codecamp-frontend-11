@@ -1,14 +1,10 @@
 import styled from "@emotion/styled";
 
-export const ListContainer = styled.div`
-  position: relative;
-`;
-
 export const ListWrapper = styled.div`
+  position: relative;
   width: 1200px;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
-  border: 1px solid red;
 `;
 
 export const ListHeader = styled.div`
@@ -85,6 +81,6 @@ export const WriteBtn = styled.button`
   cursor: pointer;
   position: absolute;
   right: 0;
-  bottom: 0;
+  bottom: -67px;
   font-size: 16px;
 `;

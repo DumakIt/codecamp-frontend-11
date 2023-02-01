@@ -189,12 +189,13 @@ export default function CommentWrite() {
   };
 
   const moreComments = () => {
+    if (data === undefined) return;
     fetchMore({
       variables: {
         page: Math.ceil((data?.fetchBoardComments.length ?? 10) / 10) + 1,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return { fetchBoardComments: [...prev.fetchBoardComments] };
+        if (fetchMoreResult?.fetchBoardComments === undefined) return { fetchBoardComments: [...prev.fetchBoardComments] };
         return { fetchBoardComments: [...prev.fetchBoardComments, ...fetchMoreResult.fetchBoardComments] };
       },
     });

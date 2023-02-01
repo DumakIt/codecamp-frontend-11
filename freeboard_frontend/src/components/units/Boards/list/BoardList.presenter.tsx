@@ -4,7 +4,7 @@ import PaginationPage from "../../../commons/pagination/Pagination.container";
 
 export function BoardListUI(props: IBoardListUI) {
   return (
-    <Style.ListContainer>
+    <div>
       <Style.ListWrapper>
         <Style.ListHeader>
           <div>번호</div>
@@ -22,9 +22,9 @@ export function BoardListUI(props: IBoardListUI) {
             <div>{el.createdAt.slice(0, 10).replaceAll("-", ".")}</div>
           </Style.ListBody>
         ))}
+        <Style.WriteBtn onClick={props.onClickBoardWrite}>게시물 등록하기</Style.WriteBtn>
       </Style.ListWrapper>
       <PaginationPage lastListNum={props.lastListNum} refetch={props.refetch} />
-      <Style.WriteBtn onClick={props.onClickBoardWrite}>게시물 등록하기</Style.WriteBtn>
-    </Style.ListContainer>
+    </div>
   );
 }

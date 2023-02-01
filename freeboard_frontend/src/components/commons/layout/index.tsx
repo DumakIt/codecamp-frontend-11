@@ -11,15 +11,22 @@ const Container = styled.div`
   width: 100%;
 `;
 
+const LayoutBody = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
 export default function Layout(props: ILayoutProps): JSX.Element {
   return (
     <Container>
       <LayoutHeader />
       <LayoutBanner />
-      <div style={{ display: "flex" }}>
+
+      <LayoutBody>
         <LayoutSidebar />
         {props.children}
-      </div>
+      </LayoutBody>
     </Container>
   );
 }

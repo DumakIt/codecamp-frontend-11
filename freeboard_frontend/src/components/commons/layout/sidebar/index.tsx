@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
 
 const Wrapper = styled.div`
-  width: 200px;
+  width: 10%;
+  position: absolute;
+  left: 0;
   background-color: skyblue;
 `;
 
 export default function LayoutSidebar(): JSX.Element {
-  return <Wrapper>사이드바</Wrapper>;
+  return <Wrapper></Wrapper>;
 }

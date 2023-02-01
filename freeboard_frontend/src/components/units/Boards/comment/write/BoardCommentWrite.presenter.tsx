@@ -30,7 +30,7 @@ export function CommentWriteUI(props: ICommentWriteUI) {
             <Style.FetchCommentBox>
               <Style.FetchCommentUtilityBox>
                 <div>
-                  {el.rating} / 5 | {el.createdAt.slice(0, 10).replaceAll("-", ".")}
+                  <Rate disabled defaultValue={el.rating} /> | {el.createdAt.slice(0, 10).replaceAll("-", ".")}
                 </div>
                 <Style.CommentUtility>
                   <Style.CommentUtilityImg id={el._id} src="/comment/update.png" onClick={props.onClickUpdateMove} />

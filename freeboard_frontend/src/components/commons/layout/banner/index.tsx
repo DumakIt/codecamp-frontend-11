@@ -2,25 +2,12 @@ import styled from "@emotion/styled";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { LeftOutlined } from "@ant-design/icons";
 
 const Wrapper = styled.div`
-  width: 1920px;
+  width: 100%;
   height: 400px;
+  margin-bottom: 40px;
 `;
-
-// const MyIcon = styled(LeftOutlined)`
-//   transform: translate(0, -50%);
-//   font-size: 100px;
-//   right: 100px;
-//   color: white;
-//   top: 50%;
-//   border: 1px solid red;
-// `;
-
-// function NextArrow({ className, style, onClick }) {
-//   return <MyIcon className={className} style={{ ...style }} onClick={onClick} />;
-// }
 
 const CustomSlider = styled(Slider)`
   .slick-prev {
@@ -61,6 +48,17 @@ const CustomSlider = styled(Slider)`
   }
 `;
 
+const ImgDiv = styled.div`
+  width: 100%;
+  height: 400px;
+`;
+
+const Img = styled.img`
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+`;
+
 export default function LayoutBanner(): JSX.Element {
   const settings = {
     dots: true,
@@ -69,22 +67,21 @@ export default function LayoutBanner(): JSX.Element {
     speed: 1000,
     autoplay: true,
     autoplaySpeed: 8000,
-    // nextArrow: <NextArrow />,
   };
 
   return (
     <Wrapper>
       <CustomSlider {...settings}>
-        <div>
+        <ImgDiv>
           <a href="https://github.com/DumakIt" target="_blank">
-            <img src={"/banner/GitHub.png"} />
+            <Img src={"/banner/GitHub.png"} />
           </a>
-        </div>
-        <div>
+        </ImgDiv>
+        <ImgDiv>
           <a href="https://velog.io/@dumakit" target="_blank">
-            <img src={"/banner/velog.png"} />
+            <Img src={"/banner/velog.png"} />
           </a>
-        </div>
+        </ImgDiv>
       </CustomSlider>
     </Wrapper>
   );
