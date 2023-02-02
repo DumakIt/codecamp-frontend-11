@@ -23,10 +23,7 @@ export default function Layout(props: ILayoutProps): JSX.Element {
       <LayoutHeader />
       <LayoutBanner />
 
-      <LayoutBody>
-        <LayoutSidebar />
-        {props.children}
-      </LayoutBody>
+      <LayoutBody>{props.children}</LayoutBody>
     </Container>
   );
 }

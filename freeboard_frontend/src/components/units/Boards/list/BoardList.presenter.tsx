@@ -1,10 +1,12 @@
 import * as Style from "./BoardList.styles";
 import { IBoardListUI, IEl } from "./BoardList.type";
 import PaginationPage from "../../../commons/pagination/Pagination.container";
+import BestBoards from "../bestBoards/BestBoards.container";
 
 export function BoardListUI(props: IBoardListUI) {
   return (
-    <div>
+    <Style.ListContainer>
+      <BestBoards />
       <Style.ListWrapper>
         <Style.ListHeader>
           <div>번호</div>
@@ -25,6 +27,6 @@ export function BoardListUI(props: IBoardListUI) {
         <Style.WriteBtn onClick={props.onClickBoardWrite}>게시물 등록하기</Style.WriteBtn>
       </Style.ListWrapper>
       <PaginationPage lastListNum={props.lastListNum} refetch={props.refetch} />
-    </div>
+    </Style.ListContainer>
   );
 }

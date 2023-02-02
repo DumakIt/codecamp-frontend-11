@@ -17,20 +17,19 @@ export default function PaginationPage(props: IPaginationPageProps) {
   const onClickPrev = () => {
     if (startPage === 1) return;
     props.refetch({
-      page: isActivePage - 10,
+      page: startPage - 10,
     });
     setStartPage(startPage - 10);
-    setIsActivePage(isActivePage - 10);
+    setIsActivePage(startPage - 10);
   };
-  console.log(startPage);
 
   const onClickNext = () => {
     if (startPage + 10 > lastPage) return;
     props.refetch({
-      page: isActivePage + 10,
+      page: startPage + 10,
     });
     setStartPage(startPage + 10);
-    setIsActivePage(isActivePage + 10);
+    setIsActivePage(startPage + 10);
   };
 
   // prettier-ignore

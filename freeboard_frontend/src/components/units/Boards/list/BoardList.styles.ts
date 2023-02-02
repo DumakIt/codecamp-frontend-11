@@ -1,7 +1,12 @@
 import styled from "@emotion/styled";
 
+export const ListContainer = styled.div`
+  width: 100%;
+`;
+
 export const ListWrapper = styled.div`
   position: relative;
+  margin: auto;
   width: 1200px;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
