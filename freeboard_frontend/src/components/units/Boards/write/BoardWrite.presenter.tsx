@@ -42,7 +42,7 @@ export function BoardWriteUi(props: IBoardWriteUi) {
             )}
           </AddressSearch>
           <AddressInput type="text" readOnly value={props.address ? props.address : props.data?.fetchBoard.boardAddress?.address ?? ""} />
-          <AddressInput type="text" onChange={props.onChangeAddressDetail} defaultValue={props.data ? props.data.fetchBoard.boardAddress.addressDetail : ""} />
+          <AddressInput type="text" onChange={props.onChangeAddressDetail} defaultValue={props.data?.fetchBoard.boardAddress ? props.data.fetchBoard.boardAddress.addressDetail : ""} />
         </WrapperBox>
         <WrapperBox>
           <YoutubeText>유튜브</YoutubeText>
