@@ -1,7 +1,6 @@
 import {
   collection,
   addDoc,
-  getDoc,
   getFirestore,
   getDocs,
 } from "firebase/firestore/lite";

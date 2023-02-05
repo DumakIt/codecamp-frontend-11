@@ -190,6 +190,7 @@ export default function CommentWrite() {
 
   const moreComments = () => {
     if (data === undefined) return;
+
     fetchMore({
       variables: {
         page: Math.ceil((data?.fetchBoardComments.length ?? 10) / 10) + 1,

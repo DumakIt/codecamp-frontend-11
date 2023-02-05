@@ -1,5 +1,5 @@
-import RandomImg from "../../src/components/units/OpenApi/OpenApi.container";
+import MyMenu from "../../src/components/units/MyMenu/MyMenu.container";
 
-export default function RandomImgPage(): JSX.Element {
-  return <RandomImg />;
+export default function MyMenuPage(): JSX.Element {
+  return <MyMenu />;
 }

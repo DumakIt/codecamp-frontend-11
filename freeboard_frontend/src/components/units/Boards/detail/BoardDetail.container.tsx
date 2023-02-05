@@ -13,7 +13,7 @@ export default function BoardDetail() {
 
   const { data } = useQuery(FETCH_BOARD, {
     variables: {
-      boardId: router.query.fetchBoard,
+      boardId: String(router.query.fetchBoard),
     },
   });
   const deleteModal = () => {

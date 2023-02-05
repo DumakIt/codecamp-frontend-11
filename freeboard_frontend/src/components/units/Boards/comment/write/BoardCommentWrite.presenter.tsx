@@ -43,7 +43,7 @@ export function CommentWriteUI(props: ICommentWriteUI) {
               <Style.FetchComment>{el.contents}</Style.FetchComment>
             </Style.FetchCommentBox>
           </Style.FetchWrapper>
-        ))}
+        )) ?? <div></div>}
       </InfiniteScroll>
       {props.isOpenDelete && (
         <Modal title="비밀번호를 입력해주세요." open={true} onOk={props.onClickDelete} onCancel={props.ChangeIsOpenDelete}>
