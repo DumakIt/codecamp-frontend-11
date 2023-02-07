@@ -41,6 +41,7 @@ export default function ImageUploadPage(): JSX.Element {
 
   const onClickImage = (): void => {
     fileRef.current?.click();
+    console.log(fileRef);
   };
 
   return (

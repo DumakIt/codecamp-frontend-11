@@ -1,15 +1,17 @@
 import { useRouter } from "next/router";
 import { useQuery, useMutation } from "@apollo/client";
-import { FETCH_BOARD, DELETE_BOARD } from "./BoatdDetail.queries";
+import { FETCH_BOARD, DELETE_BOARD, LIKE_BOARD, DISLIKE_BOARD } from "./BoardDetail.queries";
 import { useState } from "react";
 import { BoardDetailUI } from "./BoardDetail.presenter";
-import { IMutation, IMutationDeleteBoardArgs } from "../../../../commons/types/generated/types";
+import { IMutation, IMutationDeleteBoardArgs, IMutationDislikeBoardArgs, IMutationLikeBoardArgs } from "../../../../commons/types/generated/types";
 
 export default function BoardDetail() {
   const [opacity, setOpacity] = useState(0);
   const [isDelete, setIsDelete] = useState(false);
   const router = useRouter();
   const [deleteBoard] = useMutation<Pick<IMutation, "deleteBoard">, IMutationDeleteBoardArgs>(DELETE_BOARD);
+  const [likeBoard] = useMutation<Pick<IMutation, "likeBoard">, IMutationLikeBoardArgs>(LIKE_BOARD);
+  const [dislikeBoard] = useMutation<Pick<IMutation, "dislikeBoard">, IMutationDislikeBoardArgs>(DISLIKE_BOARD);
 
   const { data } = useQuery(FETCH_BOARD, {
     variables: {
@@ -40,6 +42,38 @@ export default function BoardDetail() {
     }
   };
 
+  const onClickLike = () => {
+    likeBoard({
+      variables: {
+        boardId: String(router.query.fetchBoard),
+      },
+      refetchQueries: [
+        {
+          query: FETCH_BOARD,
+          variables: {
+            boardId: String(router.query.fetchBoard),
+          },
+        },
+      ],
+    });
+  };
+
+  const onClickDisLike = () => {
+    dislikeBoard({
+      variables: {
+        boardId: String(router.query.fetchBoard),
+      },
+      refetchQueries: [
+        {
+          query: FETCH_BOARD,
+          variables: {
+            boardId: String(router.query.fetchBoard),
+          },
+        },
+      ],
+    });
+  };
+
   const onClickEdit = () => {
     router.push(`/boards/${router.query.fetchBoard}/edit`);
   };
@@ -57,6 +91,8 @@ export default function BoardDetail() {
     onClickDeleteBoard = {onClickDeleteBoard}
     onClickEdit = {onClickEdit}
     onClickList = {onClickList}
+    onClickLike={onClickLike}
+    onClickDisLike={onClickDisLike}
     isDelete = {isDelete}
     deleteModal={deleteModal}
     />

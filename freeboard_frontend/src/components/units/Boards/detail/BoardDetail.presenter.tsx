@@ -36,11 +36,11 @@ export function BoardDetailUI(props: IBoardDetailUI) {
         </BoardYoutubeWrapper>
         <BoardLikeWrapper>
           <BoardLikeBox>
-            <BoardLikeIcon src="/fetchBoard/like.png" />
+            <BoardLikeIcon src="/fetchBoard/like.png" onClick={props.onClickLike} />
             <BoardLikeCount>{props.data?.fetchBoard.likeCount}</BoardLikeCount>
           </BoardLikeBox>
           <BoardDisLikeBox>
-            <BoardDisLikeIcon src="/fetchBoard/disLike.png" />
+            <BoardDisLikeIcon src="/fetchBoard/disLike.png" onClick={props.onClickDisLike} />
             <BoardDisLikeCount>{props.data?.fetchBoard.dislikeCount}</BoardDisLikeCount>
           </BoardDisLikeBox>
         </BoardLikeWrapper>
