@@ -74,12 +74,12 @@ export default function LayoutBanner(): JSX.Element {
       <CustomSlider {...settings}>
         <ImgDiv>
           <a href="https://github.com/DumakIt" target="_blank">
-            <Img src={"/banner/GitHub.png"} />
+            <Img src={"/layout/GitHub.png"} />
           </a>
         </ImgDiv>
         <ImgDiv>
           <a href="https://velog.io/@dumakit" target="_blank">
-            <Img src={"/banner/velog.png"} />
+            <Img src={"/layout/velog.png"} />
           </a>
         </ImgDiv>
       </CustomSlider>

@@ -1,4 +1,4 @@
-import { Background, Container, WrapperUserInfo, UserInfoText, UserInfoWriter, UserInfoPasswordText, UserInfoPassword, TitleText, WrapperBox, TitleInput, ContentsTextarea, AddressText, AddressSearch, AddressNum, AddressBtn, AddressInput, YoutubeText, YoutubeInput, ImagesText, ImagesAddBox, ImagesAdd, ImagesAddPlus, ImagesAddText, MainSettingText, MainSettingRadioBox, MainSettingRadioColor, RegBtn, ErrText } from "./BoardWrite.styles";
+import { Background, Container, WrapperUserInfo, UserInfoText, UserInfoWriter, UserInfoPasswordText, UserInfoPassword, TitleText, WrapperBox, TitleInput, ContentsTextarea, AddressText, AddressSearch, AddressNum, AddressBtn, AddressInput, YoutubeText, YoutubeInput, ImagesText, ImagesAddBox, ImagesAdd, ImagesAddPlus, ImagesAddText, Img, MainSettingText, MainSettingRadioBox, MainSettingRadioColor, RegBtn, ErrText } from "./BoardWrite.styles";
 import { IBoardWriteUi } from "./BoardWrite.types";
 import DaumPostcodeEmbed from "react-daum-postcode";
 import { Modal } from "antd";
@@ -51,18 +51,38 @@ export function BoardWriteUi(props: IBoardWriteUi) {
         <WrapperBox>
           <ImagesText>사진 첨부</ImagesText>
           <ImagesAddBox>
-            <ImagesAdd>
+            <input type="file" style={{ display: "none" }} ref={props.imgRef} onChange={props.onChangeImg} accept="image/jpeg, image/png" />
+
+            {props.isEdit ? (
+              <div>
+                <Img src={props.data?.fetchBoard.images.length ? `https://storage.googleapis.com/${props.data?.fetchBoard.images[0]}` : "/addPost/addImg.png"} onClick={props.onClickImgAdd} />
+                <Img src={props.data?.fetchBoard.images.length ? `https://storage.googleapis.com/${props.data?.fetchBoard.images[1]}` : "/addPost/addImg.png"} onClick={props.onClickImgAdd} />
+                <Img src={props.data?.fetchBoard.images.length ? `https://storage.googleapis.com/${props.data?.fetchBoard.images[2]}` : "/addPost/addImg.png"} onClick={props.onClickImgAdd} />
+              </div>
+            ) : (
+              <div>
+                <Img src={props.images[0] ? `https://storage.googleapis.com/${props.images[0]}` : "/addPost/addImg.png"} onClick={props.onClickImgAdd} />
+                <Img src={props.images[1] ? `https://storage.googleapis.com/${props.images[1]}` : "/addPost/addImg.png"} onClick={props.onClickImgAdd} />
+                <Img src={props.images[2] ? `https://storage.googleapis.com/${props.images[2]}` : "/addPost/addImg.png"} onClick={props.onClickImgAdd} />
+              </div>
+            )}
+
+            {/* {props.data?.fetchBoard.images.length ? props.data.fetchBoard.images.map((el) => <Img src={`https://storage.googleapis.com/${el.url}`} />) : new Array(3).fill(1).map((_) => <Img src="/addPost/addImg.png" />)} */}
+
+            {/* {props.data?.fetchBoard.images.length} */}
+
+            {/* <ImagesAdd onClick={props.onClickImgAdd}>
               <ImagesAddPlus src="/addPost/Plus.png" />
               <ImagesAddText>Upload</ImagesAddText>
             </ImagesAdd>
-            <ImagesAdd>
+            <ImagesAdd onClick={props.onClickImgAdd}>
               <ImagesAddPlus src="/addPost/Plus.png" />
               <ImagesAddText>Upload</ImagesAddText>
             </ImagesAdd>
-            <ImagesAdd>
+            <ImagesAdd onClick={props.onClickImgAdd}>
               <ImagesAddPlus src="/addPost/Plus.png" />
               <ImagesAddText>Upload</ImagesAddText>
-            </ImagesAdd>
+            </ImagesAdd> */}
           </ImagesAddBox>
         </WrapperBox>
         <WrapperBox>

@@ -4,6 +4,7 @@ import { FETCH_BOARD, DELETE_BOARD, LIKE_BOARD, DISLIKE_BOARD } from "./BoardDet
 import { useState } from "react";
 import { BoardDetailUI } from "./BoardDetail.presenter";
 import { IMutation, IMutationDeleteBoardArgs, IMutationDislikeBoardArgs, IMutationLikeBoardArgs } from "../../../../commons/types/generated/types";
+import { isNullish } from "@apollo/client/cache/inmemory/helpers";
 
 export default function BoardDetail() {
   const [opacity, setOpacity] = useState(0);
@@ -35,8 +36,10 @@ export default function BoardDetail() {
   };
 
   const AddressBoxWrapperOpacity = () => {
+    if (data.fetchBoard.boardAddress === null || !data.fetchBoard.boardAddress.zipcode) return;
+
     if (opacity === 0) {
-      setOpacity(100);
+      setOpacity(1);
     } else {
       setOpacity(0);
     }

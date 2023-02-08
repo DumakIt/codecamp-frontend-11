@@ -11,8 +11,7 @@ export default function BoardList() {
   const { data: lastListNum } = useQuery<Pick<IQuery, "fetchBoardsCount">, IQueryFetchBoardsCountArgs>(FETCH_BOARDS_COUNT);
 
   const onClickTitle = (event: MouseEvent<HTMLDivElement>) => {
-    const target = event.target as HTMLDivElement;
-    router.push(`/boards/${target.id}`);
+    router.push(`/boards/${event.currentTarget.id}`);
   };
 
   const onClickBoardWrite = () => {

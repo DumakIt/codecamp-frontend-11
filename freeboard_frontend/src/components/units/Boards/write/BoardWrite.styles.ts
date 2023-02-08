@@ -155,6 +155,14 @@ export const ImagesAddText = styled.div`
   color: #4f4f4f;
 `;
 
+export const Img = styled.img`
+  cursor: pointer;
+  width: 78px;
+  height: 78px;
+  object-fit: contain;
+  margin-right: 24px;
+`;
+
 export const MainSettingText = styled.div`
   margin: 40px 0px 16px;
 `;

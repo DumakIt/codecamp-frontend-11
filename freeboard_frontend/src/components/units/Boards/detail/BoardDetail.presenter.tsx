@@ -1,18 +1,24 @@
 import { Modal } from "antd";
-import { Container, AddressBox, Triangle, UserInfoWrapper, UserInfoDataWrapper, UserInfoDataWriter, UserInfoUpdatedAt, UserInfoIconWrapper, UserInfoIconLink, UserInfoIconLocation, DivideLine, BoardTitle, BoardImg, BoardContents, BoardYoutubeWrapper, BoardYoutube, BoardLikeWrapper, BoardLikeBox, BoardLikeIcon, BoardLikeCount, BoardDisLikeBox, BoardDisLikeIcon, BoardDisLikeCount, FunctionBtnWrapper, FunctionBtn } from "./BoardDetail.styles";
+import { Container, AddressBox, Triangle, UserInfoWrapper, UserInfoDataWrapper, UserInfoDataWriter, UserInfoUpdatedAt, UserInfoIconWrapper, UserInfoIconLink, UserInfoIconLocation, DivideLine, BoardTitle, ImgWrapper, Img, BoardContents, VideoWrapper, BoardLikeWrapper, BoardLikeBox, BoardLikeIcon, BoardLikeCount, BoardDisLikeBox, BoardDisLikeIcon, BoardDisLikeCount, FunctionBtnWrapper, FunctionBtn } from "./BoardDetail.styles";
 import { IBoardDetailUI } from "./BoardDetail.types";
+import ReactPlayer from "react-player";
 
 export function BoardDetailUI(props: IBoardDetailUI) {
   return (
     <div>
       <Container>
-        <div style={{ opacity: props.opacity }}>
-          <AddressBox>
-            <div>{props.data?.fetchBoard.boardAddress && props.data?.fetchBoard.boardAddress.address}</div>
-            <div>{props.data?.fetchBoard.boardAddress && props.data?.fetchBoard.boardAddress.addressDetail}</div>
-          </AddressBox>
-          <Triangle src="/fetchBoard/triangle.png" />
-        </div>
+        {props.data?.fetchBoard.boardAddress ? (
+          <div style={{ opacity: props.opacity }}>
+            <AddressBox>
+              <div>{props.data?.fetchBoard.boardAddress.address}</div>
+              <div>{props.data?.fetchBoard.boardAddress.addressDetail}</div>
+            </AddressBox>
+            <Triangle src="/fetchBoard/triangle.png" />
+          </div>
+        ) : (
+          <></>
+        )}
+
         <UserInfoWrapper>
           <img src="/fetchBoard/profile.png" />
           <UserInfoDataWrapper>
@@ -25,15 +31,13 @@ export function BoardDetailUI(props: IBoardDetailUI) {
           </UserInfoIconWrapper>
         </UserInfoWrapper>
         <DivideLine />
+        <BoardTitle>{props.data?.fetchBoard.title}</BoardTitle>
 
-        <div>
-          <BoardTitle>{props.data?.fetchBoard.title}</BoardTitle>
-          <BoardImg />
-          <BoardContents>{props.data?.fetchBoard.contents}</BoardContents>
-        </div>
-        <BoardYoutubeWrapper>
-          <BoardYoutube />
-        </BoardYoutubeWrapper>
+        <ImgWrapper>{props.data?.fetchBoard.images.length ? props.data.fetchBoard.images.map((el) => <Img src={`https://storage.googleapis.com/${el}`} key={el} />) : <></>}</ImgWrapper>
+
+        <BoardContents>{props.data?.fetchBoard.contents}</BoardContents>
+
+        <VideoWrapper>{props.data ? <ReactPlayer url={props.data?.fetchBoard.youtubeUrl} /> : <></>}</VideoWrapper>
         <BoardLikeWrapper>
           <BoardLikeBox>
             <BoardLikeIcon src="/fetchBoard/like.png" onClick={props.onClickLike} />

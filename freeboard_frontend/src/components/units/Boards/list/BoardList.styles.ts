@@ -52,9 +52,13 @@ export const ListBody = styled.div`
   color: #4f4f4f;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  line-height: 52px;
   text-align: center;
   border-top: 1px solid #bdbdbd;
+
+  & > div {
+    height: 100%;
+  }
 
   & > div:first-of-type {
     width: 80px;
@@ -68,6 +72,9 @@ export const ListBody = styled.div`
   & > div:nth-of-type(2) {
     width: 700px;
     cursor: pointer;
+    :hover {
+      text-decoration: underline;
+    }
   }
 
   & > div:nth-of-type(3) {

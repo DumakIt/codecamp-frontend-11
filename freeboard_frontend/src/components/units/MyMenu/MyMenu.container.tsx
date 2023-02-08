@@ -7,7 +7,7 @@ import MyMenuUI from "./MyMenu.presentor";
 
 export default function MyMenu(): JSX.Element {
   const [catImgResult, setCatImgResult] = useState([[], [], []]);
-  const accessDB = collection(getFirestore(firebaseApp), "savCats");
+  const accessDB = collection(getFirestore(firebaseApp), "saveCatsssss", "aaaa", "cccc");
 
   const getImg = async () => {
     const arr = [[], [], []];
@@ -52,7 +52,6 @@ export default function MyMenu(): JSX.Element {
     console.log(datas);
   };
 
-  console.log(catImgResult);
   //prettier-ignore
 
   return <MyMenuUI 

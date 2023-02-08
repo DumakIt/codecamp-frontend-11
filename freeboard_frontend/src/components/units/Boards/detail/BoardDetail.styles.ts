@@ -86,11 +86,17 @@ export const BoardTitle = styled.div`
   font-size: 36px;
 `;
 
-export const BoardImg = styled.div`
-  width: 100%;
-  height: 480px;
+export const ImgWrapper = styled.div`
   margin: 40px 0;
-  background: #f2f2f2;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+export const Img = styled.div`
+  width: 30%;
+  height: 20%;
+  object-fit: contain;
 `;
 
 export const BoardContents = styled.div`
@@ -100,20 +106,13 @@ export const BoardContents = styled.div`
   white-space: pre-wrap;
 `;
 
-export const BoardYoutubeWrapper = styled.div`
+export const VideoWrapper = styled.div`
   margin-top: 120px;
   align-self: center;
-  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-`;
-
-export const BoardYoutube = styled.iframe`
-  width: 486px;
-  height: 240px;
-  border: none;
 `;
 
 export const BoardLikeWrapper = styled.div`

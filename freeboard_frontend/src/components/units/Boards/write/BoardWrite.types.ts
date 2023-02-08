@@ -1,5 +1,4 @@
-import { ChangeEvent, MouseEvent } from "react";
-import { Address } from "react-daum-postcode";
+import { ChangeEvent, MouseEvent, MutableRefObject } from "react";
 
 export interface IBoardWriteProps {
   isEdit: boolean;
@@ -37,6 +36,8 @@ export interface IBoardWriteUi {
   onChangeYoutubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickAddressBtn: (event: MouseEvent<HTMLButtonElement>) => void;
+  onClickImgAdd: () => void;
+  onChangeImg: (event: ChangeEvent<HTMLInputElement>) => Promise<void>;
   AddressComplete: (event: any) => void;
   checkErr: (event: MouseEvent<HTMLButtonElement>) => void;
   onClickUpdate: (event: MouseEvent<HTMLButtonElement>) => void;
@@ -50,4 +51,7 @@ export interface IBoardWriteUi {
   isActive: boolean;
   isEdit: boolean;
   data: any;
+
+  imgRef: MutableRefObject<null>;
+  images: never[];
 }

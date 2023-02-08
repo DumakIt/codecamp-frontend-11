@@ -1,18 +1,21 @@
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
-import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
-import { useState } from "react";
+import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from "./BoardWrite.queries";
+import { useRef, useState } from "react";
 import { BoardWriteUi } from "./BoardWrite.presenter";
-import { IMutation, IMutationCreateBoardArgs, IMutationUpdateBoardArgs } from "../../../../commons/types/generated/types";
+import { IMutation, IMutationCreateBoardArgs, IMutationUpdateBoardArgs, IMutationUploadFileArgs } from "../../../../commons/types/generated/types";
 import { IBoardWriteProps, IMyVariables } from "./BoardWrite.types";
 import { Address } from "react-daum-postcode";
 import { Modal } from "antd";
+import { ChangeEvent } from "react";
 
 export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter();
+  const imgRef = useRef(null);
 
   const [createBoard] = useMutation<Pick<IMutation, "createBoard">, IMutationCreateBoardArgs>(CREATE_BOARD);
   const [updateBoard] = useMutation<Pick<IMutation, "updateBoard">, IMutationUpdateBoardArgs>(UPDATE_BOARD);
+  const [uploadFile] = useMutation<Pick<IMutation, "uploadFile">, IMutationUploadFileArgs>(UPLOAD_FILE);
 
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
@@ -22,39 +25,40 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [zipcode, setZipcode] = useState("");
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
+  const [images, setImages] = useState([]);
 
   const [isActive, setIsActive] = useState(false);
   const [addressModalOpen, setAddressModalOpen] = useState(false);
 
-  function onChangeWriter(event: React.ChangeEvent<HTMLInputElement>) {
+  function onChangeWriter(event: ChangeEvent<HTMLInputElement>) {
     setWriter(event.target.value);
     event.target.value ? setWriterErr("") : setWriterErr("작성자 이름을 입력해 주세요.");
     event.target.value && password && title && contents ? setIsActive(true) : setIsActive(false);
   }
 
-  function onChangePassword(event: React.ChangeEvent<HTMLInputElement>) {
+  function onChangePassword(event: ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value);
     event.target.value ? setPasswordErr("") : setPasswordErr("비밀번호를 입력해 주세요.");
     writer && event.target.value && title && contents ? setIsActive(true) : setIsActive(false);
   }
 
-  function onChangeTitle(event: React.ChangeEvent<HTMLInputElement>) {
+  function onChangeTitle(event: ChangeEvent<HTMLInputElement>) {
     setTitle(event.target.value);
     event.target.value ? setTitleErr("") : setTitleErr("제목을 입력해 주세요.");
     writer && password && event.target.value && contents ? setIsActive(true) : setIsActive(false);
   }
 
-  function onChangeContents(event: React.ChangeEvent<HTMLTextAreaElement>) {
+  function onChangeContents(event: ChangeEvent<HTMLTextAreaElement>) {
     setContents(event.target.value);
     event.target.value ? setContentsErr("") : setContentsErr("내용을 입력해 주세요.");
     writer && password && title && event.target.value ? setIsActive(true) : setIsActive(false);
   }
 
-  function onChangeYoutubeUrl(event: React.ChangeEvent<HTMLInputElement>) {
+  function onChangeYoutubeUrl(event: ChangeEvent<HTMLInputElement>) {
     setYoutubeUrl(event.target.value);
   }
 
-  function onChangeAddressDetail(event: React.ChangeEvent<HTMLInputElement>) {
+  function onChangeAddressDetail(event: ChangeEvent<HTMLInputElement>) {
     setAddressDetail(event.target.value);
   }
 
@@ -65,6 +69,24 @@ export default function BoardWrite(props: IBoardWriteProps) {
 
   const onClickAddressBtn = () => {
     setAddressModalOpen(!addressModalOpen);
+  };
+
+  const onClickImgAdd = () => {
+    imgRef.current.click();
+  };
+
+  const onChangeImg = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.currentTarget.files?.[0];
+
+    if (typeof file === "undefined") return;
+
+    const result = await uploadFile({
+      variables: {
+        file,
+      },
+    });
+
+    setImages((prev) => [...prev, result.data?.uploadFile.url]);
   };
 
   const AddressComplete = (data: Address) => {
@@ -84,6 +106,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
               title,
               contents,
               youtubeUrl,
+              images,
               boardAddress: {
                 zipcode,
                 address,
@@ -153,12 +176,16 @@ export default function BoardWrite(props: IBoardWriteProps) {
     onChangeYoutubeUrl = {onChangeYoutubeUrl}
     onChangeAddressDetail = {onChangeAddressDetail}
     onClickAddressBtn = {onClickAddressBtn}
+    onClickImgAdd={onClickImgAdd}
+    onChangeImg={onChangeImg}
     AddressComplete = {AddressComplete}
     checkErr = {checkErr}
     onClickUpdate = {onClickUpdate}
     addressModalOpen = {addressModalOpen}
     zipcode={zipcode}
     address={address}
+    imgRef={imgRef}
+    images={images}
     writerErr = {writerErr}
     passwordErr = {passwordErr}
     titleErr = {titleErr}

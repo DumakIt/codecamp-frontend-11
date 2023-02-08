@@ -1,9 +1,13 @@
-import { MouseEvent } from "react";
+import { Dispatch, MouseEvent, SetStateAction } from "react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import * as S from "./LayoutSlideBar.styles";
 
-export default function LayoutSlideBar(): JSX.Element {
+interface ILayoutSlideBarProps {
+  setLogoPath: Dispatch<SetStateAction<string>>;
+}
+
+export default function LayoutSlideBar(props: ILayoutSlideBarProps): JSX.Element {
   const router = useRouter();
   const MyWebs = [
     { title: "자유게시판", contents: "어떤 것들을 배웠고 어떤 기술을 사용했고 이런것을 느꼈다", page: "/boards/" },
@@ -14,6 +18,7 @@ export default function LayoutSlideBar(): JSX.Element {
 
   const onClickWebsWrapper = (event: MouseEvent<HTMLDivElement>) => {
     router.push(event.currentTarget.id);
+    props.setLogoPath(event.currentTarget.id);
   };
 
   const [isHover, setIsHover] = useState(false);

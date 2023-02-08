@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const BestBoardContainer = styled.div`
-  margin: 30px;
+  margin: 30px 0;
   width: 100%;
   display: flex;
   flex-direction: row;

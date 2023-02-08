@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { useState } from "react";
 import LayoutBanner from "./banner";
 import LayoutHeader from "./header";
 import LayoutSlideBar from "./slidebar/LayoutSlideBar.container";
@@ -18,10 +19,11 @@ const LayoutBody = styled.div`
 `;
 
 export default function Layout(props: ILayoutProps): JSX.Element {
+  const [logoPath, setLogoPath] = useState("");
   return (
     <Container>
-      <LayoutSlideBar />
-      <LayoutHeader />
+      <LayoutSlideBar setLogoPath={setLogoPath} />
+      <LayoutHeader logoPath={logoPath} />
       <LayoutBanner />
       <LayoutBody>{props.children}</LayoutBody>
     </Container>

@@ -18,8 +18,8 @@ export default function MyMenuUI(props: IMyMenuUIProps) {
           {props.catImgResult.map((el) => (
             <S.ImgContainer key={el.id}>
               {el.map((ql) => (
-                <S.ImgWrapper>
-                  <S.Img key={ql.id} id={ql.url} src={ql.url} onClick={props.onClickCat} />
+                <S.ImgWrapper key={ql.id} id={ql.url} onClick={props.onClickCat}>
+                  <S.Img src={ql.url} />
                   <div>+</div>
                 </S.ImgWrapper>
               ))}
@@ -27,7 +27,7 @@ export default function MyMenuUI(props: IMyMenuUIProps) {
           ))}
         </S.ImgGrid>
       </InfiniteScroll>
-      <S.navBar>dddd</S.navBar>
+      <S.navBar></S.navBar>
     </S.Container>
   );
 }
