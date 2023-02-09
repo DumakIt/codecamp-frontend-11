@@ -46,22 +46,38 @@ function solution(n, m) {
 // 풀다가 다 못풀었다 이런 접근방식은 안좋다라는걸 깨닫고 시간이 지났다...
 //-----------------------------------------------------------------------------------
 
-function solution(n, m) {
-  const biggest = Math.max(n, m);
+// function solution(n, m) {
+//   const biggest = Math.max(n, m);
 
-  let max = 0;
-  for (let i = 1; i <= biggest; i++) {
-    if (n % i === 0 && m % i === 0) {
-      max = i;
-    }
-  }
+//   let max = 0;
+//   for (let i = 1; i <= biggest; i++) {
+//     if (n % i === 0 && m % i === 0) {
+//       max = i;
+//     }
+//   }
 
-  let min = 0;
-  for (let i = biggest; i <= n * m; i += biggest) {
-    if (i % Math.min(n, m) === 0) {
-      min = i;
-      break;
-    }
-  }
-  return max, min;
-}
+//   let min = 0;
+//   for (let i = biggest; i <= n * m; i += biggest) {
+//     if (i % Math.min(n, m) === 0) {
+//       min = i;
+//       break;
+//     }
+//   }
+//   return [max, min];
+// }
+
+// function solution(n, m) {
+//   let a = Math.max(n, m);
+//   let b = Math.min(n, m);
+//   let r = 0;
+
+//   while (a % b > 0) {
+//     r = a % b;
+//     a = b;
+//     b = r;
+//   }
+
+//   return [b, (n * m) / b];
+// }
+
+// 알고리즘 시간에 문제풀이
