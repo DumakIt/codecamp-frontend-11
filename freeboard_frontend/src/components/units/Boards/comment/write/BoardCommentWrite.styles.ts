@@ -68,6 +68,10 @@ export const FetchUserProfile = styled.img`
 export const FetchUserWriter = styled.div`
   font-size: 16px;
   text-align: center;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 export const FetchCommentBox = styled.div`
@@ -99,11 +103,13 @@ export const CommentUtilityImg = styled.img`
 
 export const FetchCommentLine = styled.div`
   border-top: 1px solid #bdbdbd;
-  margin: 7px 0;
+  margin: 7px 0 12px;
 `;
 
 export const FetchComment = styled.div`
   font-size: 16px;
+  word-break: break-all;
+  white-space: pre-wrap;
 `;
 
 export const ModalInput = styled.input`

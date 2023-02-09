@@ -1,5 +1,5 @@
 import { Modal } from "antd";
-import { Container, AddressBox, Triangle, UserInfoWrapper, UserInfoDataWrapper, UserInfoDataWriter, UserInfoUpdatedAt, UserInfoIconWrapper, UserInfoIconLink, UserInfoIconLocation, DivideLine, BoardTitle, ImgWrapper, Img, BoardContents, VideoWrapper, BoardLikeWrapper, BoardLikeBox, BoardLikeIcon, BoardLikeCount, BoardDisLikeBox, BoardDisLikeIcon, BoardDisLikeCount, FunctionBtnWrapper, FunctionBtn } from "./BoardDetail.styles";
+import { Container, AddressBox, Triangle, UserInfoWrapper, UserInfoDataWrapper, UserInfoDataWriter, UserInfoUpdatedAt, UserInfoIconWrapper, UserInfoIconLink, UserInfoIconLocation, DivideLine, BoardTitle, Img, BoardContents, VideoWrapper, BoardLikeWrapper, BoardLikeBox, BoardLikeIcon, BoardLikeCount, BoardDisLikeBox, BoardDisLikeIcon, BoardDisLikeCount, FunctionBtnWrapper, FunctionBtn } from "./BoardDetail.styles";
 import { IBoardDetailUI } from "./BoardDetail.types";
 import ReactPlayer from "react-player";
 
@@ -33,7 +33,9 @@ export function BoardDetailUI(props: IBoardDetailUI) {
         <DivideLine />
         <BoardTitle>{props.data?.fetchBoard.title}</BoardTitle>
 
-        <ImgWrapper>{props.data?.fetchBoard.images.length ? props.data.fetchBoard.images.map((el) => <Img src={`https://storage.googleapis.com/${el}`} key={el} />) : <></>}</ImgWrapper>
+        {props.data?.fetchBoard.images.map((el) => (
+          <Img src={`https://storage.googleapis.com/${el}`} key={el} />
+        ))}
 
         <BoardContents>{props.data?.fetchBoard.contents}</BoardContents>
 

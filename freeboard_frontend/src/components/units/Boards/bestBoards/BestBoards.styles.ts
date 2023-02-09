@@ -33,6 +33,15 @@ export const UserInfoWrapper = styled.div`
     top: -30px;
     left: 0;
   }
+
+  & > div:nth-of-type(3) {
+    width: 100%;
+    padding: 0 10px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
 `;
 
 export const UserInfoLike = styled.div`
@@ -55,10 +64,18 @@ export const ContentsWrapper = styled.div`
 
 export const ContentsTitle = styled.div`
   font-size: 18px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 export const ContentsDetail = styled.div`
   margin-top: 8px;
-
   font-size: 12px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: pre-line;
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
 `;

@@ -47,6 +47,9 @@ export const UserInfoDataWrapper = styled.div`
 export const UserInfoDataWriter = styled.div`
   font-weight: 500;
   font-size: 24px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 export const UserInfoUpdatedAt = styled.div`
@@ -84,25 +87,20 @@ export const DivideLine = styled.div`
 export const BoardTitle = styled.div`
   font-weight: 700;
   font-size: 36px;
+  word-break: break-all;
+  white-space: pre-wrap;
 `;
 
-export const ImgWrapper = styled.div`
+export const Img = styled.img`
   margin: 40px 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-export const Img = styled.div`
-  width: 30%;
-  height: 20%;
+  width: 100%;
   object-fit: contain;
 `;
 
 export const BoardContents = styled.div`
   font-weight: 400;
   font-size: 16px;
-  word-wrap: break-word;
+  word-break: break-all;
   white-space: pre-wrap;
 `;
 

@@ -23,6 +23,7 @@ export const ImgContainer = styled.div`
 
 export const ImgWrapper = styled.div`
   position: relative;
+  cursor: pointer;
 
   & div {
     position: absolute;
@@ -33,17 +34,16 @@ export const ImgWrapper = styled.div`
     color: white;
     opacity: 0;
     z-index: 1;
-    cursor: pointer;
+    transition: all 0.1s linear;
   }
 
   &:hover {
     img {
-      filter: grayscale(100%) blur(3px);
+      filter: grayscale(100%) blur(3px) brightness(0.5);
       transition: all 0.1s linear;
     }
     div {
       opacity: 1;
-      transition: all 0.1s linear;
     }
   }
 `;

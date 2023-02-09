@@ -11,12 +11,9 @@ import { ChangeEvent } from "react";
 
 export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter();
-  const imgRef = useRef(null);
 
   const [createBoard] = useMutation<Pick<IMutation, "createBoard">, IMutationCreateBoardArgs>(CREATE_BOARD);
   const [updateBoard] = useMutation<Pick<IMutation, "updateBoard">, IMutationUpdateBoardArgs>(UPDATE_BOARD);
-  const [uploadFile] = useMutation<Pick<IMutation, "uploadFile">, IMutationUploadFileArgs>(UPLOAD_FILE);
-
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
@@ -25,8 +22,8 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [zipcode, setZipcode] = useState("");
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
-  const [images, setImages] = useState([]);
-
+  const [images, setImages] = useState({ 0: "" });
+  console.log(images);
   const [isActive, setIsActive] = useState(false);
   const [addressModalOpen, setAddressModalOpen] = useState(false);
 
@@ -73,20 +70,6 @@ export default function BoardWrite(props: IBoardWriteProps) {
 
   const onClickImgAdd = () => {
     imgRef.current.click();
-  };
-
-  const onChangeImg = async (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.currentTarget.files?.[0];
-
-    if (typeof file === "undefined") return;
-
-    const result = await uploadFile({
-      variables: {
-        file,
-      },
-    });
-
-    setImages((prev) => [...prev, result.data?.uploadFile.url]);
   };
 
   const AddressComplete = (data: Address) => {
@@ -176,15 +159,13 @@ export default function BoardWrite(props: IBoardWriteProps) {
     onChangeYoutubeUrl = {onChangeYoutubeUrl}
     onChangeAddressDetail = {onChangeAddressDetail}
     onClickAddressBtn = {onClickAddressBtn}
-    onClickImgAdd={onClickImgAdd}
-    onChangeImg={onChangeImg}
     AddressComplete = {AddressComplete}
     checkErr = {checkErr}
     onClickUpdate = {onClickUpdate}
+    setImages={setImages}
     addressModalOpen = {addressModalOpen}
     zipcode={zipcode}
     address={address}
-    imgRef={imgRef}
     images={images}
     writerErr = {writerErr}
     passwordErr = {passwordErr}

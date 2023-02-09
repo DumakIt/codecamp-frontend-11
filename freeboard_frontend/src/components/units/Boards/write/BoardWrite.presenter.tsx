@@ -2,6 +2,7 @@ import { Background, Container, WrapperUserInfo, UserInfoText, UserInfoWriter, U
 import { IBoardWriteUi } from "./BoardWrite.types";
 import DaumPostcodeEmbed from "react-daum-postcode";
 import { Modal } from "antd";
+import ImgUpload from "../../../imgUpload/imgUpload.container";
 
 export function BoardWriteUi(props: IBoardWriteUi) {
   return (
@@ -51,38 +52,9 @@ export function BoardWriteUi(props: IBoardWriteUi) {
         <WrapperBox>
           <ImagesText>사진 첨부</ImagesText>
           <ImagesAddBox>
-            <input type="file" style={{ display: "none" }} ref={props.imgRef} onChange={props.onChangeImg} accept="image/jpeg, image/png" />
-
-            {props.isEdit ? (
-              <div>
-                <Img src={props.data?.fetchBoard.images.length ? `https://storage.googleapis.com/${props.data?.fetchBoard.images[0]}` : "/addPost/addImg.png"} onClick={props.onClickImgAdd} />
-                <Img src={props.data?.fetchBoard.images.length ? `https://storage.googleapis.com/${props.data?.fetchBoard.images[1]}` : "/addPost/addImg.png"} onClick={props.onClickImgAdd} />
-                <Img src={props.data?.fetchBoard.images.length ? `https://storage.googleapis.com/${props.data?.fetchBoard.images[2]}` : "/addPost/addImg.png"} onClick={props.onClickImgAdd} />
-              </div>
-            ) : (
-              <div>
-                <Img src={props.images[0] ? `https://storage.googleapis.com/${props.images[0]}` : "/addPost/addImg.png"} onClick={props.onClickImgAdd} />
-                <Img src={props.images[1] ? `https://storage.googleapis.com/${props.images[1]}` : "/addPost/addImg.png"} onClick={props.onClickImgAdd} />
-                <Img src={props.images[2] ? `https://storage.googleapis.com/${props.images[2]}` : "/addPost/addImg.png"} onClick={props.onClickImgAdd} />
-              </div>
-            )}
-
-            {/* {props.data?.fetchBoard.images.length ? props.data.fetchBoard.images.map((el) => <Img src={`https://storage.googleapis.com/${el.url}`} />) : new Array(3).fill(1).map((_) => <Img src="/addPost/addImg.png" />)} */}
-
-            {/* {props.data?.fetchBoard.images.length} */}
-
-            {/* <ImagesAdd onClick={props.onClickImgAdd}>
-              <ImagesAddPlus src="/addPost/Plus.png" />
-              <ImagesAddText>Upload</ImagesAddText>
-            </ImagesAdd>
-            <ImagesAdd onClick={props.onClickImgAdd}>
-              <ImagesAddPlus src="/addPost/Plus.png" />
-              <ImagesAddText>Upload</ImagesAddText>
-            </ImagesAdd>
-            <ImagesAdd onClick={props.onClickImgAdd}>
-              <ImagesAddPlus src="/addPost/Plus.png" />
-              <ImagesAddText>Upload</ImagesAddText>
-            </ImagesAdd> */}
+            {Object.values(props.images).map((data, idx) => (
+              <ImgUpload data={data} idx={idx} setImages={props.setImages} images={props.images} />
+            ))}
           </ImagesAddBox>
         </WrapperBox>
         <WrapperBox>

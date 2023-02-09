@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
 import LayoutBanner from "./banner";
 import LayoutHeader from "./header";
 import LayoutSlideBar from "./slidebar/LayoutSlideBar.container";
@@ -18,12 +17,18 @@ const LayoutBody = styled.div`
   justify-content: center;
 `;
 
+const MyWebs = [
+  { title: "자유게시판", contents: "어떤 것들을 배웠고 어떤 기술을 사용했고 이런것을 느꼈다", page: "/boards/" },
+  { title: "마이메뉴", contents: "어떤 것들을 배웠고 어떤 기술을 사용했고 이런것을 느꼈다", page: "/mymenu/" },
+  { title: "중고마켓", contents: "어떤 것들을 배웠고 어떤 기술을 사용했고 이런것을 느꼈다", page: "/boards/" },
+  { title: "마이페이지", contents: "어떤 것들을 배웠고 어떤 기술을 사용했고 이런것을 느꼈다", page: "/boards/" },
+];
+
 export default function Layout(props: ILayoutProps): JSX.Element {
-  const [logoPath, setLogoPath] = useState("");
   return (
     <Container>
-      <LayoutSlideBar setLogoPath={setLogoPath} />
-      <LayoutHeader logoPath={logoPath} />
+      <LayoutSlideBar MyWebs={MyWebs} />
+      <LayoutHeader MyWebs={MyWebs} />
       <LayoutBanner />
       <LayoutBody>{props.children}</LayoutBody>
     </Container>

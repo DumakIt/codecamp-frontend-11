@@ -4,7 +4,6 @@ import { FETCH_BOARD, DELETE_BOARD, LIKE_BOARD, DISLIKE_BOARD } from "./BoardDet
 import { useState } from "react";
 import { BoardDetailUI } from "./BoardDetail.presenter";
 import { IMutation, IMutationDeleteBoardArgs, IMutationDislikeBoardArgs, IMutationLikeBoardArgs } from "../../../../commons/types/generated/types";
-import { isNullish } from "@apollo/client/cache/inmemory/helpers";
 
 export default function BoardDetail() {
   const [opacity, setOpacity] = useState(0);
@@ -19,6 +18,8 @@ export default function BoardDetail() {
       boardId: String(router.query.fetchBoard),
     },
   });
+  console.log(data);
+
   const deleteModal = () => {
     setIsDelete((prev) => !prev);
   };

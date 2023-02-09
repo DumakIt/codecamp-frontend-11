@@ -11,8 +11,8 @@ interface IMyMenuUIProps {
 export default function MyMenuUI(props: IMyMenuUIProps) {
   return (
     <S.Container>
-      {/* <button onClick={props.getImg}>클릭</button>
-      <button onClick={props.onClickFetch}>조회</button> */}
+      <button onClick={props.getImg}>클릭</button>
+      <button onClick={props.onClickFetch}>조회</button>
       <InfiniteScroll loadMore={props.getImg} hasMore={true}>
         <S.ImgGrid>
           {props.catImgResult.map((el) => (

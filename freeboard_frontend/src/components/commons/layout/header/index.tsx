@@ -14,14 +14,22 @@ const Wrapper = styled.div`
 `;
 
 interface ILayoutHeaderProps {
-  logoPath: string;
+  MyWebs: {
+    title: string;
+    contents: string;
+    page: string;
+  }[];
 }
 
 export default function LayoutHeader(props: ILayoutHeaderProps): JSX.Element {
   const router = useRouter();
 
   const onclickLogo = () => {
-    router.push(props.logoPath);
+    props.MyWebs.forEach((el) => {
+      if (router.asPath.includes(el.page)) {
+        router.push(el.page);
+      }
+    });
   };
 
   return (

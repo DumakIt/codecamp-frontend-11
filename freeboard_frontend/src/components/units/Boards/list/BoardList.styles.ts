@@ -71,6 +71,9 @@ export const ListBody = styled.div`
 
   & > div:nth-of-type(2) {
     width: 700px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
     cursor: pointer;
     :hover {
       text-decoration: underline;
@@ -79,6 +82,9 @@ export const ListBody = styled.div`
 
   & > div:nth-of-type(3) {
     width: 80px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
     margin-left: 40px;
     margin-right: 100px;
   }

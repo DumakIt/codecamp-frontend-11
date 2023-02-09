@@ -17,6 +17,7 @@ export default function BoardList() {
   const onClickBoardWrite = () => {
     router.push(`/boards/new`);
   };
+
   // prettier-ignore
   return(
     <BoardListUI
