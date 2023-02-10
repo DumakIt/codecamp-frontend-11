@@ -52,8 +52,8 @@ export function BoardWriteUi(props: IBoardWriteUi) {
         <WrapperBox>
           <ImagesText>사진 첨부</ImagesText>
           <ImagesAddBox>
-            {Object.values(props.images).map((data, idx) => (
-              <ImgUpload data={data} idx={idx} setImages={props.setImages} images={props.images} />
+            {Object.values(props.images).map((_, idx) => (
+              <ImgUpload key={idx} idx={idx} setImages={props.setImages} images={props.images} />
             ))}
           </ImagesAddBox>
         </WrapperBox>

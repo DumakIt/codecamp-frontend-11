@@ -33,13 +33,11 @@ export function BoardDetailUI(props: IBoardDetailUI) {
         <DivideLine />
         <BoardTitle>{props.data?.fetchBoard.title}</BoardTitle>
 
-        {props.data?.fetchBoard.images.map((el) => (
-          <Img src={`https://storage.googleapis.com/${el}`} key={el} />
-        ))}
+        {props.data?.fetchBoard.images.map((el) => el && <Img src={`https://storage.googleapis.com/${el}`} key={el} />)}
 
         <BoardContents>{props.data?.fetchBoard.contents}</BoardContents>
 
-        <VideoWrapper>{props.data ? <ReactPlayer url={props.data?.fetchBoard.youtubeUrl} /> : <></>}</VideoWrapper>
+        <VideoWrapper>{props.data?.fetchBoard.youtubeUrl ? <ReactPlayer url={props.data?.fetchBoard.youtubeUrl} /> : <></>}</VideoWrapper>
         <BoardLikeWrapper>
           <BoardLikeBox>
             <BoardLikeIcon src="/fetchBoard/like.png" onClick={props.onClickLike} />

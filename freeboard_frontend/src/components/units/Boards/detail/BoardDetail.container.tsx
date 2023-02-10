@@ -18,17 +18,16 @@ export default function BoardDetail() {
       boardId: String(router.query.fetchBoard),
     },
   });
-  console.log(data);
 
   const deleteModal = () => {
     setIsDelete((prev) => !prev);
   };
 
-  const onClickDeleteBoard = () => {
+  const onClickDeleteBoard = async () => {
     if (!router || typeof router.query.fetchBoard !== "string") return <></>;
     deleteModal();
 
-    deleteBoard({
+    await deleteBoard({
       variables: {
         boardId: router.query.fetchBoard,
       },

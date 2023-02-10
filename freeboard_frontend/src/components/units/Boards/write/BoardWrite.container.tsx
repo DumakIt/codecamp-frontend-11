@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
 import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from "./BoardWrite.queries";
-import { useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { BoardWriteUi } from "./BoardWrite.presenter";
 import { IMutation, IMutationCreateBoardArgs, IMutationUpdateBoardArgs, IMutationUploadFileArgs } from "../../../../commons/types/generated/types";
 import { IBoardWriteProps, IMyVariables } from "./BoardWrite.types";
@@ -23,9 +23,16 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
   const [images, setImages] = useState({ 0: "" });
-  console.log(images);
   const [isActive, setIsActive] = useState(false);
   const [addressModalOpen, setAddressModalOpen] = useState(false);
+
+  // 여기요 여기!!!!!!!!!!
+  const getImage = () => setTimeout(() => props.data?.fetchBoard?.images, 500);
+  useEffect(() => {
+    if (props?.data?.fetchBoard) {
+      setImages(props.data?.fetchBoard?.images);
+    }
+  }, [getImage()]);
 
   function onChangeWriter(event: ChangeEvent<HTMLInputElement>) {
     setWriter(event.target.value);
@@ -68,10 +75,6 @@ export default function BoardWrite(props: IBoardWriteProps) {
     setAddressModalOpen(!addressModalOpen);
   };
 
-  const onClickImgAdd = () => {
-    imgRef.current.click();
-  };
-
   const AddressComplete = (data: Address) => {
     setAddressModalOpen(!addressModalOpen);
     setZipcode(data.zonecode);
@@ -89,7 +92,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
               title,
               contents,
               youtubeUrl,
-              images,
+              images: Object.values(images),
               boardAddress: {
                 zipcode,
                 address,
@@ -115,6 +118,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
         password: password,
         boardId: router.query.fetchBoard,
         updateBoardInput: {
+          images: Object.values(images),
           boardAddress: {
             zipcode,
             address,

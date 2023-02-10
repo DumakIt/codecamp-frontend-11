@@ -7,3 +7,7 @@ export const Img = styled.img`
   object-fit: contain;
   margin-right: 24px;
 `;
+
+export const DisabledInput = styled.input`
+  display: none;
+`;

@@ -1,5 +1,5 @@
 import { gql, useMutation } from "@apollo/client";
-import { ChangeEvent, useRef } from "react";
+import { ChangeEvent, useEffect, useRef } from "react";
 import { IMutation, IMutationUploadFileArgs } from "../../commons/types/generated/types";
 import * as S from "./imgUpload.styles";
 
@@ -30,13 +30,17 @@ export default function ImgUpload(props): JSX.Element {
     });
 
     props.setImages((prev) => ({ ...prev, [props.idx]: result.data?.uploadFile.url }));
+
+    if (Object.values(props.images).length - 1 === props.idx) {
+      props.setImages((prev) => ({ ...prev, [props.idx + 1]: "" }));
+    }
   };
 
   return (
     <div>
       {props.images[props.idx] !== "" ? <S.Img src={`https://storage.googleapis.com/${props.images[props.idx]}`} onClick={onClickImg} /> : <S.Img src="/addPost/addImg.png" onClick={onClickImg} />}
 
-      <input type="file" ref={imgRef} onChange={onChangeImg} accept="image/jpeg, image/png" />
+      <S.DisabledInput type="file" ref={imgRef} onChange={onChangeImg} accept="image/jpeg, image/png" />
     </div>
   );
 }

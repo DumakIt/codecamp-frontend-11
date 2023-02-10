@@ -125,6 +125,7 @@ export const ImagesText = styled.div`
 export const ImagesAddBox = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 `;
 
 export const ImagesAdd = styled.button`
