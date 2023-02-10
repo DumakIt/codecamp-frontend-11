@@ -49,3 +49,43 @@ function solution(d, budget) {
 }
 
 //---------------------------------------------------
+
+// function solution(d, budget) {
+//   const answer = [];
+
+//   d.sort((a, b) => a - b);
+
+//   let sum = 0;
+//   for (let i = 0; i < d.length; i++) {
+//     sum += d[i];
+
+//     if (sum <= budget) {
+//       answer.push(d[i]);
+//     }
+//   }
+//   return answer.length;
+// }
+
+// function solution(d, budget) {
+//   d.sort((a, b) => a - b);
+
+//   let answer = 0;
+//   while (budget - d[answer] >= 0) {
+//     budget -= d[answer];
+//     answer++;
+//   }
+//   return answer;
+// }
+
+// function solution(d, budget) {
+//   const answer = d
+//     .sort((a, b) => a - b)
+//     .filter((money) => {
+//       budget -= money;
+
+//       return budget >= 0;
+//     });
+//   return answer.length;
+// }
+
+// 알고리즘 시간에 문제풀이

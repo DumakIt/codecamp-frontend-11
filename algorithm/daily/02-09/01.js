@@ -69,4 +69,41 @@ function solution(nums) {
 //   return answer.length;
 // }
 
+// function solution(nums) {
+
+//   const pocket = [];
+
+//   nums.forEach( monster => {
+//       if(
+//           pocket.includes( monster ) === false &&
+//           pocket.length < (nums.length / 2)
+//       ) {
+//           pocket.push(monster);
+//       }
+//   })
+//   return pocket.length;
+// }
+
+// function solution(nums) {
+
+//   const pocket = new Set([]);
+
+//   nums.forEach( monster => {
+//       if( pocket.size < (nums.length / 2)) {
+//           pocket.add(monster);
+//       }
+//   })
+//   return pocket.size;
+// }
+
+// function solution(nums) {
+//   const answer = new Set(nums).size
+//   const limit = nums.length / 2;
+
+//   if( limit >= answer )
+//       return answer;
+
+//   return limit;
+// }
+
 // 알고리즘 시간에 문제풀이
