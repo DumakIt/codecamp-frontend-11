@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
-import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from "./BoardWrite.queries";
+import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
 import { useEffect, useState } from "react";
 import { BoardWriteUi } from "./BoardWrite.presenter";
-import { IMutation, IMutationCreateBoardArgs, IMutationUpdateBoardArgs, IMutationUploadFileArgs } from "../../../../commons/types/generated/types";
+import { IMutation, IMutationCreateBoardArgs, IMutationUpdateBoardArgs } from "../../../../commons/types/generated/types";
 import { IBoardWriteProps, IMyVariables } from "./BoardWrite.types";
 import { Address } from "react-daum-postcode";
 import { Modal } from "antd";
@@ -81,7 +81,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
     setAddress(data.address);
   };
 
-  const checkErr = async function () {
+  const onClickWrite = async function () {
     if (writer && password && title && contents) {
       try {
         const result = await createBoard({
@@ -153,6 +153,14 @@ export default function BoardWrite(props: IBoardWriteProps) {
     }
   };
 
+  const onClickCancel = () => {
+    if (props.isEdit) {
+      router.push(`/boards/${router.query.fetchBoard}`);
+    } else {
+      router.push("/boards/");
+    }
+  };
+
   // prettier-ignore
   return (
     <BoardWriteUi
@@ -164,9 +172,10 @@ export default function BoardWrite(props: IBoardWriteProps) {
     onChangeAddressDetail = {onChangeAddressDetail}
     onClickAddressBtn = {onClickAddressBtn}
     AddressComplete = {AddressComplete}
-    checkErr = {checkErr}
+    onClickWrite = {onClickWrite}
     onClickUpdate = {onClickUpdate}
     setImages={setImages}
+    onClickCancel={onClickCancel}
     addressModalOpen = {addressModalOpen}
     zipcode={zipcode}
     address={address}

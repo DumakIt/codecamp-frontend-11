@@ -8,11 +8,29 @@ export const ListWrapper = styled.div`
   position: relative;
   margin: auto;
   width: 1200px;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #4f4f4f;
 `;
 
 export const ListHeader = styled.div`
+  padding-bottom: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid #4f4f4f;
+`;
+
+export const WriteBtn = styled.button`
+  width: 170px;
+  height: 50px;
+  background-color: white;
+  border: 1px solid #bdbdbd;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+`;
+
+export const ListTitle = styled.div`
   width: 100%;
   padding: 0 40px;
   height: 52px;
@@ -88,17 +106,4 @@ export const ListBody = styled.div`
     margin-left: 40px;
     margin-right: 100px;
   }
-`;
-
-export const WriteBtn = styled.button`
-  width: 171px;
-  height: 52px;
-  background-color: white;
-  border: 1px solid #bdbdbd;
-  border-radius: 10px;
-  cursor: pointer;
-  position: absolute;
-  right: 0;
-  bottom: -67px;
-  font-size: 16px;
 `;

@@ -3,12 +3,13 @@ import { useRouter } from "next/router";
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 150px;
+  height: 80px;
   display: flex;
   flex-direction: row;
   align-items: center;
   padding-left: 3%;
   & img {
+    width: 110px;
     cursor: pointer;
   }
 `;

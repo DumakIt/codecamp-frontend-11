@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent, MutableRefObject } from "react";
+import { ChangeEvent, Dispatch, MouseEvent, MutableRefObject, SetStateAction } from "react";
 
 export interface IBoardWriteProps {
   isEdit: boolean;
@@ -22,6 +22,9 @@ export interface IMyVariables {
   password: string;
   boardId: string;
   updateBoardInput: IUpdateBoardInput;
+  images: {
+    0: string;
+  };
 }
 
 export interface IRegBtn {
@@ -36,14 +39,23 @@ export interface IBoardWriteUi {
   onChangeYoutubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickAddressBtn: (event: MouseEvent<HTMLButtonElement>) => void;
-  onClickImgAdd: () => void;
-  onChangeImg: (event: ChangeEvent<HTMLInputElement>) => Promise<void>;
   AddressComplete: (event: any) => void;
-  checkErr: (event: MouseEvent<HTMLButtonElement>) => void;
+  onClickWrite: (event: MouseEvent<HTMLButtonElement>) => void;
+
   onClickUpdate: (event: MouseEvent<HTMLButtonElement>) => void;
+  onClickCancel: () => void;
+  setImages: Dispatch<
+    SetStateAction<{
+      0: string;
+    }>
+  >;
   zipcode: string;
   address: string;
   addressModalOpen: boolean;
+  images: {
+    0: string;
+  };
+
   writerErr: string;
   passwordErr: string;
   titleErr: string;
@@ -51,7 +63,4 @@ export interface IBoardWriteUi {
   isActive: boolean;
   isEdit: boolean;
   data: any;
-
-  imgRef: MutableRefObject<null>;
-  images: never[];
 }

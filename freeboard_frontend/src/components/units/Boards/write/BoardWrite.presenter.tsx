@@ -1,4 +1,4 @@
-import { Background, Container, WrapperUserInfo, UserInfoText, UserInfoWriter, UserInfoPasswordText, UserInfoPassword, TitleText, WrapperBox, TitleInput, ContentsTextarea, AddressText, AddressSearch, AddressNum, AddressBtn, AddressInput, YoutubeText, YoutubeInput, ImagesText, ImagesAddBox, ImagesAdd, ImagesAddPlus, ImagesAddText, Img, MainSettingText, MainSettingRadioBox, MainSettingRadioColor, RegBtn, ErrText } from "./BoardWrite.styles";
+import { Background, Container, WrapperUserInfo, UserInfoText, UserInfoWriter, UserInfoPasswordText, UserInfoPassword, TitleText, WrapperBox, TitleInput, ContentsTextarea, AddressText, AddressSearch, AddressNum, AddressBtn, AddressInput, YoutubeText, YoutubeInput, ImagesText, ImagesAddBox, MainSettingText, MainSettingRadioBox, MainSettingRadioColor, BtnWrapper, RegBtn, CancelBtn, ErrText } from "./BoardWrite.styles";
 import { IBoardWriteUi } from "./BoardWrite.types";
 import DaumPostcodeEmbed from "react-daum-postcode";
 import { Modal } from "antd";
@@ -68,9 +68,12 @@ export function BoardWriteUi(props: IBoardWriteUi) {
             </div>
           </MainSettingRadioBox>
         </WrapperBox>
-        <RegBtn onClick={props.isEdit ? props.onClickUpdate : props.checkErr} isActive={props.isEdit ? true : props.isActive}>
-          {props.isEdit ? "수정" : "등록"}하기
-        </RegBtn>
+        <BtnWrapper>
+          <RegBtn onClick={props.isEdit ? props.onClickUpdate : props.onClickWrite} isActive={props.isEdit ? true : props.isActive}>
+            {props.isEdit ? "수정" : "등록"}하기
+          </RegBtn>
+          <CancelBtn onClick={props.onClickCancel}>취소하기</CancelBtn>
+        </BtnWrapper>
       </Container>
     </Background>
   );

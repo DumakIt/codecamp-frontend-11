@@ -9,7 +9,7 @@ export const BestBoardContainer = styled.div`
 `;
 
 export const BestBoardWrapper = styled.div`
-  width: 400px;
+  width: 20%;
   height: 170px;
   display: flex;
   flex-direction: row;
@@ -34,7 +34,11 @@ export const UserInfoWrapper = styled.div`
     left: 0;
   }
 
-  & > div:nth-of-type(3) {
+  & > img {
+    width: 60%;
+  }
+
+  & > div:nth-of-type(2) {
     width: 100%;
     padding: 0 10px;
     text-align: center;

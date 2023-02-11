@@ -1,5 +1,5 @@
 import { gql, useMutation } from "@apollo/client";
-import { ChangeEvent, useEffect, useRef } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useRef } from "react";
 import { IMutation, IMutationUploadFileArgs } from "../../commons/types/generated/types";
 import * as S from "./imgUpload.styles";
 
@@ -11,12 +11,24 @@ export const UPLOAD_FILE = gql`
   }
 `;
 
-export default function ImgUpload(props): JSX.Element {
+interface IImgUploadProps {
+  images: {
+    0: string;
+  };
+  idx: number;
+  setImages: Dispatch<
+    SetStateAction<{
+      0: string;
+    }>
+  >;
+}
+
+export default function ImgUpload(props: IImgUploadProps): JSX.Element {
   const [uploadFile] = useMutation<Pick<IMutation, "uploadFile">, IMutationUploadFileArgs>(UPLOAD_FILE);
-  const imgRef = useRef(null);
+  const imgRef = useRef<HTMLInputElement>(null);
 
   const onClickImg = () => {
-    imgRef.current.click();
+    imgRef.current?.click();
   };
 
   const onChangeImg = async (event: ChangeEvent<HTMLInputElement>) => {

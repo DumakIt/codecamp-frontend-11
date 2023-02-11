@@ -180,14 +180,26 @@ export const MainSettingRadioColor = styled.input`
   color-scheme: light;
 `;
 
-export const RegBtn = styled.button`
+export const BtnWrapper = styled.div`
   margin-top: 80px;
-  width: 179px;
+`;
+
+export const RegBtn = styled.button`
+  margin-right: 40px;
+  width: 180px;
   height: 52px;
   background-color: ${(props: IRegBtn) => (props.isActive ? "#FFD600" : "#BDBDBD")};
-  color: black;
   font-size: 16px;
   border: none;
+  cursor: pointer;
+`;
+
+export const CancelBtn = styled.button`
+  width: 180px;
+  height: 52px;
+  background-color: white;
+  font-size: 16px;
+  border: 1px solid #bdbdbd;
   cursor: pointer;
 `;
 

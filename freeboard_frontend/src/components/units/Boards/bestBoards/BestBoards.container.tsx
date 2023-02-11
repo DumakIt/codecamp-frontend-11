@@ -2,6 +2,7 @@ import * as S from "./BestBoards.styles";
 import { gql, useQuery } from "@apollo/client";
 import { IQuery } from "../../../../commons/types/generated/types";
 import { useRouter } from "next/router";
+import { MouseEvent } from "react";
 
 const FETCH_BOARDS_OF_THE_BEST = gql`
   query {
@@ -22,7 +23,7 @@ export default function BestBoards() {
   const { data } = useQuery<Pick<IQuery, "fetchBoardsOfTheBest">>(FETCH_BOARDS_OF_THE_BEST);
   const router = useRouter();
 
-  const onclickBestBoard = (event) => {
+  const onclickBestBoard = (event: MouseEvent<HTMLDivElement>) => {
     router.push(`/boards/${event.currentTarget.id}`);
   };
 
@@ -32,9 +33,8 @@ export default function BestBoards() {
         <S.BestBoardWrapper id={el._id} key={el._id} onClick={onclickBestBoard}>
           <S.UserInfoWrapper>
             <div>BEST {index + 1}위</div>
-            <div>
-              <img src={el.user?.picture ? `/fetchBoard/${el.user.picture}` : "/fetchBoard/profile.png"} />
-            </div>
+
+            <img src={el.user?.picture ? `/fetchBoard/${el.user.picture}` : "/fetchBoard/profile.png"} />
 
             <div>{el.writer}</div>
             <S.UserInfoLike>
