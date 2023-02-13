@@ -10,7 +10,8 @@ export default function CatGallery(): JSX.Element {
   const [catImgResult, setCatImgResult] = useState([[], [], []]);
   const [isOpen, setIsOpen] = useState(false);
   const [saveUrl, setSaveUrl] = useState("");
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState(String(Date.now()));
+  const [isEditTitle, setIsEditTitle] = useState(false);
   const [categoryList, setCategoryList] = useState("");
   const [addCategory, setAddCategory] = useState("");
   const [selectCategory, setSelectCategory] = useState("저장한 이미지");
@@ -21,7 +22,7 @@ export default function CatGallery(): JSX.Element {
     const arr = [[], [], []];
 
     for (let i = 0; i < 3; i++) {
-      const result = await axios.get(`https://api.thecatapi.com/v1/images/search?limit=12&api_key=live_SEnutBQpOTB4uNB0KSkKHTOLfDKQYfR3NJS6UgWzLNVMUqwzo0sBryYa4CkvC5qB`);
+      const result = await axios.get(`https://api.thecatapi.com/v1/images/search?limit=6&api_key=live_SEnutBQpOTB4uNB0KSkKHTOLfDKQYfR3NJS6UgWzLNVMUqwzo0sBryYa4CkvC5qB`);
       arr[i].push(...result?.data);
     }
 
@@ -61,6 +62,7 @@ export default function CatGallery(): JSX.Element {
 
   const onChangeTitle = (event) => {
     setTitle(event.currentTarget.value);
+    setIsEditTitle(true);
   };
 
   const onChangeAddCategory = (event) => {
@@ -94,8 +96,11 @@ export default function CatGallery(): JSX.Element {
     await setDoc(accessDB, {
       url: saveUrl,
       timestamp: new Date(),
+      title: isEditTitle ? title : "",
     });
     setIsOpen(!isOpen);
+    setTitle(String(Date.now()));
+    setIsEditTitle(false);
   };
 
   const onClickMove = () => {

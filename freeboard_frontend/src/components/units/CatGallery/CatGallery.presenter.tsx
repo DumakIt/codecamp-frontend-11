@@ -12,7 +12,7 @@ interface IMyMenuUIProps {
 export default function CatGalleryUI(props: any) {
   return (
     <S.Container>
-      <InfiniteScroll loadMore={props.getImg} hasMore={true} pageStart={0}>
+      <InfiniteScroll loadMore={props.getImg} hasMore={true}>
         <S.ImgGrid>
           {props.catImgResult.map((el) => (
             <S.ImgContainer key={el.id}>

@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 export default function FetchCatImg(): JSX.Element {
   const [categoryList, setCategoryList] = useState("");
   const [saveImgList, setSaveImgList] = useState([[], [], []]);
+  const [selectCategory, setSelectCategory] = useState("저장한 이미지");
+  const [isOpen, setIsOpen] = useState(false);
+  const [saveUrl, setSaveUrl] = useState("");
 
   useEffect(() => {
     const fetchCategory = async () => {
@@ -18,18 +21,16 @@ export default function FetchCatImg(): JSX.Element {
     fetchCategory();
   }, []);
 
-  console.log(categoryList, "un");
-
   useEffect(() => {
     const fetchSaveImg = async () => {
-      const accessDB = collection(getFirestore(firebaseApp), "saveCats", "저장한 이미지", "저장한 이미지");
+      const accessDB = collection(getFirestore(firebaseApp), "saveCats", selectCategory, selectCategory);
       const result = await getDocs(query(accessDB, orderBy("timestamp", "asc")));
       const datas = result.docs.map((el) => el.data());
 
       const datasSorted = [[], [], []];
       let count = 0;
       for (let i = 0; i < datas.length; i++) {
-        datasSorted[count].push(datas[i].url);
+        datasSorted[count].push(datas[i]);
         count++;
         if (count === 3) count = 0;
       }
@@ -37,14 +38,31 @@ export default function FetchCatImg(): JSX.Element {
       setSaveImgList(datasSorted);
     };
     fetchSaveImg();
-  }, []);
+  }, [selectCategory]);
 
-  console.log(saveImgList, "123");
+  const onClickCategory = (event) => {
+    setSelectCategory(event.currentTarget.id);
+  };
+
+  const onClickUpdate = (event) => {
+    setSaveUrl(event.currentTarget.id);
+    setIsOpen(!isOpen);
+  };
+
+  const onClickModalCancel = () => {
+    setIsOpen(!isOpen);
+  };
 
   //prettier-ignore
 
   return <FetchCatImgUI 
   categoryList={categoryList}
   saveImgList={saveImgList}
+  selectCategory={selectCategory}
+  isOpen={isOpen}
+  saveUrl={saveUrl}
+  onClickCategory={onClickCategory}
+  onClickUpdate={onClickUpdate}
+  onClickModalCancel={onClickModalCancel}
   />;
 }

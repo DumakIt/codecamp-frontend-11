@@ -27,12 +27,12 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [addressModalOpen, setAddressModalOpen] = useState(false);
 
   // 여기요 여기!!!!!!!!!!
-  const getImage = () => setTimeout(() => props.data?.fetchBoard?.images, 500);
+
   useEffect(() => {
-    if (props?.data?.fetchBoard) {
-      setImages(props.data?.fetchBoard?.images);
+    if (props.data?.fetchBoard) {
+      props.data?.fetchBoard?.images.map((el, idx) => setImages((prev) => ({ ...prev, [idx]: el })));
     }
-  }, [getImage()]);
+  }, [props.data?.fetchBoard]);
 
   function onChangeWriter(event: ChangeEvent<HTMLInputElement>) {
     setWriter(event.target.value);
