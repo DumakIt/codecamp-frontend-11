@@ -105,3 +105,5 @@ function solution(participant, completion) {
 //   });
 //   return answer[0];
 // }
+
+// 알고리즘 시간에 문제풀이
