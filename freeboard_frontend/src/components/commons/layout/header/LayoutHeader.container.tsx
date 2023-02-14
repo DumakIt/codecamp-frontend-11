@@ -1,18 +1,5 @@
-import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-
-const Wrapper = styled.div`
-  width: 100%;
-  height: 80px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding-left: 3%;
-  & img {
-    width: 110px;
-    cursor: pointer;
-  }
-`;
+import * as S from "./LayoutHeader.styles";
 
 interface ILayoutHeaderProps {
   MyWebs: {
@@ -34,8 +21,12 @@ export default function LayoutHeader(props: ILayoutHeaderProps): JSX.Element {
   };
 
   return (
-    <Wrapper>
+    <S.Wrapper>
       <img src="/layout/CMK-Black-logo.svg" onClick={onclickLogo} />
-    </Wrapper>
+      <div>
+        <div>로그인</div>
+        <div>회원가입</div>
+      </div>
+    </S.Wrapper>
   );
 }
