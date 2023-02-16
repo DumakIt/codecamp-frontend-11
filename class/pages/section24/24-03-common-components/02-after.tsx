@@ -34,7 +34,7 @@ export default function GraphqlMutationPage(): JSX.Element {
       내용: <Input01 type="text" register={register("contents")} />
       <div style={{ color: "red" }}>{formState.errors.contents?.message}</div>
       {/* 주소: <input type="text" {...register("boardAddress.addressDetail")} /> */}
-      <Button01 />
+      <Button01 title="등록하기" isActive={formState.isValid} />
     </form>
   );
 }
