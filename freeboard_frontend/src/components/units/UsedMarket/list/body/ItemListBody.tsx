@@ -1,22 +1,35 @@
 import InfiniteScroll from "react-infinite-scroller";
-import { useFetchMoreUsedItems } from "../../../../commons/hooks/custom/useFetchMoreUsedItems";
+import { IQuery } from "../../../../../commons/types/generated/types";
 import { useRouterMovePage } from "../../../../commons/hooks/custom/useRouterMovePage";
-import { useQueryFetchUsedItems } from "../../../../commons/hooks/query/useQueryFetchUseditems";
 import * as S from "./ItemListBodyStyles";
 
-export default function ListBody(): JSX.Element {
-  const { data, FetchMore } = useQueryFetchUsedItems();
+interface IListBodyProps {
+  data?: Pick<IQuery, "fetchUseditems">;
+  FetchMore: () => void;
+  keyword: string;
+}
+
+export default function ListBody(props: IListBodyProps): JSX.Element {
   const { onClickMovePage } = useRouterMovePage();
 
   return (
     <div>
-      <InfiniteScroll loadMore={FetchMore} hasMore={true}>
-        {data?.fetchUseditems.map((el) => (
+      <InfiniteScroll loadMore={props.FetchMore} hasMore={true}>
+        {props.data?.fetchUseditems.map((el) => (
           <S.ContentsWrapper onClick={onClickMovePage(`/usedMarket/${el._id}`)} key={el._id}>
-            <S.ContentsTitle>{el._id}</S.ContentsTitle>
-            <S.ContentsTitle>{el.name}</S.ContentsTitle>
-            <S.ContentsTitle>{el.seller?.name}</S.ContentsTitle>
-            <S.ContentsTitle>{el.createdAt}</S.ContentsTitle>
+            <S.ContentsSeller>{el._id}</S.ContentsSeller>
+            <S.ContentsTitle>
+              {el.name
+                .replaceAll(props.keyword, `*%@!&@${props.keyword}*%@!&@`)
+                .split("*%@!&@")
+                .map((ql) => (
+                  <S.ContentsTitleSpan key={ql} isKeyword={ql === props.keyword ? true : false}>
+                    {ql}
+                  </S.ContentsTitleSpan>
+                ))}
+            </S.ContentsTitle>
+            <S.ContentsSeller>{el.seller?.name}</S.ContentsSeller>
+            <S.ContentsSeller>{el.createdAt}</S.ContentsSeller>
           </S.ContentsWrapper>
         )) ?? <></>}
       </InfiniteScroll>

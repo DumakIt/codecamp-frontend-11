@@ -14,7 +14,8 @@ export const useMutationCreateUsedItem = () => {
   const { routerMovePage } = useRouterMovePage();
   const [mutation] = useMutation<Pick<IMutation, "createUseditem">, IMutationCreateUseditemArgs>(CREATE_USED_ITEM);
 
-  const createUsedItem = async (data: Idata) => {
+  const createUsedItem = async (data) => {
+    console.log(data);
     const result = await mutation({
       variables: {
         createUseditemInput: {

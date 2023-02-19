@@ -3,9 +3,9 @@ import ItemQuestion from "../../../src/components/units/UsedMarket/question/Item
 
 export default function DetailItemPage(): JSX.Element {
   return (
-    <>
+    <div>
       <ItemDetail />
       <ItemQuestion />
-    </>
+    </div>
   );
 }

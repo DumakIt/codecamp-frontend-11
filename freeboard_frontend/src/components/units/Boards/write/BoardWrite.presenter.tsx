@@ -1,8 +1,36 @@
-import { Background, Container, WrapperUserInfo, UserInfoText, UserInfoWriter, UserInfoPasswordText, UserInfoPassword, TitleText, WrapperBox, TitleInput, ContentsTextarea, AddressText, AddressSearch, AddressNum, AddressBtn, AddressInput, YoutubeText, YoutubeInput, ImagesText, ImagesAddBox, MainSettingText, MainSettingRadioBox, MainSettingRadioColor, BtnWrapper, RegBtn, CancelBtn, ErrText } from "./BoardWrite.styles";
+import {
+  Background,
+  Container,
+  WrapperUserInfo,
+  UserInfoText,
+  UserInfoWriter,
+  UserInfoPasswordText,
+  UserInfoPassword,
+  TitleText,
+  WrapperBox,
+  TitleInput,
+  ContentsTextarea,
+  AddressText,
+  AddressSearch,
+  AddressNum,
+  AddressBtn,
+  AddressInput,
+  YoutubeText,
+  YoutubeInput,
+  ImagesText,
+  ImagesAddBox,
+  MainSettingText,
+  MainSettingRadioBox,
+  MainSettingRadioColor,
+  BtnWrapper,
+  RegBtn,
+  CancelBtn,
+  ErrText,
+} from "./BoardWrite.styles";
 import { IBoardWriteUi } from "./BoardWrite.types";
 import DaumPostcodeEmbed from "react-daum-postcode";
 import { Modal } from "antd";
-import ImgUpload from "../../../imgUpload/imgUpload.container";
+import ImgUpload from "../../../commons/imgUpload/imgUpload.container";
 
 export function BoardWriteUi(props: IBoardWriteUi) {
   return (
@@ -12,7 +40,13 @@ export function BoardWriteUi(props: IBoardWriteUi) {
         <WrapperUserInfo>
           <div style={{ width: props.isEdit ? "486px" : "486px" }}>
             <UserInfoText>작성자</UserInfoText>
-            <UserInfoWriter type="text" placeholder="이름을 입력해주세요." onChange={props.onChangeWriter} defaultValue={props.data ? props.data.fetchBoard.writer : ""} readOnly={props.isEdit ? true : false} />
+            <UserInfoWriter
+              type="text"
+              placeholder="이름을 입력해주세요."
+              onChange={props.onChangeWriter}
+              defaultValue={props.data ? props.data.fetchBoard.writer : ""}
+              readOnly={props.isEdit ? true : false}
+            />
             <ErrText>{props.writerErr}</ErrText>
           </div>
           <div style={{ display: props.isEdit ? "block" : "block" }}>

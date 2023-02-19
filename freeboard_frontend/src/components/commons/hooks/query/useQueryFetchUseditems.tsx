@@ -2,8 +2,8 @@ import { gql, useQuery } from "@apollo/client";
 import { IQuery, IQueryFetchUseditemsArgs } from "../../../../commons/types/generated/types";
 
 const FETCH_USED_ITEMS = gql`
-  query fetchUseditems($page: Int) {
-    fetchUseditems(page: $page) {
+  query fetchUseditems($page: Int, $search: String) {
+    fetchUseditems(page: $page, search: $search) {
       _id
       name
       createdAt
@@ -15,7 +15,7 @@ const FETCH_USED_ITEMS = gql`
 `;
 
 export const useQueryFetchUsedItems = () => {
-  const { data, fetchMore } = useQuery<Pick<IQuery, "fetchUseditems">, IQueryFetchUseditemsArgs>(FETCH_USED_ITEMS);
+  const { data, fetchMore, refetch } = useQuery<Pick<IQuery, "fetchUseditems">, IQueryFetchUseditemsArgs>(FETCH_USED_ITEMS);
 
   const FetchMore = () => {
     if (data === undefined) return;
@@ -31,5 +31,5 @@ export const useQueryFetchUsedItems = () => {
     });
   };
 
-  return { data, FetchMore };
+  return { data, FetchMore, refetch };
 };

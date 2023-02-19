@@ -1,6 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import { ChangeEvent, Dispatch, SetStateAction, useRef } from "react";
-import { IMutation, IMutationUploadFileArgs } from "../../commons/types/generated/types";
+import { IMutation, IMutationUploadFileArgs } from "../../../commons/types/generated/types";
 import * as S from "./imgUpload.styles";
 
 export const UPLOAD_FILE = gql`
@@ -11,19 +11,7 @@ export const UPLOAD_FILE = gql`
   }
 `;
 
-interface IImgUploadProps {
-  images: {
-    0: string;
-  };
-  idx: number;
-  setImages: Dispatch<
-    SetStateAction<{
-      0: string;
-    }>
-  >;
-}
-
-export default function ImgUpload(props: IImgUploadProps): JSX.Element {
+export default function ImgUpload(args): JSX.Element {
   const [uploadFile] = useMutation<Pick<IMutation, "uploadFile">, IMutationUploadFileArgs>(UPLOAD_FILE);
   const imgRef = useRef<HTMLInputElement>(null);
 
@@ -41,16 +29,16 @@ export default function ImgUpload(props: IImgUploadProps): JSX.Element {
       },
     });
 
-    props.setImages((prev) => ({ ...prev, [props.idx]: result.data?.uploadFile.url }));
+    args.setImages((prev) => ({ ...prev, [args.idx]: result.data?.uploadFile.url }));
 
-    if (Object.values(props.images).length - 1 === props.idx) {
-      props.setImages((prev) => ({ ...prev, [props.idx + 1]: "" }));
+    if (Object.values(args.images).length - 1 === args.idx) {
+      args.setImages((prev) => ({ ...prev, [args.idx + 1]: "" }));
     }
   };
 
   return (
     <div>
-      {props.images[props.idx] !== "" ? <S.Img src={`https://storage.googleapis.com/${props.images[props.idx]}`} onClick={onClickImg} /> : <S.Img src="/addPost/addImg.png" onClick={onClickImg} />}
+      {args.images[args.idx] !== "" ? <S.Img src={`https://storage.googleapis.com/${args.images[args.idx]}`} onClick={onClickImg} /> : <S.Img src="/addPost/addImg.png" onClick={onClickImg} />}
 
       <S.DisabledInput type="file" ref={imgRef} onChange={onChangeImg} accept="image/jpeg, image/png" />
     </div>
