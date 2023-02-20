@@ -8,9 +8,9 @@ export default function ItemList(): JSX.Element {
   const { keyword, onChangeSearch } = useQueryRefetchSearch({ refetch });
 
   return (
-    <>
+    <div>
       <ListHeader onChangeSearch={onChangeSearch} />
       <ListBody data={data} FetchMore={FetchMore} keyword={keyword} />
-    </>
+    </div>
   );
 }

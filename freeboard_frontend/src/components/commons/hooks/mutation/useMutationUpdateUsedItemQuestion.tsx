@@ -25,7 +25,6 @@ export const useMutationUpdateUsedItemQuestion = () => {
         useditemQuestionId: args.id,
       },
     });
-    console.log(args.id);
     args.setIsActive("");
   };
   return { updateUsedItemQuestion };

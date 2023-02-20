@@ -7,9 +7,11 @@ const FETCH_USED_ITEMS = gql`
       _id
       name
       createdAt
+      price
       seller {
         name
       }
+      images
     }
   }
 `;
