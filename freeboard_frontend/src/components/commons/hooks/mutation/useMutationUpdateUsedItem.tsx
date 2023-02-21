@@ -15,14 +15,15 @@ export const useMutationUpdateUsedItem = () => {
   const [mutation] = useMutation<Pick<IMutation, "updateUseditem">, IMutationUpdateUseditemArgs>(UPDATE_USED_ITEM);
 
   const updateUsedItem = (id: string) => async (data) => {
-    await mutation({
-      variables: {
-        updateUseditemInput: { ...data, price: Number(data.price) },
-        useditemId: id,
-      },
-    });
+    console.log(data);
+    //   await mutation({
+    //     variables: {
+    //       updateUseditemInput: { ...data, price: Number(data.price) },
+    //       useditemId: id,
+    //     },
+    //   });
 
-    routerMovePage(`/usedMarket/${id}`);
+    //   routerMovePage(`/usedMarket/${id}`);
   };
   return { updateUsedItem };
 };
