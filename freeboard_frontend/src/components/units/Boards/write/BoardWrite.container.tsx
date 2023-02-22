@@ -81,7 +81,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
     setAddress(data.address);
   };
 
-  const onClickWrite = async function () {
+  const onClickWrite = async () => {
     if (writer && password && title && contents) {
       try {
         const result = await createBoard({
