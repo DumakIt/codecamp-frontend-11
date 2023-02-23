@@ -50,31 +50,55 @@ export default function CreateBody(props: ICreateBodyProps): JSX.Element {
     void trigger("contents");
   };
 
-  // useEffect(() => {
-  //   setValue("name", data?.fetchUseditem.name);
-  //   console.log(data?.fetchUseditem);
-  // }, [data]);
+  useEffect(() => {
+    setValue("contents", data?.fetchUseditem.contents);
+  }, [data]);
 
   return (
     <div>
-      <form onSubmit={handleSubmit(props.isEdit ? updateUsedItem(id) : createUsedItem)}>
-        {Object.values(images).map((_, idx) => (
-          <ImgUpload key={idx} idx={idx} setImages={setImages} images={images} />
-        ))}
+      {props.isEdit ? (
+        data?.fetchUseditem ? (
+          <form onSubmit={handleSubmit(updateUsedItem(id))}>
+            {Object.values(images).map((_, idx) => (
+              <ImgUpload key={idx} idx={idx} setImages={setImages} images={images} />
+            ))}
 
-        <input type="text" placeholder="제목을 입력해 주세요" defaultValue={props.isEdit ? data?.fetchUseditem.name : ""} {...register("name")} />
-        <div>{formState.errors.name?.message}</div>
-        <input type="text" placeholder="참고사항을 입력해 주세요" defaultValue={props.isEdit ? data?.fetchUseditem.remarks : ""} {...register("remarks")} />
-        <div>{formState.errors.remarks?.message}</div>
-        <ReactQuill placeholder="내용을 입력해 주세요" defaultValue={props.isEdit ? data?.fetchUseditem?.contents : ""} onChange={onChangeQuill} />
-        <div>{formState.errors.contents?.message}</div>
-        <input type="number" placeholder="상품가격" defaultValue={props.isEdit ? data?.fetchUseditem.price : ""} {...register("price")} />
-        <div>{formState.errors.price?.message}</div>
-        <input type="text" placeholder="태그" {...register("tags")} />
-        <div>{formState.errors.tags?.message}</div>
-        <KakaoMap />
-        <button>상품등록</button>
-      </form>
+            <input type="text" placeholder="제목을 입력해 주세요" defaultValue={data?.fetchUseditem.name} {...register("name")} />
+            <div>{formState.errors.name?.message}</div>
+            <input type="text" placeholder="참고사항을 입력해 주세요" defaultValue={data?.fetchUseditem.remarks} {...register("remarks")} />
+            <div>{formState.errors.remarks?.message}</div>
+            <ReactQuill placeholder="내용을 입력해 주세요" defaultValue={data?.fetchUseditem?.contents} onChange={onChangeQuill} />
+            <div>{formState.errors.contents?.message}</div>
+            <input type="number" placeholder="상품가격" defaultValue={data?.fetchUseditem.price} {...register("price")} />
+            <div>{formState.errors.price?.message}</div>
+            <input type="text" placeholder="태그" defaultValue={data?.fetchUseditem.tags} {...register("tags")} />
+            <div>{formState.errors.tags?.message}</div>
+            <KakaoMap />
+            <button>상품등록</button>
+          </form>
+        ) : (
+          <div>로딩중....</div>
+        )
+      ) : (
+        <form onSubmit={handleSubmit(createUsedItem)}>
+          {Object.values(images).map((_, idx) => (
+            <ImgUpload key={idx} idx={idx} setImages={setImages} images={images} />
+          ))}
+
+          <input type="text" placeholder="제목을 입력해 주세요" {...register("name")} />
+          <div>{formState.errors.name?.message}</div>
+          <input type="text" placeholder="참고사항을 입력해 주세요" {...register("remarks")} />
+          <div>{formState.errors.remarks?.message}</div>
+          <ReactQuill placeholder="내용을 입력해 주세요" onChange={onChangeQuill} />
+          <div>{formState.errors.contents?.message}</div>
+          <input type="number" placeholder="상품가격" {...register("price")} />
+          <div>{formState.errors.price?.message}</div>
+          <input type="text" placeholder="태그" {...register("tags")} />
+          <div>{formState.errors.tags?.message}</div>
+          <KakaoMap />
+          <button>상품등록</button>
+        </form>
+      )}
     </div>
   );
 }
