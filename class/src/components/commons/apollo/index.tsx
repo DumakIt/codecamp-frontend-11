@@ -7,8 +7,11 @@ import {
 } from "@apollo/client";
 import { createUploadLink } from "apollo-upload-client";
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
-import { accessTokenState } from "../../../commons/stores";
+import { useRecoilState, useRecoilValueLoadable } from "recoil";
+import {
+  accessTokenState,
+  restoreAccessTokenLoadable,
+} from "../../../commons/stores";
 import { onError } from "@apollo/client/link/error";
 
 import { getAccessToken } from "../../../commons/libraries/getAccessToken";
@@ -21,6 +24,7 @@ const GLOBAL_STATE = new InMemoryCache();
 
 export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const aaa = useRecoilValueLoadable(restoreAccessTokenLoadable);
 
   // 1. 프리렌더링 예제 - process.browser 방법
   // if (process.browser) {
@@ -48,10 +52,14 @@ export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
 
   // // 3. 프리렌더링 무시 - useEffect 방법
   useEffect(() => {
-    const result = localStorage.getItem("accessToken");
-    setAccessToken(result ?? "");
-  }, []);
+    // 1. 기존방식(refreshToken 이전)
+    // const result = localStorage.getItem("accessToken");
 
+    // 2. 새로운 방식(refreshToken 이후)
+    void aaa.toPromise().then((newAccessToken) => {
+      setAccessToken(newAccessToken ?? "");
+    });
+  }, []);
   const errorLink = onError(({ graphQLErrors, operation, forward }) => {
     // 1. 에러를 캐치
     if (typeof graphQLErrors !== "undefined") {

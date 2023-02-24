@@ -54,7 +54,7 @@ export default function LoginPage(): JSX.Element {
       setAccessToken(accessToken);
 
       // 3. 로그인 성공페이지로 이동하기
-      void router.push("/section30/30-01-login-refreshtoken-success");
+      // void router.push("/section30/30-01-login-refreshtoken-success");
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
