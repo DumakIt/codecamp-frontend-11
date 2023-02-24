@@ -45,13 +45,13 @@ export default function CreateBody(props: ICreateBodyProps): JSX.Element {
   useEffectSetImage({ setImages, data });
   useEffectSetFormImg({ setValue, images });
 
-  const onChangeQuill = (value) => {
+  const onChangeQuill = (value: string) => {
     setValue("contents", value === "<p></br></p>" ? "" : value);
     void trigger("contents");
   };
 
   useEffect(() => {
-    setValue("contents", data?.fetchUseditem.contents);
+    setValue("contents", data?.fetchUseditem?.contents ?? "");
   }, [data]);
 
   return (
@@ -67,11 +67,11 @@ export default function CreateBody(props: ICreateBodyProps): JSX.Element {
             <div>{formState.errors.name?.message}</div>
             <input type="text" placeholder="참고사항을 입력해 주세요" defaultValue={data?.fetchUseditem.remarks} {...register("remarks")} />
             <div>{formState.errors.remarks?.message}</div>
-            <ReactQuill placeholder="내용을 입력해 주세요" defaultValue={data?.fetchUseditem?.contents} onChange={onChangeQuill} />
+            <ReactQuill placeholder="내용을 입력해 주세요" defaultValue={data?.fetchUseditem.contents} onChange={onChangeQuill} />
             <div>{formState.errors.contents?.message}</div>
-            <input type="number" placeholder="상품가격" defaultValue={data?.fetchUseditem.price} {...register("price")} />
+            <input type="number" placeholder="상품가격" defaultValue={data?.fetchUseditem.price ?? 0} {...register("price")} />
             <div>{formState.errors.price?.message}</div>
-            <input type="text" placeholder="태그" defaultValue={data?.fetchUseditem.tags} {...register("tags")} />
+            <input type="text" placeholder="태그" defaultValue={data?.fetchUseditem.tags ?? ""} {...register("tags")} />
             <div>{formState.errors.tags?.message}</div>
             <KakaoMap />
             <button>상품등록</button>

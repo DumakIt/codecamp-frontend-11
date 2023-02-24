@@ -1,22 +1,21 @@
-import { useEffect, useRef, useState } from "react";
+import { Modal } from "antd";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { useSetIsToggle } from "../hooks/custom/useSetIsToggle";
 
 declare const window: typeof globalThis & {
   kakao: any;
 };
 
 export default function KakaoMap(props): JSX.Element {
-  const [search, setSearch] = useState("서울 시청");
-  const searchRef = useRef<HTMLInputElement>(null);
-  const SearchLocation = () => {
-    setSearch(searchRef.current?.value ?? search);
-  };
-  const [isopen, setIsopen] = useState(false);
-  const [state, setState] = useState({
-    center: { lat: 37.49676871972202, lng: 127.02474726969814 },
+  const [keyword, setKeyword] = useState("서울 시청");
+  const [position, setPosition] = useState({ lat: 37.56682195069747, lng: 126.97865508922976 });
+
+  const [MapCenter, setMapCenter] = useState({
+    center: { lat: 37.56682195069747, lng: 126.97865508922976 },
     isPanto: true,
   });
-  const [searchAddress, SetSearchAddress] = useState();
+  const { changeIsToggle, isToggle } = useSetIsToggle();
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -24,16 +23,57 @@ export default function KakaoMap(props): JSX.Element {
     document.head.appendChild(script);
     script.onload = () => {
       window.kakao.maps.load(function () {
-        setIsopen(true);
+        changeIsToggle();
       });
     };
   }, []);
 
+  const onChangeKeyword = (event: ChangeEvent<HTMLInputElement>) => {
+    setKeyword(event.currentTarget.value ?? keyword);
+  };
+
+  const onClickKeywordSearch = () => {
+    try {
+      const ps = new window.kakao.maps.services.Places();
+      const placesSearchCB = (data: any, status: kakao.maps.services.Status) => {
+        if (status === kakao.maps.services.Status.OK) {
+          const searchResult = data[0];
+
+          setMapCenter((prev) => ({
+            ...prev,
+            center: { lat: searchResult.y, lng: searchResult.x },
+          }));
+          setPosition({ lat: searchResult.y, lng: searchResult.x });
+        }
+      };
+      ps.keywordSearch(keyword, placesSearchCB);
+    } catch (error) {
+      if (error instanceof Error)
+        Modal.error({
+          title: error.message,
+          content: "검색어를 확인후 다시한번 시도해 주세요",
+        });
+    }
+  };
+
+  const onClickMapMarker = (_t: any, mouseEvent: any) => {
+    setPosition({
+      lat: mouseEvent.latLng.getLat(),
+      lng: mouseEvent.latLng.getLng(),
+    });
+  };
   return (
     <div>
-      {isopen ? <Map center={{ lat: 33.5563, lng: 126.79581 }} style={{ width: "100%", height: "360px" }}></Map> : <></>}
-      <input type="text" ref={searchRef} />
-      <button type="button" onClick={SearchLocation}>
+      {isToggle ? (
+        <Map center={MapCenter.center} isPanto={MapCenter.isPanto} level={3} style={{ width: "100%", height: "360px" }} onClick={onClickMapMarker}>
+          {position && <MapMarker position={position} />}
+        </Map>
+      ) : (
+        <></>
+      )}
+      <input type="text" onChange={onChangeKeyword} />
+
+      <button type="button" onClick={onClickKeywordSearch}>
         검색하기
       </button>
     </div>

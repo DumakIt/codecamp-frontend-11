@@ -14,13 +14,13 @@ export const useMutationCreateUsedItem = () => {
   const { routerMovePage } = useRouterMovePage();
   const [mutation] = useMutation<Pick<IMutation, "createUseditem">, IMutationCreateUseditemArgs>(CREATE_USED_ITEM);
 
-  const createUsedItem = async (data) => {
-    console.log(data);
+  const createUsedItem = async (value) => {
+    console.log(value);
     const result = await mutation({
       variables: {
         createUseditemInput: {
-          ...data,
-          price: Number(data.price),
+          ...value,
+          price: Number(value.price),
         },
       },
     });
