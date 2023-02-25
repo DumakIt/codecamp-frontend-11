@@ -14,7 +14,12 @@ export default function BoardList() {
       search,
     },
   });
-  const { data: lastListNum } = useQuery<Pick<IQuery, "fetchBoardsCount">, IQueryFetchBoardsCountArgs>(FETCH_BOARDS_COUNT);
+  const { data: lastListNum } = useQuery<Pick<IQuery, "fetchBoardsCount">, IQueryFetchBoardsCountArgs>(FETCH_BOARDS_COUNT, {
+    variables: {
+      search,
+    },
+  });
+  console.log(lastListNum);
 
   const onClickTitle = (event: MouseEvent<HTMLDivElement>) => {
     router.push(`/boards/${event.currentTarget.id}`);

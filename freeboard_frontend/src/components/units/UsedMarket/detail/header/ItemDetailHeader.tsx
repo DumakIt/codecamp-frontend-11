@@ -1,4 +1,5 @@
 import { IQuery } from "../../../../../commons/types/generated/types";
+import KakaoMapDetail from "../../../../commons/kakaoMap/kakaoMapDetail";
 import * as S from "./ItemDetailHeaderStyles";
 
 interface IDetailBodyProps {
@@ -19,6 +20,7 @@ export default function DetailHeader(props: IDetailBodyProps): JSX.Element {
         <h1>{props.data?.fetchUseditem.name}</h1>
         <div>{props.data?.fetchUseditem.price}원</div>
         <div>{props.data?.fetchUseditem.seller?.name}</div>
+        <KakaoMapDetail address={props.data?.fetchUseditem?.useditemAddress} />
       </S.DetailContainer>
     </S.Wrapper>
   );

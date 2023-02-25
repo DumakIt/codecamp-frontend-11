@@ -1,10 +1,10 @@
-import { MouseEvent, useState } from "react";
+import { Dispatch, MouseEvent, SetStateAction, useState } from "react";
 
-export const useSetIsActive = () => {
+export const useSetIsActive = (): [(event: MouseEvent<HTMLImageElement>) => void, string, Dispatch<SetStateAction<string>>] => {
   const [isActive, setIsActive] = useState("");
 
   const onClickIsActive = (event: MouseEvent<HTMLImageElement>) => {
     setIsActive(event.currentTarget.id);
   };
-  return { isActive, onClickIsActive, setIsActive };
+  return [onClickIsActive, isActive, setIsActive];
 };

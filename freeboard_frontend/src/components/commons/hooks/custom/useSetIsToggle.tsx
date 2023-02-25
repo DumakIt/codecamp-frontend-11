@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-export const useSetIsToggle = () => {
+interface IUseSetIsToggle {
+  isToggle: boolean;
+  changeIsToggle: () => void;
+}
+
+export const useSetIsToggle = (): IUseSetIsToggle => {
   const [isToggle, setIsToggle] = useState(false);
 
   const changeIsToggle = () => {

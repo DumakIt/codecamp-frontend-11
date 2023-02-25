@@ -3,13 +3,9 @@ import _ from "lodash";
 import { ChangeEvent, useState } from "react";
 import { IQuery, IQueryFetchUseditemsArgs } from "../../../../commons/types/generated/types";
 
-interface IuseQueryRefetchSearchArgs {
-  refetch: (variables?: Partial<any> | undefined) => Promise<ApolloQueryResult<Pick<IQuery, any>>>;
-}
-
-export const useQueryRefetchSearch = (args: IuseQueryRefetchSearchArgs) => {
+export const useQueryRefetchSearch = (args) => {
   const [keyword, setKeyword] = useState("");
-  const debounce = _.debounce((value: string) => {
+  const getDebounce = _.debounce((value: string) => {
     args.refetch({
       page: 1,
       search: value,
@@ -18,7 +14,7 @@ export const useQueryRefetchSearch = (args: IuseQueryRefetchSearchArgs) => {
   }, 500);
 
   const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
-    debounce(event.currentTarget.value);
+    getDebounce(event.currentTarget.value);
   };
   return { onChangeSearch, keyword };
 };

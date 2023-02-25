@@ -11,7 +11,7 @@ import { useEffectSetImage } from "../../../../commons/hooks/custom/useEffectSet
 import { useEffectSetFormImg } from "../../../../commons/hooks/custom/useEffectSetFormImg";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
-import KakaoMap from "../../../../commons/kakaoMap/kakaoMap";
+import KakaoMap from "../../../../commons/kakaoMap/kakaoMapCreate";
 
 const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
@@ -28,6 +28,10 @@ export interface IFormData {
   price: string;
   tags: string;
   images: string[];
+  useditemAddress: {
+    lat: number;
+    lng: number;
+  };
 }
 
 export default function CreateBody(props: ICreateBodyProps): JSX.Element {
@@ -73,7 +77,7 @@ export default function CreateBody(props: ICreateBodyProps): JSX.Element {
             <div>{formState.errors.price?.message}</div>
             <input type="text" placeholder="태그" defaultValue={data?.fetchUseditem.tags ?? ""} {...register("tags")} />
             <div>{formState.errors.tags?.message}</div>
-            <KakaoMap />
+            <KakaoMap setValue={setValue} />
             <button>상품등록</button>
           </form>
         ) : (
@@ -95,7 +99,7 @@ export default function CreateBody(props: ICreateBodyProps): JSX.Element {
           <div>{formState.errors.price?.message}</div>
           <input type="text" placeholder="태그" {...register("tags")} />
           <div>{formState.errors.tags?.message}</div>
-          <KakaoMap />
+          <KakaoMap setValue={setValue} />
           <button>상품등록</button>
         </form>
       )}

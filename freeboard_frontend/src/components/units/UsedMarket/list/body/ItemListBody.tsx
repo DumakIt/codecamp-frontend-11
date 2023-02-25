@@ -2,6 +2,7 @@ import InfiniteScroll from "react-infinite-scroller";
 import { IQuery } from "../../../../../commons/types/generated/types";
 import { useRouterMovePage } from "../../../../commons/hooks/custom/useRouterMovePage";
 import * as S from "./ItemListBodyStyles";
+import { v4 as uuidv4 } from "uuid";
 
 interface IListBodyProps {
   data?: Pick<IQuery, "fetchUseditems">;
@@ -11,6 +12,7 @@ interface IListBodyProps {
 
 export default function ListBody(props: IListBodyProps): JSX.Element {
   const { onClickMovePage } = useRouterMovePage();
+  console.log(props.data?.fetchUseditems, "여기");
 
   return (
     <div>
@@ -27,7 +29,7 @@ export default function ListBody(props: IListBodyProps): JSX.Element {
                     .replaceAll(props.keyword, `*%@!&@${props.keyword}*%@!&@`)
                     .split("*%@!&@")
                     .map((ql) => (
-                      <S.ContentsTitleSpan key={ql} isKeyword={ql === props.keyword ? true : false}>
+                      <S.ContentsTitleSpan key={uuidv4()} isKeyword={ql === props.keyword ? true : false}>
                         {ql}
                       </S.ContentsTitleSpan>
                     ))}
@@ -36,7 +38,7 @@ export default function ListBody(props: IListBodyProps): JSX.Element {
                 <S.ContentsSeller>{el.createdAt}</S.ContentsSeller>
               </div>
             </S.ContentsWrapper>
-          )) ?? <></>}
+          )) ?? <div></div>}
         </S.Container>
       </InfiniteScroll>
     </div>

@@ -1,4 +1,5 @@
 import { gql, useMutation } from "@apollo/client";
+import { Dispatch, SetStateAction } from "react";
 import { IMutation, IMutationCreateUseditemQuestionAnswerArgs } from "../../../../commons/types/generated/types";
 
 const CREATE_USED_ITEM_QUESTION_ANSWER = gql`
@@ -10,7 +11,7 @@ const CREATE_USED_ITEM_QUESTION_ANSWER = gql`
 `;
 
 interface IcreateUsedItemQuestionAnswerArgs {
-  changeIsToggle: () => void;
+  setIsOpen: Dispatch<SetStateAction<string>>;
   id: string;
 }
 
@@ -24,7 +25,7 @@ export const useMutationCreateUsedItemQuestionAnswer = () => {
         useditemQuestionId: args.id,
       },
     });
-    args.changeIsToggle();
+    args.setIsOpen("");
   };
   return { createUsedItemQuestionAnswer };
 };

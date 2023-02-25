@@ -15,7 +15,7 @@ export default function DetailBody(props: IDetailBodyProps): JSX.Element {
           }}
         />
       ) : (
-        <div>로딩중...</div>
+        <div></div>
       )}
     </div>
   );

@@ -14,11 +14,18 @@ export const useMutationUpdateUsedItem = () => {
   const { routerMovePage } = useRouterMovePage();
   const [mutation] = useMutation<Pick<IMutation, "updateUseditem">, IMutationUpdateUseditemArgs>(UPDATE_USED_ITEM);
 
-  const updateUsedItem = (id: string) => async (data) => {
+  const updateUsedItem = (id: string) => async (value) => {
     await mutation({
       variables: {
-        updateUseditemInput: { ...data, price: Number(data.price) },
         useditemId: id,
+        updateUseditemInput: {
+          ...value,
+          price: Number(value.price),
+          useditemAddress: {
+            lat: Number(value.useditemAddress.lat),
+            lng: Number(value.useditemAddress.lng),
+          },
+        },
       },
     });
 

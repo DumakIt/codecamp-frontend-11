@@ -15,12 +15,15 @@ export const useMutationCreateUsedItem = () => {
   const [mutation] = useMutation<Pick<IMutation, "createUseditem">, IMutationCreateUseditemArgs>(CREATE_USED_ITEM);
 
   const createUsedItem = async (value) => {
-    console.log(value);
     const result = await mutation({
       variables: {
         createUseditemInput: {
           ...value,
           price: Number(value.price),
+          useditemAddress: {
+            lat: Number(value.useditemAddress.lat),
+            lng: Number(value.useditemAddress.lng),
+          },
         },
       },
     });

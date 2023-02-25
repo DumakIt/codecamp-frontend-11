@@ -11,7 +11,7 @@ export default function Search(props): JSX.Element {
   }, 300);
 
   const onChangeSearch = (event) => {
-    debounce(event.currentTarget.value);
+    debounce(event.currentTarget.value ?? "");
   };
 
   return (
