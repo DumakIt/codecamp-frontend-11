@@ -21,7 +21,7 @@ export default function KakaoMap(props: IKakaoMapProps): JSX.Element {
     center: { lat: 37.56682195069747, lng: 126.97865508922976 },
     isPanto: true,
   });
-  const { changeIsToggle, isToggle } = useSetIsToggle();
+  const [isToggle, changeIsToggle] = useSetIsToggle();
   useEffectKakaoMapLoad(changeIsToggle);
 
   const onChangeKeyword = (event: ChangeEvent<HTMLInputElement>) => {

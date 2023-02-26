@@ -1,9 +1,7 @@
 import styled from "@emotion/styled";
 
-export const LoginContainer = styled.div`
-  /* border: 1px solid red; */
+export const LoginContainer = styled.form`
   width: 20%;
-
   display: flex;
   flex-direction: column;
 `;

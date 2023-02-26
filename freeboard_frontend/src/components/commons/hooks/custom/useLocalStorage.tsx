@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 
 export const useLocalStorage = () => {
   const setRecentlyViewed = (args) => {
-    const Item = { value: args, expire: Date.now() + 60000 };
+    const Item = { value: args, expire: Date.now() + 5000 };
 
     const recentlyViewedItems = JSON.parse(localStorage.getItem("recentlyViewedItems") ?? "[]");
     for (let i of recentlyViewedItems) {
