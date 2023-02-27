@@ -1,7 +1,9 @@
 import { Modal } from "antd";
+import { Maybe } from "graphql/jsutils/Maybe";
 import { ChangeEvent, useState } from "react";
 import { UseFormSetValue } from "react-hook-form";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { IUseditemAddress } from "../../../commons/types/generated/types";
 import { IFormData } from "../../units/UsedMarket/create/body/ItemCreateBody";
 import { useEffectKakaoMapLoad } from "../hooks/custom/useEffectKakaoMapLoad";
 import { useSetIsToggle } from "../hooks/custom/useSetIsToggle";
@@ -12,13 +14,15 @@ declare const window: typeof globalThis & {
 
 interface IKakaoMapProps {
   setValue: UseFormSetValue<IFormData>;
+  data?: Maybe<IUseditemAddress>;
+  isEdit?: boolean;
 }
 
 export default function KakaoMap(props: IKakaoMapProps): JSX.Element {
   const [keyword, setKeyword] = useState("서울 시청");
-  const [position, setPosition] = useState({ lat: 37.56682195069747, lng: 126.97865508922976 });
+  const [position, setPosition] = useState(props.isEdit ? { lat: props.data?.lat, lng: props.data?.lng } : { lat: 37.56682195069747, lng: 126.97865508922976 });
   const [MapCenter, setMapCenter] = useState({
-    center: { lat: 37.56682195069747, lng: 126.97865508922976 },
+    center: props.isEdit ? { lat: props.data?.lat, lng: props.data?.lng } : { lat: 37.56682195069747, lng: 126.97865508922976 },
     isPanto: true,
   });
   const [isToggle, changeIsToggle] = useSetIsToggle();

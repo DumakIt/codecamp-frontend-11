@@ -10,9 +10,13 @@ interface IApolloSettingProps {
   children: JSX.Element;
 }
 
+const global_cache = new InMemoryCache();
+
 export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const accessTokenLoadable = useRecoilValueLoadable(restoreAccessTokenLoadable);
+
+  accessTokenLoadable.toPromise().then((newAccessToken) => setAccessToken(newAccessToken ?? ""));
 
   useEffect(() => {
     accessTokenLoadable.toPromise().then((newAccessToken) => {
@@ -49,8 +53,8 @@ export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
   });
 
   const client = new ApolloClient({
-    link: ApolloLink.from([errorLink, uploadLink]),
-    cache: new InMemoryCache(),
+    link: ApolloLink.from(accessToken !== "" ? [errorLink, uploadLink] : [uploadLink]),
+    cache: global_cache,
   });
 
   // prettier-ignore

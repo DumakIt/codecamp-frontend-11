@@ -1,3 +1,4 @@
+import { HeartFilled } from "@ant-design/icons";
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.header`
@@ -44,3 +45,11 @@ export const DetailContainer = styled.div`
 `;
 
 export const DetailTitle = styled.h1``;
+
+interface ICustomHeartFilledProps {
+  isToggle: boolean;
+}
+
+export const CustomHeartFilled = styled(HeartFilled)`
+  color: ${(props: ICustomHeartFilledProps) => (props.isToggle ? "#ff9142" : "")};
+`;

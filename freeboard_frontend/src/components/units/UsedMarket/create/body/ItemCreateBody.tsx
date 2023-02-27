@@ -77,7 +77,7 @@ export default function CreateBody(props: ICreateBodyProps): JSX.Element {
             <div>{formState.errors.price?.message}</div>
             <input type="text" placeholder="태그" defaultValue={data?.fetchUseditem.tags ?? ""} {...register("tags")} />
             <div>{formState.errors.tags?.message}</div>
-            <KakaoMap setValue={setValue} />
+            <KakaoMap setValue={setValue} data={data?.fetchUseditem.useditemAddress} isEdit={props.isEdit} />
             <button>상품등록</button>
           </form>
         ) : (

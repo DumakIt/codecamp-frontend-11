@@ -19,7 +19,7 @@ export default function ItemDetail(): JSX.Element {
 
   return (
     <div>
-      <DetailHeader data={data} />
+      <DetailHeader data={data} id={id} />
       <DetailBody data={data} />
       <DetailFooter id={id} />
     </div>
