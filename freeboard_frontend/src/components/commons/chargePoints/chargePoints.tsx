@@ -4,6 +4,7 @@ import { IQuery } from "../../../commons/types/generated/types";
 import { useEffectChargePointsLoad } from "../hooks/custom/useEffectChargePointsLoad";
 import { useSetIsToggle } from "../hooks/custom/useSetIsToggle";
 import { useMutationCreatePointTransactionOfLoading } from "../hooks/mutation/useMutationCreatePointTransactionOfLoading";
+import * as S from "./chatgePointsStyles";
 
 declare const window: typeof globalThis & {
   IMP: any;
@@ -57,7 +58,7 @@ export default function ChargePoints(props: IChargePointsProps): JSX.Element {
 
   return (
     <div>
-      <button onClick={changeIsOpen}>충전하기</button>
+      <S.ChargeBtn onClick={changeIsOpen}>충전하기</S.ChargeBtn>
       {isToggle ? (
         isOpen && (
           <Modal title="충전하실 금액을 입력해주세요." open={true} onCancel={changeIsOpen} footer={null}>
@@ -72,7 +73,7 @@ export default function ChargePoints(props: IChargePointsProps): JSX.Element {
           </Modal>
         )
       ) : (
-        <div>로딩안됨</div>
+        <div></div>
       )}
     </div>
   );

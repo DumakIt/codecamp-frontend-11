@@ -35,7 +35,7 @@ export default function QuestionAnswer(props: IQuestionAnswerProps): JSX.Element
 
       {data?.fetchUseditemQuestionAnswers.map((el) =>
         el._id !== props.isActive ? (
-          <div>
+          <div key={el._id}>
             <div>-------------------</div>
             <div>답변내용: {el.contents}</div>
             <div>유저이름: {el.user.name}</div>
@@ -47,7 +47,7 @@ export default function QuestionAnswer(props: IQuestionAnswerProps): JSX.Element
             <div>-------------------</div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit(updateUseditemQuestionAnswer({ id: el._id, setIsActive: props.setIsActive }))}>
+          <form key={el._id} onSubmit={handleSubmit(updateUseditemQuestionAnswer({ id: el._id, setIsActive: props.setIsActive }))}>
             <input type="text" placeholder="수정할 내용을 입력해 주세요" {...register("contents")} />
             <button>답변수정완료</button>
           </form>

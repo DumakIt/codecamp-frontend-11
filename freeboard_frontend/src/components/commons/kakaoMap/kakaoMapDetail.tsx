@@ -9,7 +9,6 @@ interface IKakaoMapDetailProps {
 export default function KakaoMapDetail(props: IKakaoMapDetailProps): JSX.Element {
   const [isToggle, changeIsToggle] = useSetIsToggle();
   useEffectKakaoMapLoad(changeIsToggle);
-  console.log(props.address);
 
   return (
     <div>

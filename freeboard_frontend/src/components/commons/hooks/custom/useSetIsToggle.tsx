@@ -6,6 +6,5 @@ export const useSetIsToggle = (): [boolean, () => void] => {
   const changeIsToggle = () => {
     setIsToggle((prev) => !prev);
   };
-
   return [isToggle, changeIsToggle];
 };

@@ -14,4 +14,9 @@ export const Wrapper = styled.div`
   }
 `;
 
-// export const;
+export const ProfileWrapper = styled.div`
+  width: 50%;
+  & > img {
+    width: 100%;
+  }
+`;

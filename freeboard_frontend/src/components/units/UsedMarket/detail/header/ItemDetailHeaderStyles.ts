@@ -51,5 +51,5 @@ interface ICustomHeartFilledProps {
 }
 
 export const CustomHeartFilled = styled(HeartFilled)`
-  color: ${(props: ICustomHeartFilledProps) => (props.isToggle ? "#ff9142" : "")};
+  color: ${(props: ICustomHeartFilledProps) => (props.isToggle ? "#ff6a00" : "#BDBDBD")};
 `;

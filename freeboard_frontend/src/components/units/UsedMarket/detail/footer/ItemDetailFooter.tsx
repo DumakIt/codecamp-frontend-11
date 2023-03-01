@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { useState } from "react";
 import { useRouterIdCheck } from "../../../../commons/hooks/custom/useRouterIdCheck";
 import { useMutationDeleteUsedItem } from "../../../../commons/hooks/mutation/useMutationDeleteUsedItem";
+import { useQueryFetchUsedItemsIPicked } from "../../../../commons/hooks/query/useQueryFetchUsedItemsIPicked";
 
 interface IDetailFooterProps {
   id: string;
@@ -9,6 +11,8 @@ interface IDetailFooterProps {
 export default function DetailFooter(props: IDetailFooterProps): JSX.Element {
   const { id } = useRouterIdCheck("fetchItem");
   const { deleteUsedItem } = useMutationDeleteUsedItem();
+  const { fetchUseditemsIPicked } = useQueryFetchUsedItemsIPicked();
+
   return (
     <>
       <Link href="/usedMarket/">

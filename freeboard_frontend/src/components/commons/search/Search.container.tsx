@@ -8,7 +8,7 @@ export default function Search(props): JSX.Element {
       search,
     });
     props.setSearch(search);
-  }, 300);
+  }, 5000);
 
   const onChangeSearch = (event) => {
     debounce(event.currentTarget.value ?? "");
@@ -18,7 +18,7 @@ export default function Search(props): JSX.Element {
     <S.SearchContainer>
       <S.SearchInput type="text" onChange={onChangeSearch} />
 
-      <S.SearchIcon src="/images/search.png" />
+      {/* <S.SearchIcon src="/images/search.png" /> */}
     </S.SearchContainer>
   );
 }
