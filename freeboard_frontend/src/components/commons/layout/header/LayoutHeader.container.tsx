@@ -28,20 +28,16 @@ export default function LayoutHeader(props: ILayoutHeaderProps): JSX.Element {
       }
     });
   };
-
   return (
     <S.Wrapper>
       <img src="/layout/CMK-Black-logo.svg" onClick={onclickLogo} />
 
       {accessToken ? (
-        <div>
-          <S.ProfileWrapper onClick={onClickMovePage("/usedMarket/myinfo")}>
-            <img src={data?.fetchUserLoggedIn.picture ?? "/images/defaultUserIcon.svg"} />
-            <div>{data?.fetchUserLoggedIn.name}</div>
-          </S.ProfileWrapper>
-
+        <S.ProfileWrapper onClick={onClickMovePage("/usedMarket/myinfo")}>
+          <img src={data?.fetchUserLoggedIn.picture ? `https://storage.googleapis.com/${data?.fetchUserLoggedIn.picture}` : "/images/defaultUserIcon.svg"} />
+          <div>{data?.fetchUserLoggedIn.name}</div>
           <div onClick={logoutUser}>로그아웃</div>
-        </div>
+        </S.ProfileWrapper>
       ) : (
         <div>
           <div onClick={onClickMovePage("/usedMarket/login")}>로그인</div>

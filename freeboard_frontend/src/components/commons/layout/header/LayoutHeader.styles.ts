@@ -8,15 +8,27 @@ export const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   padding-left: 3%;
-  & img {
+  border: 1px solid blue;
+  & > img {
     width: 110px;
     cursor: pointer;
+    border: 1px solid blue;
   }
 `;
 
 export const ProfileWrapper = styled.div`
-  width: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid red;
+  width: 10%;
+  height: 100%;
+
   & > img {
-    width: 100%;
+    border: 1px solid #828282;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    height: 100%;
   }
 `;

@@ -15,13 +15,6 @@ export const LeftWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-
-  & > img {
-    width: 100%;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    border-radius: 50%;
-  }
 `;
 
 export const RightWrapper = styled.div`

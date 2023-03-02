@@ -19,7 +19,7 @@ export default function ListBody(props: IListBodyProps): JSX.Element {
       <InfiniteScroll loadMore={props.FetchMore} hasMore={true}>
         <S.Container>
           {props.data?.fetchUseditems.map((el) => (
-            <S.ContentsWrapper onClick={onClickMovePage(`/usedMarket/${el._id}`)} key={el._id}>
+            <S.ContentsWrapper onClick={onClickMovePage(`/usedMarket/${el._id}`)} key={uuidv4()}>
               <S.ImgWrapper>
                 <img src={el.images?.[0] ? `https://storage.googleapis.com/${el.images[0]}` : "/images/usedItemDefault.png"} />
               </S.ImgWrapper>

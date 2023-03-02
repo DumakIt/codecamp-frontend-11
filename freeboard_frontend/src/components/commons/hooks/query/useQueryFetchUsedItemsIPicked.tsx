@@ -35,6 +35,8 @@ export const useQueryFetchUsedItemsIPicked = () => {
             page: idx + 2,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
+            if (fetchMoreResult === undefined) return prev;
+
             return { fetchUseditemsIPicked: [...prev.fetchUseditemsIPicked, ...fetchMoreResult.fetchUseditemsIPicked] };
           },
         })

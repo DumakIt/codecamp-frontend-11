@@ -14,7 +14,7 @@ export const useMutationUploadFile = () => {
 
   const uploadFile = async (args) => {
     const result = await mutation({ variables: { file: args.file } });
-    args.setImages(result.data?.uploadFile.url);
+    args.setImage(result.data?.uploadFile.url);
   };
 
   return { uploadFile };
