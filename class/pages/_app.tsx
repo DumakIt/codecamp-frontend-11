@@ -6,7 +6,7 @@ import { globalStyles } from "../src/commons/styles/globalStyles";
 import ApolloSetting from "../src/components/commons/apollo";
 import Layout from "../src/components/commons/layout";
 
-export default function App({ Component }: AppProps): JSX.Element {
+export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <div>
       <div>app.js에서 작성함!!!!!!!</div>
@@ -15,7 +15,7 @@ export default function App({ Component }: AppProps): JSX.Element {
           <>
             <Global styles={globalStyles} />
             <Layout>
-              <Component />
+              <Component {...pageProps} />
             </Layout>
           </>
         </ApolloSetting>
